@@ -5,6 +5,13 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/thomasp85/ggfx/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggfx/actions?workflow=R-CMD-check)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ggfx)](https://CRAN.R-project.org/package=ggfx)
+[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggfx)](https://CRAN.R-project.org/package=ggfx)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 ggfx is a (currently experimantal) package that allows the use of
