@@ -1,15 +1,16 @@
 Package: ggfx
-Title: What the Package Does (One Line, Title Case)
+Title: Filters and Shaders for 'ggplot2'
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Thomas Lin",
+           family = "Pedersen",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "thomasp85@gmail.com",
+           comment = c(ORCID = "0000-0002-5147-4711"))
+Description: Provides a range of filters and shaders that can be applied to 
+    layers from the 'ggplot2' package and its extensions. The filters are 
+    applied at draw time and will thus respond to resizing.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
