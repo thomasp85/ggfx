@@ -40,22 +40,13 @@ with_blur <- function(layer, sigma = 0.5, radius = 0, stack = FALSE) {
   }
 }
 
-#' @importFrom grid makeContent convertWidth convertHeight unit grid.draw rasterGrob setChildren gList pushViewport viewport
-#' @importFrom ragg agg_png
+#' @importFrom grid makeContent setChildren gList rasterGrob
 #' @importFrom magick image_read image_blur image_destroy
-#' @importFrom grDevices dev.off as.raster dev.cur dev.set
+#' @importFrom grDevices as.raster
 #' @export
 makeContent.blur_grob <- function(x) {
-  width <- convertWidth(unit(1, "npc"), "in", valueOnly = TRUE)
-  height <- convertHeight(unit(1, "npc"), "in", valueOnly = TRUE)
-  file <- tempfile(fileext = '.png')
+  file <- grob_file(x$grob)
   on.exit(unlink(file))
-  cur <- dev.cur()
-  agg_png(file, width = width, height = height, units = 'in', background = NA, res = 72)
-  pushViewport(viewport())
-  grid.draw(x$grob)
-  dev.off()
-  dev.set(cur)
   raster <- image_read(file)
   raster <- image_blur(raster, radius = x$radius, sigma = x$sigma)
   blur <- as.raster(raster)
