@@ -22,6 +22,7 @@ with_blur <- function(layer, radius = 0, sigma = 0.5, stack = FALSE) {
 #' @importFrom ragg agg_png
 #' @importFrom magick image_read image_blur image_destroy
 #' @importFrom grDevices dev.off as.raster dev.cur dev.set
+#' @export
 makeContent.blur_grob <- function(x) {
   width <- convertWidth(unit(1, "npc"), "in", valueOnly = TRUE)
   height <- convertHeight(unit(1, "npc"), "in", valueOnly = TRUE)
