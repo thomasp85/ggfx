@@ -2,14 +2,27 @@
 % Please edit documentation in R/kernel.R
 \name{with_kernel}
 \alias{with_kernel}
+\alias{with_kernel.grob}
+\alias{with_kernel.Layer}
+\alias{with_kernel.ggplot}
 \title{Apply a gaussian blur to your layer}
 \usage{
-with_kernel(layer, kernel = "Gaussian", iterations = 1,
-  scaling = NULL, bias = NULL, stack = FALSE)
+with_kernel(x, kernel = "Gaussian", iterations = 1, scaling = NULL,
+  bias = NULL, stack = FALSE, ...)
+
+\method{with_kernel}{grob}(x, kernel = "Gaussian", iterations = 1,
+  scaling = NULL, bias = NULL, stack = FALSE, background = NULL,
+  ...)
+
+\method{with_kernel}{Layer}(x, kernel = "Gaussian", iterations = 1,
+  scaling = NULL, bias = NULL, stack = FALSE, ...)
+
+\method{with_kernel}{ggplot}(x, kernel = "Gaussian", iterations = 1,
+  scaling = NULL, bias = NULL, stack = FALSE,
+  ignore_background = TRUE, ...)
 }
 \arguments{
-\item{layer}{A ggplot2 layer object, usually constructed with a call to
-\code{geom_*()} or \code{stat_*()}}
+\item{x}{A ggplot2 layer object, a ggplot, or a grob}
 
 \item{kernel}{either a square matrix or a string. The string can either be a
 parameterized \link[=kernel_types]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}
@@ -22,7 +35,14 @@ dynamic range, for example: \code{"50\%!"}}
 
 \item{bias}{output bias string, for example \code{"50\%"}}
 
-\item{stack}{Should the original layer be placed on top? Defaults to \code{FALSE}}
+\item{stack}{Should the original layer be placed on top?}
+
+\item{...}{Arguments to be passed on to methods}
+
+\item{background}{A grob to draw below the filtered grob.}
+
+\item{ignore_background}{Should the filter be applied to everything except
+the plot background, or should the background be included.}
 }
 \value{
 A modified \code{Layer} object

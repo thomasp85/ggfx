@@ -2,14 +2,28 @@
 % Please edit documentation in R/shadow.R
 \name{with_shadow}
 \alias{with_shadow}
+\alias{with_shadow.grob}
+\alias{with_shadow.Layer}
+\alias{with_shadow.ggplot}
 \title{Apply a drop shadow to a layer}
 \usage{
-with_shadow(layer, colour = "black", x_offset = 1, y_offset = 1,
-  default_unit = "mm", radius = 0, sigma = 1, stack = TRUE)
+with_shadow(x, colour = "black", x_offset = 1, y_offset = 1,
+  default_unit = "mm", radius = 0, sigma = 1, stack = TRUE, ...)
+
+\method{with_shadow}{grob}(x, colour = "black", x_offset = 1,
+  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
+  stack = TRUE, background = NULL, ...)
+
+\method{with_shadow}{Layer}(x, colour = "black", x_offset = 1,
+  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
+  stack = TRUE, ...)
+
+\method{with_shadow}{ggplot}(x, colour = "black", x_offset = 1,
+  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
+  stack = TRUE, ignore_background = TRUE, ...)
 }
 \arguments{
-\item{layer}{A ggplot2 layer object, usually constructed with a call to
-\code{geom_*()} or \code{stat_*()}}
+\item{x}{A ggplot2 layer object, a ggplot, or a grob}
 
 \item{colour}{The colour of the shadow}
 
@@ -24,7 +38,14 @@ automatically from \code{sigma}}
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to
 apply more blurring}
 
-\item{stack}{Should the original layer be placed on top? Defaults to \code{FALSE}}
+\item{stack}{Should the original layer be placed on top?}
+
+\item{...}{Arguments to be passed on to methods}
+
+\item{background}{A grob to draw below the filtered grob.}
+
+\item{ignore_background}{Should the filter be applied to everything except
+the plot background, or should the background be included.}
 }
 \description{
 This filter applies the familiar drop-shadow effect on elements in a layer.
