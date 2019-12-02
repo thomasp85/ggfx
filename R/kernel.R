@@ -14,14 +14,15 @@
 #'
 #' @examples
 #' library(ggplot2)
+#' # Add directional blur using the comet kernel
 #' ggplot(mtcars, aes(mpg, disp)) +
-#'   with_blur(geom_point(data = mtcars[4,], size = 3), sigma = 3)
+#'   with_kernel(geom_point(size = 3), 'Comet:0,10')
 #'
 with_kernel <- function(layer, kernel = "Gaussian", iterations = 1,
                         scaling = NULL, bias = NULL, stack = FALSE) {
   parent_geom <- layer$geom
   kernel_layer <- ggproto(NULL, layer,
-    geom = ggproto('BlurredGeom', parent_geom,
+    geom = ggproto('ConvolvedGeom', parent_geom,
       draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
         grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
         gTree(grob = grob, kernel = kernel, iterations = iterations,

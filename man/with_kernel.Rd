@@ -33,7 +33,8 @@ you more control than e.g. \code{\link[=with_blur]{with_blur()}} which is also a
 }
 \examples{
 library(ggplot2)
+# Add directional blur using the comet kernel
 ggplot(mtcars, aes(mpg, disp)) +
-  with_blur(geom_point(data = mtcars[4,], size = 3), sigma = 3)
+  with_kernel(geom_point(size = 3), 'Comet:0,10')
 
 }
