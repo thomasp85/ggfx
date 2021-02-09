@@ -4,3 +4,5 @@
 ^CODE_OF_CONDUCT\.md$
 ^LICENSE\.md$
 ^\.github/workflows/R-CMD-check\.yaml$
+^codecov\.yml$
+^\.github$
