@@ -1,6 +1,6 @@
 #' @importFrom grid convertWidth convertHeight unit grid.draw pushViewport viewport deviceDim deviceLoc unit.c
 #' @importFrom ragg agg_capture
-#' @importFrom grDevices dev.off dev.cur dev.set
+#' @importFrom grDevices dev.off dev.cur dev.set dev.size
 rasterise_grob <- function(grob, vp = NULL) {
   if (is.null(vp)) vp <- viewport()
   dim_inch <- dev.size("in")
@@ -40,6 +40,7 @@ rasterise_grob <- function(grob, vp = NULL) {
 }
 
 #' @importFrom grid is.unit
+#' @importFrom grDevices dev.size
 as_pixels <- function(x) {
   if (is.unit(x)) {
     x <- convertWidth(x, 'inch', valueOnly = TRUE)
@@ -59,3 +60,8 @@ groberize_raster <- function(raster, loc, dim, id, include) {
   rasterGrob(raster, x = loc[1], y = loc[2], width = dim[1], height = dim[2],
              just = c('left', 'bottom'))
 }
+
+#' Raster Helpers
+#'
+#' @name raster_helpers
+NULL

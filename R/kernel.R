@@ -71,8 +71,10 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
 }
 
 
+#' @rdname raster_helpers
 #' @importFrom magick image_read image_convolve image_destroy image_composite
 #' @export
+#' @keywords internal
 convolve_grob <- function(x, kernel, iterations = 1, scaling = NULL, bias = NULL, stack = FALSE) {
   raster <- image_read(x)
   convolved <- image_convolve(raster, kernel = kernel, iterations = iterations,

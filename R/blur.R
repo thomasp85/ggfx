@@ -68,8 +68,10 @@ with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
   x
 }
 
+#' @rdname raster_helpers
 #' @importFrom magick image_read image_blur image_destroy image_composite
 #' @export
+#' @keywords internal
 blur_raster <- function(x, sigma = 0.5, stack = FALSE) {
   raster <- image_read(x)
   blurred <- image_blur(raster, radius = 0, sigma = sigma)

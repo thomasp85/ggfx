@@ -1,4 +1,7 @@
+#' @rdname raster_helpers
+#'
 #' @export
+#' @keywords internal
 kernel_gaussian <- function(sigma) {
   radius <- max(ceiling(3 * sigma), 1)
   kernel <- matrix(NA, nrow = 1 + 2 * radius, ncol = 1 + 2 * radius)
