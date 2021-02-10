@@ -19,7 +19,8 @@ Imports:
     ragg,
     grid,
     ggplot2,
-    grDevices
+    grDevices,
+    gtable
 RoxygenNote: 7.1.1
 URL: https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
