@@ -86,7 +86,7 @@ with_displacement.ggplot <- function(x, map, x_channel, y_channel, scale,
 }
 
 #' @rdname raster_helpers
-#' @importFrom magick image_read image_blur image_destroy image_composite
+#' @importFrom magick image_read image_blur image_destroy image_composite geometry_size_pixels image_info image_resize image_channel image_combine
 #' @export
 #' @keywords internal
 displace_raster <- function(x, map, x_channel, y_channel, scale) {
