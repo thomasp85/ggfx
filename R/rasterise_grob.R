@@ -16,7 +16,7 @@ rasterise_grob <- function(grob, vp = NULL) {
   } else {
     vp_size <- deviceDim(unit(1, 'npc'), unit(1, 'npc'))
     vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
-    raster_loc <- unit.c(-vp_loc$x, -vp_loc$y)
+    raster_loc <- unit.c(-1 * vp_loc$x, -1 * vp_loc$y)
     vp_parent <- viewport(vp_loc$x, vp_loc$y, vp_size$w, vp_size$h,
                           just = c('left', 'bottom'), clip = 'off')
   }
