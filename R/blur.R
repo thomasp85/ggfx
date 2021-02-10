@@ -6,7 +6,9 @@
 #'
 #' @param x A ggplot2 layer object, a ggplot, or a grob
 #' @param sigma The standard deviation of the gaussian kernel. Increase it to
-#' apply more blurring
+#' apply more blurring. If a numeric it will be interpreted as given in pixels.
+#' If a unit object it will automatically be converted to pixels at rendering
+#' time
 #' @param stack Should the original layer be placed on top?
 #' @param ignore_background Should the filter be applied to everything except
 #' the plot background, or should the background be included.

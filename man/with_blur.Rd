@@ -35,7 +35,9 @@ with_blur(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
 \item{x}{A ggplot2 layer object, a ggplot, or a grob}
 
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to
-apply more blurring}
+apply more blurring. If a numeric it will be interpreted as given in pixels.
+If a unit object it will automatically be converted to pixels at rendering
+time}
 
 \item{stack}{Should the original layer be placed on top?}
 
