@@ -20,7 +20,7 @@ Imports:
     grid,
     ggplot2,
     grDevices
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 URL: https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
 Suggests: 

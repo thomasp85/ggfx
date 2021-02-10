@@ -10,8 +10,6 @@
 #' @param default_unit The unit of `x_offset` and `y_offset` if they are given
 #' as numerics
 #'
-#' @importFrom grid is.unit unit gTree
-#' @importFrom ggplot2 ggproto
 #' @export
 #'
 #' @examples
@@ -20,36 +18,36 @@
 #'   with_shadow(geom_point(colour = 'red', size = 3), sigma = 3)
 #'
 with_shadow <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
-                        default_unit = 'mm', radius = 0, sigma = 1,
-                        stack = TRUE, ...) {
+                        default_unit = 'mm', sigma = 1, stack = TRUE, ...,
+                        id = NULL, include = is.null(id)) {
   UseMethod('with_shadow')
 }
 #' @rdname with_shadow
+#' @importFrom grid is.unit unit gTree
 #' @export
 with_shadow.grob <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
-                             default_unit = 'mm', radius = 0, sigma = 1,
-                             stack = TRUE, background = NULL, ...) {
+                             default_unit = 'mm', sigma = 1, stack = TRUE,
+                             background = NULL, ..., id = NULL, include = is.null(id)) {
   if (!is.unit(x_offset)) x_offset <- unit(x_offset, default_unit)
   if (!is.unit(y_offset)) y_offset <- unit(y_offset, default_unit)
   gTree(grob = x, colour = colour, x_offset = x_offset, y_offset = y_offset,
-        radius = radius, sigma = sigma, background = background, stack = stack,
-        cl = 'shadow_grob')
+        sigma = sigma, background = background, stack = stack, id = id,
+        include = isTRUE(include), cl = 'shadow_grob')
 }
 #' @rdname with_shadow
+#' @importFrom ggplot2 ggproto
 #' @export
 with_shadow.Layer <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
-                              default_unit = 'mm', radius = 0, sigma = 1,
-                              stack = TRUE, ...) {
-  if (!is.unit(x_offset)) x_offset <- unit(x_offset, default_unit)
-  if (!is.unit(y_offset)) y_offset <- unit(y_offset, default_unit)
+                              default_unit = 'mm', sigma = 1, stack = TRUE, ...,
+                              id = NULL, include = is.null(id)) {
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('ShadowGeom', parent_geom,
       draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
         grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
         with_shadow(x = grob, colour = colour, x_offset = x_offset,
-                    y_offset = y_offset, radius = radius, sigma = sigma,
-                    stack = stack)
+                    y_offset = y_offset, default_unit = default_unit,
+                    sigma = sigma, stack = stack, id = id, include = include)
       }
     )
   )
@@ -57,10 +55,9 @@ with_shadow.Layer <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
 #' @rdname with_shadow
 #' @export
 with_shadow.ggplot <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
-                               default_unit = 'mm', radius = 0, sigma = 1,
-                               stack = TRUE, ignore_background = TRUE, ...) {
-  if (!is.unit(x_offset)) x_offset <- unit(x_offset, default_unit)
-  if (!is.unit(y_offset)) y_offset <- unit(y_offset, default_unit)
+                               default_unit = 'mm', sigma = 1, stack = TRUE,
+                               ignore_background = TRUE, ..., id = NULL,
+                               include = is.null(id)) {
   x$filter <- list(
     fun = with_shadow,
     settings = list(
@@ -68,7 +65,6 @@ with_shadow.ggplot <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
       x_offset = x_offset,
       y_offset = y_offset,
       default_unit = default_unit,
-      radius = radius,
       sigma = sigma,
       stack = stack
     ),
@@ -77,24 +73,23 @@ with_shadow.ggplot <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
   class(x) <- c('filtered_ggplot', class(x))
   x
 }
+
 #' @importFrom magick image_read image_colorize image_background image_morphology image_transparent image_blur image_destroy
 #' @importFrom grDevices as.raster
 #' @importFrom grid setChildren gList rasterGrob
 #' @export
 makeContent.shadow_grob <- function(x) {
-  file <- grob_file(x$grob, vp = viewport(x = unit(0.5, 'npc') + x$x_offset,
-                                          y = unit(0.5, 'npc') - x$y_offset))
-  on.exit(unlink(file))
-  raster <- image_read(file)
-  fg <- NULL
-  if (!is.null(x$stack)) {
-    file2 <- grob_file(x$grob)
-    on.exit(unlink(file2), add = TRUE)
-    fg <- rasterGrob(as.raster(image_read(file2)))
-  }
-  raster <- image_colorize(raster, 100, x$colour)
-  raster <- image_blur(raster, x$radius, x$sigma)
-  filtered <- as.raster(raster)
+  ras <- rasterise_grob(
+    x$grob,
+    vp = viewport(x = unit(0.5, 'npc') + x$x_offset,
+                  y = unit(0.5, 'npc') - x$y_offset)
+  )
+  raster <- image_read(ras$raster)
+  fg <- if (x$stack) x$grob else NULL
+  if (!is.na(x$colour)) raster <- image_colorize(raster, 100, x$colour)
+  raster <- image_blur(raster, 0, as_pixels(x$sigma))
+  shadow <- as.integer(raster)
   image_destroy(raster)
-  setChildren(x, gList(x$background, rasterGrob(filtered), fg))
+  shadow <- groberize_raster(shadow, ras$location, ras$dimension, x$id, x$include)
+  setChildren(x, gList(x$background, shadow, fg))
 }

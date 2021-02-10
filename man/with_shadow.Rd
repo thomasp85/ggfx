@@ -7,20 +7,59 @@
 \alias{with_shadow.ggplot}
 \title{Apply a drop shadow to a layer}
 \usage{
-with_shadow(x, colour = "black", x_offset = 1, y_offset = 1,
-  default_unit = "mm", radius = 0, sigma = 1, stack = TRUE, ...)
+with_shadow(
+  x,
+  colour = "black",
+  x_offset = 1,
+  y_offset = 1,
+  default_unit = "mm",
+  sigma = 1,
+  stack = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_shadow}{grob}(x, colour = "black", x_offset = 1,
-  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
-  stack = TRUE, background = NULL, ...)
+\method{with_shadow}{grob}(
+  x,
+  colour = "black",
+  x_offset = 1,
+  y_offset = 1,
+  default_unit = "mm",
+  sigma = 1,
+  stack = TRUE,
+  background = NULL,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_shadow}{Layer}(x, colour = "black", x_offset = 1,
-  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
-  stack = TRUE, ...)
+\method{with_shadow}{Layer}(
+  x,
+  colour = "black",
+  x_offset = 1,
+  y_offset = 1,
+  default_unit = "mm",
+  sigma = 1,
+  stack = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_shadow}{ggplot}(x, colour = "black", x_offset = 1,
-  y_offset = 1, default_unit = "mm", radius = 0, sigma = 1,
-  stack = TRUE, ignore_background = TRUE, ...)
+\method{with_shadow}{ggplot}(
+  x,
+  colour = "black",
+  x_offset = 1,
+  y_offset = 1,
+  default_unit = "mm",
+  sigma = 1,
+  stack = TRUE,
+  ignore_background = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, or a grob}
@@ -32,15 +71,16 @@ with_shadow(x, colour = "black", x_offset = 1, y_offset = 1,
 \item{default_unit}{The unit of \code{x_offset} and \code{y_offset} if they are given
 as numerics}
 
-\item{radius}{The radius of the blur. If \code{0} it will be calculated
-automatically from \code{sigma}}
-
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to
 apply more blurring}
 
 \item{stack}{Should the original layer be placed on top?}
 
 \item{...}{Arguments to be passed on to methods}
+
+\item{id}{An id that can be used to reference this filter somewhere else}
+
+\item{include}{Should the filter be part of the final render}
 
 \item{background}{A grob to draw below the filtered grob.}
 

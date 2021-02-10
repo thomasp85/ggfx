@@ -7,25 +7,61 @@
 \alias{with_kernel.ggplot}
 \title{Apply a gaussian blur to your layer}
 \usage{
-with_kernel(x, kernel = "Gaussian", iterations = 1, scaling = NULL,
-  bias = NULL, stack = FALSE, ...)
+with_kernel(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_kernel}{grob}(x, kernel = "Gaussian", iterations = 1,
-  scaling = NULL, bias = NULL, stack = FALSE, background = NULL,
-  ...)
+\method{with_kernel}{grob}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  background = NULL,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_kernel}{Layer}(x, kernel = "Gaussian", iterations = 1,
-  scaling = NULL, bias = NULL, stack = FALSE, ...)
+\method{with_kernel}{Layer}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_kernel}{ggplot}(x, kernel = "Gaussian", iterations = 1,
-  scaling = NULL, bias = NULL, stack = FALSE,
-  ignore_background = TRUE, ...)
+\method{with_kernel}{ggplot}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ignore_background = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, or a grob}
 
 \item{kernel}{either a square matrix or a string. The string can either be a
-parameterized \link[=kernel_types]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}
+parameterized \link[magick:options]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}
 or it can contain a custom matrix (see examples)}
 
 \item{iterations}{number of iterations}
@@ -38,6 +74,10 @@ dynamic range, for example: \code{"50\%!"}}
 \item{stack}{Should the original layer be placed on top?}
 
 \item{...}{Arguments to be passed on to methods}
+
+\item{id}{An id that can be used to reference this filter somewhere else}
+
+\item{include}{Should the filter be part of the final render}
 
 \item{background}{A grob to draw below the filtered grob.}
 

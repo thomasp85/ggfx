@@ -7,16 +7,29 @@
 \alias{with_blur.ggplot}
 \title{Apply a gaussian blur to your layer}
 \usage{
-with_blur(x, sigma = 0.5, radius = 0, stack = FALSE, ...)
+with_blur(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
 
-\method{with_blur}{grob}(x, sigma, radius, stack = FALSE,
-  background = NULL, ...)
+\method{with_blur}{grob}(
+  x,
+  sigma,
+  stack = FALSE,
+  background = NULL,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_blur}{Layer}(x, sigma = 0.5, radius = 0, stack = FALSE,
-  ...)
+\method{with_blur}{Layer}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
 
-\method{with_blur}{ggplot}(x, sigma = 0.5, radius = 0, stack = FALSE,
-  ignore_background = TRUE, ...)
+\method{with_blur}{ggplot}(
+  x,
+  sigma = 0.5,
+  stack = FALSE,
+  ignore_background = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, or a grob}
@@ -24,12 +37,13 @@ with_blur(x, sigma = 0.5, radius = 0, stack = FALSE, ...)
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to
 apply more blurring}
 
-\item{radius}{The radius of the blur. If \code{0} it will be calculated
-automatically from \code{sigma}}
-
 \item{stack}{Should the original layer be placed on top?}
 
 \item{...}{Arguments to be passed on to methods}
+
+\item{id}{An id that can be used to reference this filter somewhere else}
+
+\item{include}{Should the filter be part of the final render}
 
 \item{background}{A grob to draw below the filtered grob.}
 

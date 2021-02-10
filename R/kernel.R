@@ -8,8 +8,6 @@
 #'
 #' @return A modified `Layer` object
 #'
-#' @importFrom ggplot2 ggproto
-#' @importFrom grid gTree
 #' @export
 #'
 #' @examples
@@ -18,38 +16,45 @@
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_kernel(geom_point(size = 3), 'Comet:0,10')
 #'
-with_kernel <- function(x, kernel = "Gaussian", iterations = 1, scaling = NULL,
-                        bias = NULL, stack = FALSE, ...) {
+with_kernel <- function(x, kernel = kernel_gaussian(0.5), iterations = 1, scaling = NULL,
+                        bias = NULL, stack = FALSE, ..., id = NULL,
+                        include = is.null(id)) {
   UseMethod('with_kernel')
 }
 #' @rdname with_kernel
+#' @importFrom grid gTree
 #' @export
-with_kernel.grob <- function(x, kernel = "Gaussian", iterations = 1,
+with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                              scaling = NULL, bias = NULL, stack = FALSE,
-                             background = NULL, ...) {
+                             background = NULL, ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, kernel = kernel, iterations = iterations, scaling = scaling,
-        bias = bias, background = background, stack = stack, cl = 'kernel_grob')
+        bias = bias, background = background, stack = stack, id = id,
+        include = isTRUE(include), cl = 'kernel_grob')
 }
 #' @rdname with_kernel
+#' @importFrom ggplot2 ggproto
 #' @export
-with_kernel.Layer <- function(x, kernel = "Gaussian", iterations = 1,
-                              scaling = NULL, bias = NULL, stack = FALSE, ...) {
+with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+                              scaling = NULL, bias = NULL, stack = FALSE, ...,
+                              id = NULL, include = is.null(id)) {
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('ConvolvedGeom', parent_geom,
       draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
         grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
         with_kernel(x = grob, kernel = kernel, iterations = iterations,
-                    scaling = scaling, bias = bias, stack = stack)
+                    scaling = scaling, bias = bias, stack = stack, id = id,
+                    include = include)
       }
     )
   )
 }
 #' @rdname with_kernel
 #' @export
-with_kernel.ggplot <- function(x, kernel = "Gaussian", iterations = 1,
+with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
-                               ignore_background = TRUE, ...) {
+                               ignore_background = TRUE, ..., id = NULL,
+                               include = is.null(id)) {
   x$filter <- list(
     fun = with_kernel,
     settings = list(
@@ -65,18 +70,28 @@ with_kernel.ggplot <- function(x, kernel = "Gaussian", iterations = 1,
   x
 }
 
-#' @importFrom grid makeContent setChildren gList rasterGrob
-#' @importFrom magick image_read image_convolve image_destroy
-#' @importFrom grDevices as.raster
+
+#' @importFrom magick image_read image_convolve image_destroy image_composite
+#' @export
+convolve_grob <- function(x, kernel, iterations = 1, scaling = NULL, bias = NULL, stack = FALSE) {
+  raster <- image_read(x)
+  convolved <- image_convolve(raster, kernel = kernel, iterations = iterations,
+                              scaling = scaling, bias = bias)
+  if (stack) {
+    convolved <- image_composite(convolved, raster)
+  }
+  x <- as.integer(convolved)
+  image_destroy(raster)
+  image_destroy(convolved)
+  x
+}
+
+#' @importFrom grid makeContent setChildren gList
 #' @export
 makeContent.kernel_grob <- function(x) {
-  file <- grob_file(x$grob)
-  on.exit(unlink(file))
-  raster <- image_read(file)
-  fg <- if (is.null(x$stack)) rasterGrob(as.raster(raster)) else NULL
-  raster <- image_convolve(raster, kernel = x$kernel, iterations = x$iterations,
-                           scaling = x$scaling, bias = x$bias)
-  filtered <- as.raster(raster)
-  image_destroy(raster)
-  setChildren(x, gList(x$background, rasterGrob(filtered), fg))
+  ras <- rasterise_grob(x$grob)
+  raster <- convolve_grob(ras$raster, x$kernel, iterations = x$iterations,
+                          scaling = x$scaling, bias = x$bias, stack = x$stack)
+  raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
+  setChildren(x, gList(x$background, raster))
 }
