@@ -36,42 +36,21 @@ with_raster.grob <- function(x, ..., id = NULL, include = is.null(id)) {
 #' @importFrom ggplot2 ggproto
 #' @export
 with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
-  parent_geom <- x$geom
-  ggproto(NULL, x,
-    geom = ggproto('RasterisedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        lapply(grobs, with_raster, ..., id = id, include = include)
-      }
-    )
-  )
+  filter_layer_constructor(x, with_raster, 'RasterisedGeom', ...,
+                           include = include, ids = list(id = id))
 }
 #' @rdname with_raster
 #' @export
-with_raster.ggplot <- function(x, ..., id = NULL, include = is.null(id)) {
-  x$filter <- list(
-    fun = with_raster,
-    settings = list(...),
-    ignore_background = FALSE
-  )
-  class(x) <- c('filtered_ggplot', class(x))
-  x
+with_raster.ggplot <- function(x, ignore_background = TRUE, ..., id = NULL,
+                               include = is.null(id)) {
+  filter_ggplot_constructor(x, with_raster, ..., ignore_background = ignore_background)
 }
 
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
-  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
-  parent_geom <- layer$geom
-  ggproto(NULL, layer,
-    geom = ggproto('RasterisedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
-        lapply(grobs, with_raster, ..., id = id, include = include)
-      }
-    )
-  )
+  filter_character_constructor(x, with_raster, 'RasterisedGeom', ...,
+                               include = include, ids = list(id = id))
 }
 
 #' @importFrom grid makeContent setChildren gList

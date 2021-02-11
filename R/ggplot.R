@@ -20,3 +20,10 @@ ggplot_gtable.filtered_gtable <- function(data) {
     c(list(table, background = bg), data$plot$filter$settings)
   )
 }
+
+#' @importFrom ggplot2 element_grob
+#' @export
+element_grob.filtered_element <- function(element, ...) {
+  grob <- NextMethod()
+  do.call(element$filter$fun, c(list(grob), element$filter$settings))
+}

@@ -27,7 +27,8 @@
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_blur(geom_point(data = mtcars, size = 3), sigma = 3)
 #'
-with_blur <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id)) {
+with_blur <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
+                      include = is.null(id)) {
   UseMethod('with_blur')
 }
 #' @rdname with_blur
@@ -36,57 +37,38 @@ with_blur <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = i
 with_blur.grob <- function(x, sigma, stack = FALSE, background = NULL,
                            ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, sigma = sigma, background = background, stack = stack, id = id,
-        include = isTRUE(include), cl = 'blur_grob')
+        include = isTRUE(include), cl = c('blur_grob', 'filter_grob'))
 }
 #' @rdname with_blur
 #' @importFrom ggplot2 ggproto
 #' @export
-with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id)) {
-  parent_geom <- x$geom
-  ggproto(NULL, x,
-    geom = ggproto('BlurredGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        lapply(grobs, with_blur, sigma = sigma, stack = stack, ..., id = id,
-               include = include)
-      }
-    )
-  )
+with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
+                            include = is.null(id)) {
+  filter_layer_constructor(x, with_blur, 'BlurredGeom', sigma = sigma,
+                           stack = stack, ..., include = include,
+                           ids = list(id = id))
 }
 #' @rdname with_blur
 #' @export
 with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
                              ignore_background = TRUE, ..., id = NULL,
                              include = is.null(id)) {
-  x$filter <- list(
-    fun = with_blur,
-    settings = list(
-      sigma = sigma,
-      stack = stack,
-      ...
-    ),
-    ignore_background = ignore_background
-  )
-  class(x) <- c('filtered_ggplot', class(x))
-  x
+  filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...,
+                            ignore_background = ignore_background)
 }
 
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                                 include = is.null(id)) {
-  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
-  parent_geom <- layer$geom
-  ggproto(NULL, layer,
-    geom = ggproto('BlurredGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
-        lapply(grobs, with_blur, sigma = sigma, stack = stack, ..., id = id,
-               include = include)
-      }
-    )
-  )
+  filter_character_constructor(x, with_blur, 'BlurredGeom', sigma = sigma,
+                               stack = stack, ..., include = include,
+                               ids = list(id = id))
+}
+
+#' @export
+with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
+  filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }
 
 #' @rdname raster_helpers

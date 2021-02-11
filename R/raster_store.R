@@ -19,6 +19,14 @@ purge_store <- function(age = 600) {
   RasterStore[[".__timestamps"]] <- RasterStore[[".__timestamps"]][keep]
 }
 
+raster_id <- function(id, index) {
+  if (length(id) == 1 && is.character(id)) {
+    paste0(id, '_<', index, '>')
+  } else {
+    id
+  }
+}
+
 reference_grob <- function(id) {
   gTree(id = id, cl = 'reference_grob')
 }

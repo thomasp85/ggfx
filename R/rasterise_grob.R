@@ -6,18 +6,8 @@ rasterise_grob <- function(grob, vp = NULL) {
   dim_inch <- dev.size("in")
   dim_pix <- dev.size("px")
   res <- dim_pix[1] / dim_inch[1]
-  #if (vp$clip) {
-  #  dim_inch <- unlist(
-  #    deviceDim(unit(1, 'npc'), unit(1, 'npc'), valueOnly = TRUE),
-  #    use.names = FALSE
-  #  )
-  #  raster_loc <- unit(c(0, 0), 'npc')
-  #  vp_parent <- viewport()
-  #}
-  #pushViewport(vp)
   vp_size <- deviceDim(unit(1, 'npc'), unit(1, 'npc'))
   vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
-  #popViewport()
   raster_loc <- unit.c(-1 * vp_loc$x, -1 * vp_loc$y)
   vp_parent <- viewport(vp_loc$x, vp_loc$y, vp_size$w, vp_size$h,
                         just = c('left', 'bottom'), clip = 'off')
@@ -46,6 +36,16 @@ as_pixels <- function(x) {
   if (is.unit(x)) {
     x <- convertWidth(x, 'inch', valueOnly = TRUE)
     x <- x * (dev.size('px')[1] / dev.size('in')[1])
+  }
+  x
+}
+
+#' @importFrom grid is.unit
+#' @importFrom grDevices dev.size
+from_pixels <- function(x) {
+  if (!is.unit(x)) {
+    x <- x * (dev.size('in')[1] / dev.size('px')[1])
+    x <- unit(x, 'inch')
   }
   x
 }

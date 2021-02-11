@@ -128,7 +128,8 @@
 #'     scale = unit(0.025, 'npc')
 #'   )
 #'
-with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ..., id = NULL, include = is.null(id)) {
+with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ...,
+                       id = NULL, include = is.null(id)) {
   UseMethod('with_blend')
 }
 blend_types <- c(
@@ -185,60 +186,41 @@ resolve_blend_type <- function(type) {
 #' @rdname with_blend
 #' @importFrom grid gTree
 #' @export
-with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ..., background = NULL, id = NULL, include = is.null(id)) {
+with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
+                            ..., background = NULL, id = NULL,
+                            include = is.null(id)) {
   blend_type <- resolve_blend_type(blend_type)
-  gTree(grob = x, bg_layer = bg_layer, blend_type = blend_type, flip_order = flip_order, background = background, id = id,
+  gTree(grob = x, bg_layer = bg_layer, blend_type = blend_type,
+        flip_order = flip_order, background = background, id = id,
         include = isTRUE(include), cl = 'blended_grob')
 }
 #' @rdname with_blend
 #' @importFrom ggplot2 ggproto
 #' @export
-with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ..., id = NULL, include = is.null(id)) {
-  parent_geom <- x$geom
-  ggproto(NULL, x,
-    geom = ggproto('BlendedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        lapply(grobs, with_blend, bg_layer = bg_layer, blend_type = blend_type,
-               flip_order = flip_order, ..., id = id, include = include)
-      }
-    )
-  )
+with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
+                             ..., id = NULL, include = is.null(id)) {
+  filter_layer_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
+                           flip_order = flip_order, ..., include = include,
+                           ids = list(id = id, bg_layer = bg_layer))
 }
 #' @rdname with_blend
 #' @export
-with_blend.ggplot <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ignore_background = TRUE, ..., id = NULL,
-                              include = is.null(id)) {
-  x$filter <- list(
-    fun = with_displacement,
-    settings = list(
-      bg_layer = bg_layer,
-      blend_type = blend_type,
-      flip_order = flip_order,
-      ...
-    ),
-    ignore_background = ignore_background
-  )
-  class(x) <- c('filtered_ggplot', class(x))
-  x
+with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
+                              flip_order = FALSE, ignore_background = TRUE, ...,
+                              id = NULL, include = is.null(id)) {
+  filter_ggplot_constructor(x, with_blend, bg_layer = bg_layer,
+                            blend_type = blend_type, flip_order = flip_order,
+                            ..., ignore_background = ignore_background)
 }
 
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
-with_blend.character <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ...,
-                                 id = NULL, include = is.null(id)) {
-  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
-  parent_geom <- layer$geom
-  ggproto(NULL, layer,
-    geom = ggproto('BlendedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
-        lapply(grobs, with_blend, bg_layer = bg_layer, blend_type = blend_type,
-               flip_order = flip_order, ..., id = id, include = include)
-      }
-    )
-  )
+with_blend.character <- function(x, bg_layer, blend_type = 'over',
+                                 flip_order = FALSE, ..., id = NULL,
+                                 include = is.null(id)) {
+  filter_character_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
+                               flip_order = flip_order, ..., include = include,
+                               ids = list(id = id, bg_layer = bg_layer))
 }
 
 #' @rdname raster_helpers

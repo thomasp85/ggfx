@@ -37,17 +37,9 @@ with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
 with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                               scaling = NULL, bias = NULL, stack = FALSE, ...,
                               id = NULL, include = is.null(id)) {
-  parent_geom <- x$geom
-  ggproto(NULL, x,
-    geom = ggproto('ConvolvedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        lapply(grobs, with_kernel, kernel = kernel, iterations = iterations,
-               scaling = scaling, bias = bias, stack = stack, ..., id = id,
-               include = include)
-      }
-    )
-  )
+  filter_layer_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
+                           iterations = iterations, scaling = scaling, bias = bias,
+                           stack = stack, ..., include = include, ids = list(id = id))
 }
 #' @rdname with_kernel
 #' @export
@@ -55,20 +47,9 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
                                ignore_background = TRUE, ..., id = NULL,
                                include = is.null(id)) {
-  x$filter <- list(
-    fun = with_kernel,
-    settings = list(
-      kernel = kernel,
-      iterations = iterations,
-      scaling = scaling,
-      bias = bias,
-      stack = stack,
-      ...
-    ),
-    ignore_background = ignore_background
-  )
-  class(x) <- c('filtered_ggplot', class(x))
-  x
+  filter_ggplot_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
+                            scaling = scaling, bias = bias, stack = stack, ...,
+                            ignore_background = ignore_background)
 }
 
 #' @importFrom ggplot2 geom_blank ggproto
@@ -76,19 +57,9 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
 with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                   scaling = NULL, bias = NULL, stack = FALSE, ...,
                                   id = NULL, include = is.null(id)) {
-  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
-  parent_geom <- layer$geom
-  ggproto(NULL, layer,
-    geom = ggproto('ConvolvedGeom', parent_geom,
-      draw_layer = function(self, data, params, layout, coord) {
-        grobs <- parent_geom$draw_layer(data, params, layout, coord)
-        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
-        lapply(grobs, with_kernel, kernel = kernel, iterations = iterations,
-               scaling = scaling, bias = bias, stack = stack, ..., id = id,
-               include = include)
-      }
-    )
-  )
+  filter_character_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
+                               iterations = iterations, scaling = scaling, bias = bias,
+                               stack = stack, ..., include = include, ids = list(id = id))
 }
 
 
