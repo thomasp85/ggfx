@@ -16,7 +16,7 @@ as_reference(x, id)
 
 \method{with_raster}{Layer}(x, ..., id = NULL, include = is.null(id))
 
-\method{with_raster}{ggplot}(x, ..., id = NULL, include = is.null(id))
+\method{with_raster}{ggplot}(x, ignore_background = TRUE, ..., id = NULL, include = is.null(id))
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -27,6 +27,9 @@ naming a filter}
 \item{id}{An id that can be used to reference this filter somewhere else}
 
 \item{include}{Should the filter be part of the final render}
+
+\item{ignore_background}{Should the filter be applied to everything except
+the plot background, or should the background be included.}
 }
 \value{
 A modified \code{Layer} object

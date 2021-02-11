@@ -13,9 +13,7 @@ coverage](https://codecov.io/gh/thomasp85/ggfx/branch/master/graph/badge.svg)](h
 <!-- badges: end -->
 
 ggfx is a (currently experimantal) package that allows the use of
-various filters and shaders on ggplot2 layers. At the moment it
-implements a blur filter but more will be added, along with the
-possibility to use custom filters.
+various filters and shaders on ggplot2 layers.
 
 ## Installation
 
@@ -33,14 +31,35 @@ devtools::install_github('thomasp85/ggfx')
 The basic API of ggfx is to provide a range of `with_*()` modifier
 functions instead of special versions of common geoms. This means that
 ggfx will work with any geom from ggplot2 and the extension packages (I
-think…). And example of blurring a point geom can be seen below.
+think…). An example showing some of the different functionalities are
+given below. Note that the output is produced with regular geoms.
 
 ``` r
 library(ggplot2)
 library(ggfx)
-ggplot(mtcars, aes(mpg, disp)) + 
-  with_blur(geom_point(size = 3), sigma = 3) + 
-  geom_point()
+ggplot() + 
+  as_reference(
+    geom_polygon(aes(c(0, 1, 1), c(0, 0, 1)), colour = NA, fill = 'magenta'), 
+    id = "displace_map"
+  ) + 
+  with_displacement(
+    geom_text(aes(0.5, 0.5, label = 'ggfx-ggfx'), size = 25, fontface = 'bold'), 
+    map = "displace_map", 
+    x_channel = "red", 
+    y_channel = "blue", 
+    scale = unit(0.025, 'npc'),
+    id = "text"
+  ) +
+  with_blend(
+    geom_density_2d_filled(aes(rnorm(1e4, 0.5, 0.2), rnorm(1e4, 0.5, 0.2)), 
+                           show.legend = FALSE),
+    bg_layer = "text",
+    blend_type = "in",
+    id = "blended"
+  ) + 
+  with_shadow("blended", sigma = 3) + 
+  coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), clip = 'off') + 
+  labs(x = NULL, y = NULL)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />

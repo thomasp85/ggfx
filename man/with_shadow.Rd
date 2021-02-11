@@ -10,9 +10,8 @@
 with_shadow(
   x,
   colour = "black",
-  x_offset = 1,
-  y_offset = 1,
-  default_unit = "mm",
+  x_offset = 10,
+  y_offset = 10,
   sigma = 1,
   stack = TRUE,
   ...,
@@ -23,9 +22,8 @@ with_shadow(
 \method{with_shadow}{grob}(
   x,
   colour = "black",
-  x_offset = 1,
-  y_offset = 1,
-  default_unit = "mm",
+  x_offset = 10,
+  y_offset = 10,
   sigma = 1,
   stack = TRUE,
   background = NULL,
@@ -37,9 +35,8 @@ with_shadow(
 \method{with_shadow}{Layer}(
   x,
   colour = "black",
-  x_offset = 1,
-  y_offset = 1,
-  default_unit = "mm",
+  x_offset = 10,
+  y_offset = 10,
   sigma = 1,
   stack = TRUE,
   ...,
@@ -50,9 +47,8 @@ with_shadow(
 \method{with_shadow}{ggplot}(
   x,
   colour = "black",
-  x_offset = 1,
-  y_offset = 1,
-  default_unit = "mm",
+  x_offset = 10,
+  y_offset = 10,
   sigma = 1,
   stack = TRUE,
   ignore_background = TRUE,
@@ -67,9 +63,7 @@ naming a filter}
 
 \item{colour}{The colour of the shadow}
 
-\item{x_offset, y_offset}{The offset of the shadow from the origin}
-
-\item{default_unit}{The unit of \code{x_offset} and \code{y_offset} if they are given
+\item{x_offset, y_offset}{The offset of the shadow from the origin
 as numerics}
 
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to

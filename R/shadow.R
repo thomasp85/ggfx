@@ -7,7 +7,6 @@
 #' @inheritParams with_blur
 #' @param colour The colour of the shadow
 #' @param x_offset,y_offset The offset of the shadow from the origin
-#' @param default_unit The unit of `x_offset` and `y_offset` if they are given
 #' as numerics
 #'
 #' @export
