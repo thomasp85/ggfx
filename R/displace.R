@@ -3,7 +3,6 @@
 #' This filter displaces the pixels based on the colour values of another layer
 #' or raster object. As such it can be used to distort the content of the layer.
 #'
-#' @param x A ggplot2 layer object, a ggplot, or a grob
 #' @param map The displacement map to use. Can either be a string identifying a
 #' registered filter, or a raster object. The map will be resized to match the
 #' dimensions of x.
@@ -12,12 +11,7 @@
 #' @param scale How much displacement should a maximal channel value correspond
 #' to? If a numeric it will be interpreted as pixel dimensions. If a unit object
 #' it will be converted to pixel dimension when rendered.
-#' @param ignore_background Should the filter be applied to everything except
-#' the plot background, or should the background be included.
-#' @param background A grob to draw below the filtered grob.
-#' @param ... Arguments to be passed on to methods
-#' @param id An id that can be used to reference this filter somewhere else
-#' @param include Should the filter be part of the final render
+#' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
 #'
@@ -57,11 +51,11 @@ with_displacement.Layer <- function(x, map, x_channel, y_channel, scale, ..., id
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('DisplacedGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-        grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
-        with_displacement(x = grob, map = map, x_channel = x_channel,
-                          y_channel = y_channel, scale = scale, id = id,
-                          include = include)
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        lapply(grobs, with_displacement, map = map, x_channel = x_channel,
+               y_channel = y_channel, scale = scale, ..., id = id,
+               include = include)
       }
     )
   )
@@ -77,12 +71,32 @@ with_displacement.ggplot <- function(x, map, x_channel, y_channel, scale,
       map = map,
       x_channel = x_channel,
       y_channel = y_channel,
-      scale = scale
+      scale = scale,
+      ...
     ),
     ignore_background = ignore_background
   )
   class(x) <- c('filtered_ggplot', class(x))
   x
+}
+
+#' @importFrom ggplot2 geom_blank ggproto
+#' @export
+with_displacement.character <- function(x, map, x_channel, y_channel, scale, ...,
+                                        id = NULL, include = is.null(id)) {
+  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
+  parent_geom <- layer$geom
+  ggproto(NULL, layer,
+    geom = ggproto('DisplacedGeom', parent_geom,
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
+        lapply(grobs, with_displacement, map = map, x_channel = x_channel,
+               y_channel = y_channel, scale = scale, ..., id = id,
+               include = include)
+      }
+    )
+  )
 }
 
 #' @rdname raster_helpers

@@ -19,7 +19,8 @@ as_reference(x, id)
 \method{with_raster}{ggplot}(x, ..., id = NULL, include = is.null(id))
 }
 \arguments{
-\item{x}{A ggplot2 layer object, a ggplot, or a grob}
+\item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter}
 
 \item{...}{Arguments to be passed on to methods}
 

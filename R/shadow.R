@@ -43,11 +43,11 @@ with_shadow.Layer <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('ShadowGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-        grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
-        with_shadow(x = grob, colour = colour, x_offset = x_offset,
-                    y_offset = y_offset, default_unit = default_unit,
-                    sigma = sigma, stack = stack, id = id, include = include)
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        lapply(grobs, with_shadow, colour = colour, x_offset = x_offset,
+               y_offset = y_offset, default_unit = default_unit, sigma = sigma,
+               stack = stack, ..., id = id, include = include)
       }
     )
   )
@@ -66,12 +66,33 @@ with_shadow.ggplot <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
       y_offset = y_offset,
       default_unit = default_unit,
       sigma = sigma,
-      stack = stack
+      stack = stack,
+      ...
     ),
     ignore_background = ignore_background
   )
   class(x) <- c('filtered_ggplot', class(x))
   x
+}
+
+#' @importFrom ggplot2 geom_blank ggproto
+#' @export
+with_shadow.character <- function(x, colour = 'black', x_offset = 1, y_offset = 1,
+                                  default_unit = 'mm', sigma = 1, stack = TRUE, ...,
+                                  id = NULL, include = is.null(id)) {
+  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
+  parent_geom <- layer$geom
+  ggproto(NULL, layer,
+    geom = ggproto('ShadowGeom', parent_geom,
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
+        lapply(grobs, with_shadow, colour = colour, x_offset = x_offset,
+               y_offset = y_offset, default_unit = default_unit,
+               sigma = sigma, stack = stack, ..., id = id, include = include)
+      }
+    )
+  )
 }
 
 #' @importFrom magick image_read image_colorize image_background image_morphology image_transparent image_blur image_destroy

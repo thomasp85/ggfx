@@ -40,11 +40,11 @@ with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('ConvolvedGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-        grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
-        with_kernel(x = grob, kernel = kernel, iterations = iterations,
-                    scaling = scaling, bias = bias, stack = stack, id = id,
-                    include = include)
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        lapply(grobs, with_kernel, kernel = kernel, iterations = iterations,
+               scaling = scaling, bias = bias, stack = stack, ..., id = id,
+               include = include)
       }
     )
   )
@@ -62,12 +62,33 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
       iterations = iterations,
       scaling = scaling,
       bias = bias,
-      stack = stack
+      stack = stack,
+      ...
     ),
     ignore_background = ignore_background
   )
   class(x) <- c('filtered_ggplot', class(x))
   x
+}
+
+#' @importFrom ggplot2 geom_blank ggproto
+#' @export
+with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+                                  scaling = NULL, bias = NULL, stack = FALSE, ...,
+                                  id = NULL, include = is.null(id)) {
+  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
+  parent_geom <- layer$geom
+  ggproto(NULL, layer,
+    geom = ggproto('ConvolvedGeom', parent_geom,
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
+        lapply(grobs, with_kernel, kernel = kernel, iterations = iterations,
+               scaling = scaling, bias = bias, stack = stack, ..., id = id,
+               include = include)
+      }
+    )
+  )
 }
 
 

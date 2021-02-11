@@ -4,7 +4,8 @@
 #' be controlled and the result can optionally be put underneath the original
 #' layer.
 #'
-#' @param x A ggplot2 layer object, a ggplot, or a grob
+#' @param x A ggplot2 layer object, a ggplot, a grob, or a character string
+#' naming a filter
 #' @param sigma The standard deviation of the gaussian kernel. Increase it to
 #' apply more blurring. If a numeric it will be interpreted as given in pixels.
 #' If a unit object it will automatically be converted to pixels at rendering
@@ -44,9 +45,10 @@ with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL, inclu
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('BlurredGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-        grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
-        with_blur(x = grob, sigma = sigma, stack = stack, id = id, include = include)
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        lapply(grobs, with_blur, sigma = sigma, stack = stack, ..., id = id,
+               include = include)
       }
     )
   )
@@ -60,12 +62,31 @@ with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
     fun = with_blur,
     settings = list(
       sigma = sigma,
-      stack = stack
+      stack = stack,
+      ...
     ),
     ignore_background = ignore_background
   )
   class(x) <- c('filtered_ggplot', class(x))
   x
+}
+
+#' @importFrom ggplot2 geom_blank ggproto
+#' @export
+with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
+                                include = is.null(id)) {
+  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
+  parent_geom <- layer$geom
+  ggproto(NULL, layer,
+    geom = ggproto('BlurredGeom', parent_geom,
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
+        lapply(grobs, with_blur, sigma = sigma, stack = stack, ..., id = id,
+               include = include)
+      }
+    )
+  )
 }
 
 #' @rdname raster_helpers

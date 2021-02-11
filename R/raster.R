@@ -7,10 +7,7 @@
 #' `with_raster(x, id = id, include = FALSE)` that makes the intent of using
 #' this grob or layer as only a filter reference clear.
 #'
-#' @param x A ggplot2 layer object, a ggplot, or a grob
-#' @param ... Arguments to be passed on to methods
-#' @param id An id that can be used to reference this filter somewhere else
-#' @param include Should the filter be part of the final render
+#' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
 #'
@@ -42,9 +39,9 @@ with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('RasterisedGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-        grob <- parent_geom$draw_panel(data, panel_params, coord, na.rm)
-        with_raster(x = grob, id = id, include = include)
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        lapply(grobs, with_raster, ..., id = id, include = include)
       }
     )
   )
@@ -54,11 +51,27 @@ with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
 with_raster.ggplot <- function(x, ..., id = NULL, include = is.null(id)) {
   x$filter <- list(
     fun = with_raster,
-    settings = list(),
+    settings = list(...),
     ignore_background = FALSE
   )
   class(x) <- c('filtered_ggplot', class(x))
   x
+}
+
+#' @importFrom ggplot2 geom_blank ggproto
+#' @export
+with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
+  layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
+  parent_geom <- layer$geom
+  ggproto(NULL, layer,
+    geom = ggproto('RasterisedGeom', parent_geom,
+      draw_layer = function(self, data, params, layout, coord) {
+        grobs <- parent_geom$draw_layer(data, params, layout, coord)
+        grobs <- lapply(seq_along(grobs), function(i) reference_grob(x))
+        lapply(grobs, with_raster, ..., id = id, include = include)
+      }
+    )
+  )
 }
 
 #' @importFrom grid makeContent setChildren gList

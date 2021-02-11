@@ -58,7 +58,8 @@ with_kernel(
 )
 }
 \arguments{
-\item{x}{A ggplot2 layer object, a ggplot, or a grob}
+\item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter}
 
 \item{kernel}{either a square matrix or a string. The string can either be a
 parameterized \link[magick:options]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}

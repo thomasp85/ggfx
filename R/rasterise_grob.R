@@ -6,20 +6,21 @@ rasterise_grob <- function(grob, vp = NULL) {
   dim_inch <- dev.size("in")
   dim_pix <- dev.size("px")
   res <- dim_pix[1] / dim_inch[1]
-  if (vp$clip) {
-    dim_inch <- unlist(
-      deviceDim(unit(1, 'npc'), unit(1, 'npc'), valueOnly = TRUE),
-      use.names = FALSE
-    )
-    raster_loc <- unit(c(0, 0), 'npc')
-    vp_parent <- viewport()
-  } else {
-    vp_size <- deviceDim(unit(1, 'npc'), unit(1, 'npc'))
-    vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
-    raster_loc <- unit.c(-1 * vp_loc$x, -1 * vp_loc$y)
-    vp_parent <- viewport(vp_loc$x, vp_loc$y, vp_size$w, vp_size$h,
-                          just = c('left', 'bottom'), clip = 'off')
-  }
+  #if (vp$clip) {
+  #  dim_inch <- unlist(
+  #    deviceDim(unit(1, 'npc'), unit(1, 'npc'), valueOnly = TRUE),
+  #    use.names = FALSE
+  #  )
+  #  raster_loc <- unit(c(0, 0), 'npc')
+  #  vp_parent <- viewport()
+  #}
+  #pushViewport(vp)
+  vp_size <- deviceDim(unit(1, 'npc'), unit(1, 'npc'))
+  vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
+  #popViewport()
+  raster_loc <- unit.c(-1 * vp_loc$x, -1 * vp_loc$y)
+  vp_parent <- viewport(vp_loc$x, vp_loc$y, vp_size$w, vp_size$h,
+                        just = c('left', 'bottom'), clip = 'off')
   cur <- dev.cur()
   cap <- agg_capture(
     width = dim_inch[1], height = dim_inch[2], units = 'in',
@@ -29,8 +30,8 @@ rasterise_grob <- function(grob, vp = NULL) {
     dev.off()
     dev.set(cur)
   }, add = TRUE)
-  pushViewport(vp_parent)
   pushViewport(vp)
+  pushViewport(vp_parent)
   grid.draw(grob)
   list(
     raster = cap(native = TRUE),

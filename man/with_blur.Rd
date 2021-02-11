@@ -32,7 +32,8 @@ with_blur(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
 )
 }
 \arguments{
-\item{x}{A ggplot2 layer object, a ggplot, or a grob}
+\item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter}
 
 \item{sigma}{The standard deviation of the gaussian kernel. Increase it to
 apply more blurring. If a numeric it will be interpreted as given in pixels.

@@ -62,7 +62,8 @@ with_shadow(
 )
 }
 \arguments{
-\item{x}{A ggplot2 layer object, a ggplot, or a grob}
+\item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter}
 
 \item{colour}{The colour of the shadow}
 

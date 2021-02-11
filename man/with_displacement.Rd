@@ -54,7 +54,8 @@ with_displacement(
 )
 }
 \arguments{
-\item{x}{A ggplot2 layer object, a ggplot, or a grob}
+\item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter}
 
 \item{map}{The displacement map to use. Can either be a string identifying a
 registered filter, or a raster object. The map will be resized to match the

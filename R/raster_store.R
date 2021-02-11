@@ -18,3 +18,31 @@ purge_store <- function(age = 600) {
   keep <- unlist(RasterStore[[".__timestamps"]]) > too_old
   RasterStore[[".__timestamps"]] <- RasterStore[[".__timestamps"]][keep]
 }
+
+reference_grob <- function(id) {
+  gTree(id = id, cl = 'reference_grob')
+}
+is_reference_grob <- function(x) inherits(x, 'reference_grob')
+
+#' @importFrom grid deviceLoc current.parent current.viewport upViewport downViewport rasterGrob unit setChildren gList
+#' @export
+makeContent.reference_grob <- function(x) {
+  raster <- fetch_raster(x$id)
+  vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
+  if (!is.null(current.parent())) {
+    vpname <- current.viewport()$name
+    upViewport()
+    vp_loc2 <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
+    downViewport(vpname)
+    vp_loc$x <- vp_loc$x - vp_loc2$x
+    vp_loc$y <- vp_loc$y - vp_loc2$y
+  }
+  dim_size <- unit(dev.size('in'), 'in')
+  raster <- rasterGrob(raster,
+                       x = -1 * vp_loc$x,
+                       y = -1 * vp_loc$y,
+                       width = dim_size[1],
+                       height = dim_size[2],
+                       just = c('left', 'bottom'))
+  setChildren(x, gList(raster))
+}
