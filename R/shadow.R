@@ -17,8 +17,7 @@
 #'   with_shadow(geom_point(colour = 'red', size = 3), sigma = 3)
 #'
 with_shadow <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
-                        sigma = 1, stack = TRUE, ..., id = NULL,
-                        include = is.null(id)) {
+                        sigma = 1, stack = TRUE, ...) {
   UseMethod('with_shadow')
 }
 #' @rdname with_shadow
@@ -46,12 +45,13 @@ with_shadow.Layer <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
 #' @export
 with_shadow.ggplot <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ignore_background = TRUE,
-                               ..., id = NULL, include = is.null(id)) {
+                               ...) {
   filter_ggplot_constructor(x, with_shadow, colour = colour, x_offset = x_offset,
                             y_offset = y_offset, sigma = sigma, stack = stack,
                             ..., ignore_background = ignore_background)
 }
 
+#' @rdname with_shadow
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_shadow.character <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
@@ -61,6 +61,21 @@ with_shadow.character <- function(x, colour = 'black', x_offset = 10, y_offset =
                                x_offset = x_offset, y_offset = y_offset, sigma = sigma,
                                stack = stack, ..., include = include,
                                ids = list(id = id))
+}
+#' @rdname with_shadow
+#' @export
+with_shadow.element <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
+                               sigma = 1, stack = TRUE, ...) {
+  filter_element_constructor(x, with_shadow, colour = colour, x_offset = x_offset,
+                             y_offset = y_offset, sigma = sigma, stack = stack,
+                             ...)
+}
+#' @rdname with_shadow
+#' @export
+with_shadow.guide <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
+                               sigma = 1, stack = TRUE, ...) {
+  filter_guide_constructor(x, with_shadow, colour = colour, x_offset = x_offset,
+                           y_offset = y_offset, sigma = sigma, stack = stack, ...)
 }
 
 #' @importFrom magick image_read image_colorize image_background image_morphology image_transparent image_blur image_destroy

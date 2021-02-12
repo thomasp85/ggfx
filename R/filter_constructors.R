@@ -14,7 +14,7 @@ filter_layer_constructor <- function(x, filter, name, ..., ids) {
 }
 
 filter_ggplot_constructor <- function(x, filter, ..., ignore_background) {
-  x$filter <- list(
+  x[['.__filter']] <- list(
     fun = filter,
     settings = list(...),
     ignore_background = ignore_background
@@ -41,10 +41,19 @@ filter_character_constructor <- function(x, filter, name, ..., ids) {
 }
 
 filter_element_constructor <- function(x, filter, ...) {
-  x$filter <- list(
+  x[['.__filter']] <- list(
     fun = filter,
     settings = list(...)
   )
   class(x) <- c('filtered_element', class(x))
+  x
+}
+
+filter_guide_constructor <- function(x, filter, ...) {
+  x[['.__filter']] <- list(
+    fun = filter,
+    settings = list(...)
+  )
+  class(x) <- c('filtered_guide', class(x))
   x
 }

@@ -5,17 +5,12 @@
 \alias{with_blend.grob}
 \alias{with_blend.Layer}
 \alias{with_blend.ggplot}
+\alias{with_blend.character}
+\alias{with_blend.element}
+\alias{with_blend.guide}
 \title{Blend a layer with a reference}
 \usage{
-with_blend(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
+with_blend(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
 
 \method{with_blend}{grob}(
   x,
@@ -44,10 +39,22 @@ with_blend(
   blend_type = "over",
   flip_order = FALSE,
   ignore_background = TRUE,
+  ...
+)
+
+\method{with_blend}{character}(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
   ...,
   id = NULL,
   include = is.null(id)
 )
+
+\method{with_blend}{element}(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
+
+\method{with_blend}{guide}(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -64,11 +71,11 @@ flipped so that \code{bg_layer} is treated as being on top and \code{x} being be
 
 \item{...}{Arguments to be passed on to methods}
 
+\item{background}{A grob to draw below the filtered grob.}
+
 \item{id}{An id that can be used to reference this filter somewhere else}
 
 \item{include}{Should the filter be part of the final render}
-
-\item{background}{A grob to draw below the filtered grob.}
 
 \item{ignore_background}{Should the filter be applied to everything except
 the plot background, or should the background be included.}

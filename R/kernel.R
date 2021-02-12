@@ -17,8 +17,7 @@
 #'   with_kernel(geom_point(size = 3), 'Comet:0,10')
 #'
 with_kernel <- function(x, kernel = kernel_gaussian(0.5), iterations = 1, scaling = NULL,
-                        bias = NULL, stack = FALSE, ..., id = NULL,
-                        include = is.null(id)) {
+                        bias = NULL, stack = FALSE, ...) {
   UseMethod('with_kernel')
 }
 #' @rdname with_kernel
@@ -45,13 +44,13 @@ with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
 #' @export
 with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
-                               ignore_background = TRUE, ..., id = NULL,
-                               include = is.null(id)) {
+                               ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
                             scaling = scaling, bias = bias, stack = stack, ...,
                             ignore_background = ignore_background)
 }
 
+#' @rdname with_kernel
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
@@ -60,6 +59,20 @@ with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations =
   filter_character_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
                                iterations = iterations, scaling = scaling, bias = bias,
                                stack = stack, ..., include = include, ids = list(id = id))
+}
+#' @rdname with_kernel
+#' @export
+with_kernel.element <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+                               scaling = NULL, bias = NULL, stack = FALSE, ...) {
+  filter_element_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
+                             scaling = scaling, bias = bias, stack = stack, ...)
+}
+#' @rdname with_kernel
+#' @export
+with_kernel.guide <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+                               scaling = NULL, bias = NULL, stack = FALSE, ...) {
+  filter_guide_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
+                           scaling = scaling, bias = bias, stack = stack, ...)
 }
 
 

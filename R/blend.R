@@ -128,8 +128,7 @@
 #'     scale = unit(0.025, 'npc')
 #'   )
 #'
-with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ...,
-                       id = NULL, include = is.null(id)) {
+with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ...) {
   UseMethod('with_blend')
 }
 blend_types <- c(
@@ -206,13 +205,13 @@ with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALS
 #' @rdname with_blend
 #' @export
 with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
-                              flip_order = FALSE, ignore_background = TRUE, ...,
-                              id = NULL, include = is.null(id)) {
+                              flip_order = FALSE, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_blend, bg_layer = bg_layer,
                             blend_type = blend_type, flip_order = flip_order,
                             ..., ignore_background = ignore_background)
 }
 
+#' @rdname with_blend
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend.character <- function(x, bg_layer, blend_type = 'over',
@@ -221,6 +220,21 @@ with_blend.character <- function(x, bg_layer, blend_type = 'over',
   filter_character_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
                                flip_order = flip_order, ..., include = include,
                                ids = list(id = id, bg_layer = bg_layer))
+}
+#' @rdname with_blend
+#' @export
+with_blend.element <- function(x, bg_layer, blend_type = 'over',
+                               flip_order = FALSE, ...) {
+  filter_element_constructor(x, with_blend, bg_layer = bg_layer,
+                            blend_type = blend_type, flip_order = flip_order,
+                            ...)
+}
+#' @rdname with_blend
+#' @export
+with_blend.guide <- function(x, bg_layer, blend_type = 'over',
+                             flip_order = FALSE, ...) {
+  filter_guide_constructor(x, with_blend, bg_layer = bg_layer,
+                           blend_type = blend_type, flip_order = flip_order, ...)
 }
 
 #' @rdname raster_helpers

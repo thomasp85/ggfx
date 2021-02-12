@@ -6,9 +6,12 @@
 \alias{with_raster.grob}
 \alias{with_raster.Layer}
 \alias{with_raster.ggplot}
+\alias{with_raster.character}
+\alias{with_raster.element}
+\alias{with_raster.guide}
 \title{Convert a layer to a raster}
 \usage{
-with_raster(x, ..., id = NULL, include = is.null(id))
+with_raster(x, ...)
 
 as_reference(x, id)
 
@@ -16,7 +19,13 @@ as_reference(x, id)
 
 \method{with_raster}{Layer}(x, ..., id = NULL, include = is.null(id))
 
-\method{with_raster}{ggplot}(x, ignore_background = TRUE, ..., id = NULL, include = is.null(id))
+\method{with_raster}{ggplot}(x, ignore_background = TRUE, ...)
+
+\method{with_raster}{character}(x, ..., id = NULL, include = is.null(id))
+
+\method{with_raster}{element}(x, ...)
+
+\method{with_raster}{guide}(x, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string

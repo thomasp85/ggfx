@@ -32,8 +32,7 @@
 #'     scale = unit(0.025, 'npc')
 #'   )
 #'
-with_displacement <- function(x, map, x_channel, y_channel, scale, ..., id = NULL,
-                              include = is.null(id)) {
+with_displacement <- function(x, map, x_channel, y_channel, scale, ...) {
   UseMethod('with_displacement')
 }
 #' @rdname with_displacement
@@ -58,13 +57,13 @@ with_displacement.Layer <- function(x, map, x_channel, y_channel, scale, ...,
 #' @rdname with_displacement
 #' @export
 with_displacement.ggplot <- function(x, map, x_channel, y_channel, scale,
-                                     ignore_background = TRUE, ..., id = NULL,
-                                     include = is.null(id)) {
+                                     ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_displacement, map = map,
                             x_channel = x_channel, y_channel = y_channel,
                             scale = scale, ..., ignore_background = ignore_background)
 }
 
+#' @rdname with_displacement
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_displacement.character <- function(x, map, x_channel, y_channel, scale, ...,
@@ -73,6 +72,20 @@ with_displacement.character <- function(x, map, x_channel, y_channel, scale, ...
                                x_channel = x_channel, y_channel = y_channel,
                                scale = scale, ..., include = include,
                                ids = list(id = id, map = map))
+}
+#' @rdname with_displacement
+#' @export
+with_displacement.element <- function(x, map, x_channel, y_channel, scale, ...) {
+  filter_element_constructor(x, with_displacement, map = map,
+                             x_channel = x_channel, y_channel = y_channel,
+                             scale = scale, ...)
+}
+#' @rdname with_displacement
+#' @export
+with_displacement.guide <- function(x, map, x_channel, y_channel, scale, ...) {
+  filter_guide_constructor(x, with_displacement, map = map,
+                           x_channel = x_channel, y_channel = y_channel,
+                           scale = scale, ...)
 }
 
 #' @rdname raster_helpers

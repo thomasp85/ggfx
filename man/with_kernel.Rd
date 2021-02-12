@@ -5,6 +5,9 @@
 \alias{with_kernel.grob}
 \alias{with_kernel.Layer}
 \alias{with_kernel.ggplot}
+\alias{with_kernel.character}
+\alias{with_kernel.element}
+\alias{with_kernel.guide}
 \title{Apply a gaussian blur to your layer}
 \usage{
 with_kernel(
@@ -14,9 +17,7 @@ with_kernel(
   scaling = NULL,
   bias = NULL,
   stack = FALSE,
-  ...,
-  id = NULL,
-  include = is.null(id)
+  ...
 )
 
 \method{with_kernel}{grob}(
@@ -52,9 +53,39 @@ with_kernel(
   bias = NULL,
   stack = FALSE,
   ignore_background = TRUE,
+  ...
+)
+
+\method{with_kernel}{character}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
   ...,
   id = NULL,
   include = is.null(id)
+)
+
+\method{with_kernel}{element}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...
+)
+
+\method{with_kernel}{guide}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...
 )
 }
 \arguments{
@@ -76,11 +107,11 @@ dynamic range, for example: \code{"50\%!"}}
 
 \item{...}{Arguments to be passed on to methods}
 
+\item{background}{A grob to draw below the filtered grob.}
+
 \item{id}{An id that can be used to reference this filter somewhere else}
 
 \item{include}{Should the filter be part of the final render}
-
-\item{background}{A grob to draw below the filtered grob.}
 
 \item{ignore_background}{Should the filter be applied to everything except
 the plot background, or should the background be included.}

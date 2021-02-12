@@ -27,8 +27,7 @@
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_blur(geom_point(data = mtcars, size = 3), sigma = 3)
 #'
-with_blur <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
-                      include = is.null(id)) {
+with_blur <- function(x, sigma = 0.5, stack = FALSE, ...) {
   UseMethod('with_blur')
 }
 #' @rdname with_blur
@@ -51,12 +50,12 @@ with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
 #' @rdname with_blur
 #' @export
 with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
-                             ignore_background = TRUE, ..., id = NULL,
-                             include = is.null(id)) {
+                             ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...,
                             ignore_background = ignore_background)
 }
 
+#' @rdname with_blur
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
@@ -65,10 +64,15 @@ with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                                stack = stack, ..., include = include,
                                ids = list(id = id))
 }
-
+#' @rdname with_blur
 #' @export
 with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
   filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
+}
+#' @rdname with_blur
+#' @export
+with_blur.guide <- function(x, sigma = 0.5, stack = FALSE, ...) {
+  filter_guide_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }
 
 #' @rdname raster_helpers

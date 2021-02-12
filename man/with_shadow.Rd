@@ -5,6 +5,9 @@
 \alias{with_shadow.grob}
 \alias{with_shadow.Layer}
 \alias{with_shadow.ggplot}
+\alias{with_shadow.character}
+\alias{with_shadow.element}
+\alias{with_shadow.guide}
 \title{Apply a drop shadow to a layer}
 \usage{
 with_shadow(
@@ -14,9 +17,7 @@ with_shadow(
   y_offset = 10,
   sigma = 1,
   stack = TRUE,
-  ...,
-  id = NULL,
-  include = is.null(id)
+  ...
 )
 
 \method{with_shadow}{grob}(
@@ -52,9 +53,39 @@ with_shadow(
   sigma = 1,
   stack = TRUE,
   ignore_background = TRUE,
+  ...
+)
+
+\method{with_shadow}{character}(
+  x,
+  colour = "black",
+  x_offset = 10,
+  y_offset = 10,
+  sigma = 1,
+  stack = TRUE,
   ...,
   id = NULL,
   include = is.null(id)
+)
+
+\method{with_shadow}{element}(
+  x,
+  colour = "black",
+  x_offset = 10,
+  y_offset = 10,
+  sigma = 1,
+  stack = TRUE,
+  ...
+)
+
+\method{with_shadow}{guide}(
+  x,
+  colour = "black",
+  x_offset = 10,
+  y_offset = 10,
+  sigma = 1,
+  stack = TRUE,
+  ...
 )
 }
 \arguments{
@@ -75,11 +106,11 @@ time}
 
 \item{...}{Arguments to be passed on to methods}
 
+\item{background}{A grob to draw below the filtered grob.}
+
 \item{id}{An id that can be used to reference this filter somewhere else}
 
 \item{include}{Should the filter be part of the final render}
-
-\item{background}{A grob to draw below the filtered grob.}
 
 \item{ignore_background}{Should the filter be applied to everything except
 the plot background, or should the background be included.}

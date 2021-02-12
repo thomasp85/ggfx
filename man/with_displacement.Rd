@@ -5,18 +5,12 @@
 \alias{with_displacement.grob}
 \alias{with_displacement.Layer}
 \alias{with_displacement.ggplot}
+\alias{with_displacement.character}
+\alias{with_displacement.element}
+\alias{with_displacement.guide}
 \title{Apply a displacement map to a layer}
 \usage{
-with_displacement(
-  x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
+with_displacement(x, map, x_channel, y_channel, scale, ...)
 
 \method{with_displacement}{grob}(
   x,
@@ -48,10 +42,23 @@ with_displacement(
   y_channel,
   scale,
   ignore_background = TRUE,
+  ...
+)
+
+\method{with_displacement}{character}(
+  x,
+  map,
+  x_channel,
+  y_channel,
+  scale,
   ...,
   id = NULL,
   include = is.null(id)
 )
+
+\method{with_displacement}{element}(x, map, x_channel, y_channel, scale, ...)
+
+\method{with_displacement}{guide}(x, map, x_channel, y_channel, scale, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -70,11 +77,11 @@ it will be converted to pixel dimension when rendered.}
 
 \item{...}{Arguments to be passed on to methods}
 
+\item{background}{A grob to draw below the filtered grob.}
+
 \item{id}{An id that can be used to reference this filter somewhere else}
 
 \item{include}{Should the filter be part of the final render}
-
-\item{background}{A grob to draw below the filtered grob.}
 
 \item{ignore_background}{Should the filter be applied to everything except
 the plot background, or should the background be included.}

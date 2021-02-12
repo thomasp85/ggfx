@@ -18,7 +18,7 @@
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_raster(geom_point(data = mtcars, size = 3))
 #'
-with_raster <- function(x, ..., id = NULL, include = is.null(id)) {
+with_raster <- function(x, ...) {
   UseMethod('with_raster')
 }
 #' @rdname with_raster
@@ -41,16 +41,26 @@ with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
 }
 #' @rdname with_raster
 #' @export
-with_raster.ggplot <- function(x, ignore_background = TRUE, ..., id = NULL,
-                               include = is.null(id)) {
+with_raster.ggplot <- function(x, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_raster, ..., ignore_background = ignore_background)
 }
 
+#' @rdname with_raster
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_raster, 'RasterisedGeom', ...,
                                include = include, ids = list(id = id))
+}
+#' @rdname with_raster
+#' @export
+with_raster.element <- function(x, ...) {
+  filter_element_constructor(x, with_raster, ...)
+}
+#' @rdname with_raster
+#' @export
+with_raster.guide <- function(x, ...) {
+  filter_guide_constructor(x, with_raster, ...)
 }
 
 #' @importFrom grid makeContent setChildren gList
