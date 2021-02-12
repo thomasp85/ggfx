@@ -57,13 +57,14 @@ with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 10
 #' @rdname with_interpolate
 #' @export
 with_interpolate.element <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
-  filter_element_constructor(x, bg_layer = bg_layer, src_percent = src_percent,
-                             bg_percent = bg_percent, with_interpolate, ...)
+  filter_element_constructor(x, with_interpolate, bg_layer = bg_layer,
+                             src_percent = src_percent, bg_percent = bg_percent, ...)
 }
 #' @rdname with_interpolate
 #' @export
 with_interpolate.guide <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
-  filter_guide_constructor(x, bg_layer = bg_layer, src_percent = src_percent, bg_percent = bg_percent, with_interpolate, ...)
+  filter_guide_constructor(x, with_interpolate, bg_layer = bg_layer,
+                           src_percent = src_percent, bg_percent = bg_percent, ...)
 }
 
 #' @rdname raster_helpers

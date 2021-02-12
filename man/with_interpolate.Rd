@@ -8,7 +8,7 @@
 \alias{with_interpolate.character}
 \alias{with_interpolate.element}
 \alias{with_interpolate.guide}
-\title{Convert a layer to a raster}
+\title{Blend two layerrs together by averaging them out}
 \usage{
 with_interpolate(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
 
@@ -59,6 +59,11 @@ with_interpolate(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
 naming a filter}
 
+\item{bg_layer}{The layer to blend with}
+
+\item{src_percent, bg_percent}{The contribution of this layer and the
+background layer to the result. Should be between 0 and 100}
+
 \item{...}{Arguments to be passed on to methods}
 
 \item{id}{An id that can be used to reference this filter somewhere else}
@@ -72,16 +77,14 @@ the plot background, or should the background be included.}
 A modified \code{Layer} object
 }
 \description{
-This filter simply converts the given layer, grob, oor ggplot to a raster and
-inserts it back again. It is useful for vector graphics devices such as
-svglite if a layer contains a huge amount of primitives that would make the
-file slow to render. \code{as_reference(x, id)} is a shorthand for
-\code{with_interpolate(x, id = id, include = FALSE)} that makes the intent of using
-this grob or layer as only a filter reference clear.
+Two layers can be blended together in the literal sense (not like
+\code{\link[=with_blend]{with_blend()}}) so that the result is the average of the two. This is the
+purpose of \code{with_interpolate()}.
 }
 \examples{
 library(ggplot2)
-ggplot(mtcars, aes(mpg, disp)) +
-  with_interpolate(geom_point(data = mtcars, size = 3))
+ggplot(mpg, aes(class, hwy)) +
+  as_reference(geom_boxplot(), 'box') +
+  with_interpolate(geom_point(), bg_layer = 'box', src_percent = 70)
 
 }
