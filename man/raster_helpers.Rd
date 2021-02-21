@@ -12,7 +12,7 @@
 \alias{raster_helpers}
 \title{Raster Helpers}
 \usage{
-blend_raster(x, bg_layer, blend_type = "Over", flip_order = FALSE)
+blend_raster(x, bg_layer, blend_type = "Over", flip_order = FALSE, alpha = NA)
 
 blend_custom_raster(x, bg_layer, a, b, c, d, flip_order = FALSE)
 

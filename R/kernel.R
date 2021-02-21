@@ -62,6 +62,12 @@ with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations =
 }
 #' @rdname with_kernel
 #' @export
+with_kernel.function <- with_kernel.character
+#' @rdname with_kernel
+#' @export
+with_kernel.formula <- with_kernel.character
+#' @rdname with_kernel
+#' @export
 with_kernel.element <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {
   filter_element_constructor(x, with_kernel, kernel = kernel, iterations = iterations,

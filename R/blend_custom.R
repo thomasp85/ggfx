@@ -66,6 +66,12 @@ with_blend_custom.character <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
 }
 #' @rdname with_blend_custom
 #' @export
+with_blend_custom.function <- with_blend_custom.character
+#' @rdname with_blend_custom
+#' @export
+with_blend_custom.formula <- with_blend_custom.character
+#' @rdname with_blend_custom
+#' @export
 with_blend_custom.element <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                       flip_order = FALSE, ...) {
   filter_element_constructor(x, bg_layer = bg_layer, a = a, b = b, c = c, d = d,
@@ -86,7 +92,7 @@ with_blend_custom.guide <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
 blend_custom_raster <- function(x, bg_layer, a, b, c, d, flip_order = FALSE) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  if (length(bg_layer) == 1 && is.character(bg_layer)) bg_layer <- fetch_raster(bg_layer)
+  bg_layer <- get_layer(bg_layer)
   bg_layer <- image_read(bg_layer)
   bg_layer <- image_resize(bg_layer, geometry_size_pixels(dim$width, dim$height, FALSE))
   layers <- list(bg_layer, raster)

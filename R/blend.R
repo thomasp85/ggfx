@@ -98,6 +98,11 @@
 #'   of the source
 #' - `"colorize"`: Combines hue and saturate
 #'
+#' ### Special blends
+#'
+#' - `"unique"`: Only keep pixels in the source that differ from the
+#'   destination.
+#'
 #' The above is obviously a very quick overview. More information can be found
 #' in <https://legacy.imagemagick.org/Usage/compose/>
 #'
@@ -128,7 +133,7 @@
 #'     scale = unit(0.025, 'npc')
 #'   )
 #'
-with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, ...) {
+with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, alpha = NA, ...) {
   UseMethod('with_blend')
 }
 blend_types <- c(
@@ -173,78 +178,90 @@ blend_types <- c(
   'hue',
   'saturate',
   'luminize',
-  'colorize'
+  'colorize',
+  'unique'
 )
 resolve_blend_type <- function(type) {
   type <- match.arg(tolower(type), blend_types)
   type <- gsub('(_|^)(.)', '\\U\\2', type, perl = TRUE)
   if (type == 'Source') type <- 'Src'
   if (type == 'Destination') type <- 'Dst'
+  if (type == 'Unique') type <- 'Change_Mask'
   type
 }
 #' @rdname with_blend
 #' @importFrom grid gTree
 #' @export
 with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
-                            ..., background = NULL, id = NULL,
+                            alpha = NA, ..., background = NULL, id = NULL,
                             include = is.null(id)) {
   blend_type <- resolve_blend_type(blend_type)
   gTree(grob = x, bg_layer = bg_layer, blend_type = blend_type,
-        flip_order = flip_order, background = background, id = id,
-        include = isTRUE(include), cl = 'blended_grob')
+        flip_order = flip_order, alpha = tolower(alpha), background = background,
+        id = id, include = isTRUE(include), cl = 'blended_grob')
 }
 #' @rdname with_blend
 #' @importFrom ggplot2 ggproto
 #' @export
 with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
-                             ..., id = NULL, include = is.null(id)) {
+                             alpha = NA, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
-                           flip_order = flip_order, ..., include = include,
+                           flip_order = flip_order, alpha = alpha, ..., include = include,
                            ids = list(id = id, bg_layer = bg_layer))
 }
 #' @rdname with_blend
 #' @export
 with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
-                              flip_order = FALSE, ignore_background = TRUE, ...) {
+                              flip_order = FALSE, alpha = NA,
+                              ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_blend, bg_layer = bg_layer,
                             blend_type = blend_type, flip_order = flip_order,
-                            ..., ignore_background = ignore_background)
+                            alpha = alpha, ..., ignore_background = ignore_background)
 }
 
 #' @rdname with_blend
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend.character <- function(x, bg_layer, blend_type = 'over',
-                                 flip_order = FALSE, ..., id = NULL,
+                                 flip_order = FALSE, alpha = NA, ..., id = NULL,
                                  include = is.null(id)) {
   filter_character_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
-                               flip_order = flip_order, ..., include = include,
-                               ids = list(id = id, bg_layer = bg_layer))
+                               flip_order = flip_order, alpha = alpha, ...,
+                               include = include, ids = list(id = id, bg_layer = bg_layer))
 }
 #' @rdname with_blend
 #' @export
+with_blend.function <- with_blend.character
+#' @rdname with_blend
+#' @export
+with_blend.formula <- with_blend.character
+
+#' @rdname with_blend
+#' @export
 with_blend.element <- function(x, bg_layer, blend_type = 'over',
-                               flip_order = FALSE, ...) {
+                               flip_order = FALSE, alpha = NA, ...) {
   filter_element_constructor(x, with_blend, bg_layer = bg_layer,
                             blend_type = blend_type, flip_order = flip_order,
-                            ...)
+                            alpha = NA, ...)
 }
 #' @rdname with_blend
 #' @export
 with_blend.guide <- function(x, bg_layer, blend_type = 'over',
-                             flip_order = FALSE, ...) {
+                             flip_order = FALSE, alpha = NA, ...) {
   filter_guide_constructor(x, with_blend, bg_layer = bg_layer,
-                           blend_type = blend_type, flip_order = flip_order, ...)
+                           blend_type = blend_type, flip_order = flip_order,
+                           alpha = NA, ...)
 }
 
 #' @rdname raster_helpers
 #' @importFrom magick image_read image_blur image_destroy image_composite geometry_size_pixels image_info image_resize image_convert
 #' @export
 #' @keywords internal
-blend_raster <- function(x, bg_layer, blend_type = 'Over', flip_order = FALSE) {
+blend_raster <- function(x, bg_layer, blend_type = 'Over', flip_order = FALSE,
+                         alpha = NA) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  if (length(bg_layer) == 1 && is.character(bg_layer)) bg_layer <- fetch_raster(bg_layer)
+  bg_layer <- get_layer(bg_layer)
   bg_layer <- image_read(bg_layer)
   bg_layer <- image_resize(bg_layer, geometry_size_pixels(dim$width, dim$height, FALSE))
   layers <- list(bg_layer, raster)
@@ -253,6 +270,10 @@ blend_raster <- function(x, bg_layer, blend_type = 'Over', flip_order = FALSE) {
     layers[[2]] <- image_convert(layers[[2]], colorspace = 'gray')
   }
   result <- image_composite(layers[[1]], layers[[2]], blend_type)
+  if (!is.na(alpha)) {
+    alpha_mask <- if (alpha == 'src') layers[[2]] else layers[[1]]
+    result <- image_composite(alpha_mask, result, operator = 'in')
+  }
   x <- as.integer(result)
   image_destroy(raster)
   image_destroy(bg_layer)
@@ -264,7 +285,7 @@ blend_raster <- function(x, bg_layer, blend_type = 'Over', flip_order = FALSE) {
 #' @export
 makeContent.blended_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  raster <- blend_raster(ras$raster, x$bg_layer, x$blend_type, x$flip_order)
+  raster <- blend_raster(ras$raster, x$bg_layer, x$blend_type, x$flip_order, x$alpha)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }

@@ -54,6 +54,12 @@ with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
 }
 #' @rdname with_raster
 #' @export
+with_raster.function <- with_raster.character
+#' @rdname with_raster
+#' @export
+with_raster.formula <- with_raster.character
+#' @rdname with_raster
+#' @export
 with_raster.element <- function(x, ...) {
   filter_element_constructor(x, with_raster, ...)
 }

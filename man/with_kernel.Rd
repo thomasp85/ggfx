@@ -6,6 +6,8 @@
 \alias{with_kernel.Layer}
 \alias{with_kernel.ggplot}
 \alias{with_kernel.character}
+\alias{with_kernel.function}
+\alias{with_kernel.formula}
 \alias{with_kernel.element}
 \alias{with_kernel.guide}
 \title{Apply a gaussian blur to your layer}
@@ -57,6 +59,30 @@ with_kernel(
 )
 
 \method{with_kernel}{character}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_kernel}{`function`}(
+  x,
+  kernel = kernel_gaussian(0.5),
+  iterations = 1,
+  scaling = NULL,
+  bias = NULL,
+  stack = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_kernel}{formula}(
   x,
   kernel = kernel_gaussian(0.5),
   iterations = 1,

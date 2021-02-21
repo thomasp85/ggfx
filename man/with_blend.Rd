@@ -6,17 +6,27 @@
 \alias{with_blend.Layer}
 \alias{with_blend.ggplot}
 \alias{with_blend.character}
+\alias{with_blend.function}
+\alias{with_blend.formula}
 \alias{with_blend.element}
 \alias{with_blend.guide}
 \title{Blend a layer with a reference}
 \usage{
-with_blend(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
+with_blend(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
+  alpha = NA,
+  ...
+)
 
 \method{with_blend}{grob}(
   x,
   bg_layer,
   blend_type = "over",
   flip_order = FALSE,
+  alpha = NA,
   ...,
   background = NULL,
   id = NULL,
@@ -28,6 +38,7 @@ with_blend(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
   bg_layer,
   blend_type = "over",
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -38,6 +49,7 @@ with_blend(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
   bg_layer,
   blend_type = "over",
   flip_order = FALSE,
+  alpha = NA,
   ignore_background = TRUE,
   ...
 )
@@ -47,14 +59,51 @@ with_blend(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
   bg_layer,
   blend_type = "over",
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
 )
 
-\method{with_blend}{element}(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
+\method{with_blend}{`function`}(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
+  alpha = NA,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
 
-\method{with_blend}{guide}(x, bg_layer, blend_type = "over", flip_order = FALSE, ...)
+\method{with_blend}{formula}(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
+  alpha = NA,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_blend}{element}(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
+  alpha = NA,
+  ...
+)
+
+\method{with_blend}{guide}(
+  x,
+  bg_layer,
+  blend_type = "over",
+  flip_order = FALSE,
+  alpha = NA,
+  ...
+)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -190,6 +239,13 @@ saturation of the source
 \item \code{"luminize"}: Replaces the luminance of the destination with the luminance
 of the source
 \item \code{"colorize"}: Combines hue and saturate
+}
+}
+
+\subsection{Special blends}{
+\itemize{
+\item \code{"unique"}: Only keep pixels in the source that differ from the
+destination.
 }
 
 The above is obviously a very quick overview. More information can be found

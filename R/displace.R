@@ -75,6 +75,12 @@ with_displacement.character <- function(x, map, x_channel, y_channel, scale, ...
 }
 #' @rdname with_displacement
 #' @export
+with_displacement.function <- with_displacement.character
+#' @rdname with_displacement
+#' @export
+with_displacement.formula <- with_displacement.character
+#' @rdname with_displacement
+#' @export
 with_displacement.element <- function(x, map, x_channel, y_channel, scale, ...) {
   filter_element_constructor(x, with_displacement, map = map,
                              x_channel = x_channel, y_channel = y_channel,
@@ -95,7 +101,7 @@ with_displacement.guide <- function(x, map, x_channel, y_channel, scale, ...) {
 displace_raster <- function(x, map, x_channel, y_channel, scale) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  if (length(map) == 1 && is.character(map)) map <- fetch_raster(map)
+  map <- get_layer(map)
   map <- image_read(map)
   map <- image_resize(map, geometry_size_pixels(dim$width, dim$height, FALSE))
   x <- image_channel(map, x_channel)

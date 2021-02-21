@@ -6,6 +6,8 @@
 \alias{with_displacement.Layer}
 \alias{with_displacement.ggplot}
 \alias{with_displacement.character}
+\alias{with_displacement.function}
+\alias{with_displacement.formula}
 \alias{with_displacement.element}
 \alias{with_displacement.guide}
 \title{Apply a displacement map to a layer}
@@ -46,6 +48,28 @@ with_displacement(x, map, x_channel, y_channel, scale, ...)
 )
 
 \method{with_displacement}{character}(
+  x,
+  map,
+  x_channel,
+  y_channel,
+  scale,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_displacement}{`function`}(
+  x,
+  map,
+  x_channel,
+  y_channel,
+  scale,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_displacement}{formula}(
   x,
   map,
   x_channel,

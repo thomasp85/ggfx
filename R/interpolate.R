@@ -56,6 +56,12 @@ with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 10
 }
 #' @rdname with_interpolate
 #' @export
+with_interpolate.function <- with_interpolate.character
+#' @rdname with_interpolate
+#' @export
+with_interpolate.formula <- with_interpolate.character
+#' @rdname with_interpolate
+#' @export
 with_interpolate.element <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
   filter_element_constructor(x, with_interpolate, bg_layer = bg_layer,
                              src_percent = src_percent, bg_percent = bg_percent, ...)
@@ -76,7 +82,7 @@ interpolate_raster <- function(x, bg_layer, src_percent, bg_percent) {
   bg_percent <- max(min(bg_percent, 100), 0)
   raster <- image_read(x)
   dim <- image_info(raster)
-  if (length(bg_layer) == 1 && is.character(bg_layer)) bg_layer <- fetch_raster(bg_layer)
+  bg_layer <- get_layer(bg_layer)
   bg_layer <- image_read(bg_layer)
   bg_layer <- image_resize(bg_layer, geometry_size_pixels(dim$width, dim$height, FALSE))
   raster <- image_composite(bg_layer, raster, 'Blend', compose_args = paste0(src_percent, 'x', bg_percent))

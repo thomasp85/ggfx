@@ -6,6 +6,8 @@
 \alias{with_shadow.Layer}
 \alias{with_shadow.ggplot}
 \alias{with_shadow.character}
+\alias{with_shadow.function}
+\alias{with_shadow.formula}
 \alias{with_shadow.element}
 \alias{with_shadow.guide}
 \title{Apply a drop shadow to a layer}
@@ -57,6 +59,30 @@ with_shadow(
 )
 
 \method{with_shadow}{character}(
+  x,
+  colour = "black",
+  x_offset = 10,
+  y_offset = 10,
+  sigma = 1,
+  stack = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_shadow}{`function`}(
+  x,
+  colour = "black",
+  x_offset = 10,
+  y_offset = 10,
+  sigma = 1,
+  stack = TRUE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_shadow}{formula}(
   x,
   colour = "black",
   x_offset = 10,

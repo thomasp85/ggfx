@@ -6,6 +6,8 @@
 \alias{with_blend_custom.Layer}
 \alias{with_blend_custom.ggplot}
 \alias{with_blend_custom.character}
+\alias{with_blend_custom.function}
+\alias{with_blend_custom.formula}
 \alias{with_blend_custom.element}
 \alias{with_blend_custom.guide}
 \title{Create a custom blend type}
@@ -60,6 +62,32 @@ with_blend_custom(
 )
 
 \method{with_blend_custom}{character}(
+  x,
+  bg_layer,
+  a = 0,
+  b = 0,
+  c = 0,
+  d = 0,
+  flip_order = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_blend_custom}{`function`}(
+  x,
+  bg_layer,
+  a = 0,
+  b = 0,
+  c = 0,
+  d = 0,
+  flip_order = FALSE,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_blend_custom}{formula}(
   x,
   bg_layer,
   a = 0,

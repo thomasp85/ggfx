@@ -66,6 +66,12 @@ with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
 }
 #' @rdname with_blur
 #' @export
+with_blur.function <- with_blur.character
+#' @rdname with_blur
+#' @export
+with_blur.formula <- with_blur.character
+#' @rdname with_blur
+#' @export
 with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
   filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }

@@ -27,6 +27,20 @@ raster_id <- function(id, index) {
   }
 }
 
+#' @importFrom grDevices as.raster dev.size
+get_layer <- function(x) {
+  if (is_formula(x)) x <- as_function(x)
+  if (is_function(x)) {
+    dim <- dev.size('px')
+    res <- dim[1] / dev.size('in')[1]
+    x(dim, res)
+  } else if (length(x) == 1 && is.character(x)) {
+    fetch_raster(x)
+  } else {
+    as.raster(x)
+  }
+}
+
 reference_grob <- function(id) {
   gTree(id = id, cl = 'reference_grob')
 }
@@ -35,7 +49,7 @@ is_reference_grob <- function(x) inherits(x, 'reference_grob')
 #' @importFrom grid deviceLoc current.parent current.viewport upViewport downViewport rasterGrob unit setChildren gList
 #' @export
 makeContent.reference_grob <- function(x) {
-  raster <- fetch_raster(x$id)
+  raster <- get_layer(x$id)
   vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
   if (!is.null(current.parent())) {
     vpname <- current.viewport()$name

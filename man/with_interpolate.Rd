@@ -6,6 +6,8 @@
 \alias{with_interpolate.Layer}
 \alias{with_interpolate.ggplot}
 \alias{with_interpolate.character}
+\alias{with_interpolate.function}
+\alias{with_interpolate.formula}
 \alias{with_interpolate.element}
 \alias{with_interpolate.guide}
 \title{Blend two layerrs together by averaging them out}
@@ -42,6 +44,26 @@ with_interpolate(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
 )
 
 \method{with_interpolate}{character}(
+  x,
+  bg_layer,
+  src_percent,
+  bg_percent = 100 - src_percent,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_interpolate}{`function`}(
+  x,
+  bg_layer,
+  src_percent,
+  bg_percent = 100 - src_percent,
+  ...,
+  id = NULL,
+  include = is.null(id)
+)
+
+\method{with_interpolate}{formula}(
   x,
   bg_layer,
   src_percent,

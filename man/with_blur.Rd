@@ -6,6 +6,8 @@
 \alias{with_blur.Layer}
 \alias{with_blur.ggplot}
 \alias{with_blur.character}
+\alias{with_blur.function}
+\alias{with_blur.formula}
 \alias{with_blur.element}
 \alias{with_blur.guide}
 \title{Apply a gaussian blur to your layer}
@@ -27,6 +29,10 @@ with_blur(x, sigma = 0.5, stack = FALSE, ...)
 \method{with_blur}{ggplot}(x, sigma = 0.5, stack = FALSE, ignore_background = TRUE, ...)
 
 \method{with_blur}{character}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
+
+\method{with_blur}{`function`}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
+
+\method{with_blur}{formula}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
 
 \method{with_blur}{element}(x, sigma = 0.5, stack = FALSE, ...)
 

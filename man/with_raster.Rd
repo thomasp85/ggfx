@@ -7,6 +7,8 @@
 \alias{with_raster.Layer}
 \alias{with_raster.ggplot}
 \alias{with_raster.character}
+\alias{with_raster.function}
+\alias{with_raster.formula}
 \alias{with_raster.element}
 \alias{with_raster.guide}
 \title{Convert a layer to a raster}
@@ -22,6 +24,10 @@ as_reference(x, id)
 \method{with_raster}{ggplot}(x, ignore_background = TRUE, ...)
 
 \method{with_raster}{character}(x, ..., id = NULL, include = is.null(id))
+
+\method{with_raster}{`function`}(x, ..., id = NULL, include = is.null(id))
+
+\method{with_raster}{formula}(x, ..., id = NULL, include = is.null(id))
 
 \method{with_raster}{element}(x, ...)
 
