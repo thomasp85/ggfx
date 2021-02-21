@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ggfx.data-imaginist.com/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/ggfx-package.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/raster_helpers.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_blend.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_blend_custom.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_blur.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_displacement.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_interpolate.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_kernel.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_shadow.html</loc>
+  </url>
+</urlset>
