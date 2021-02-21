@@ -112,6 +112,9 @@
 #' @param blend_type The type of blending to perform. See *Details*
 #' @param flip_order Should the order of the background and the overlay be
 #' flipped so that `bg_layer` is treated as being on top and `x` being below.
+#' @param alpha For non-Duff-Porter blends the alpha channel may become modified.
+#' This argument can be used to set the resulting alpha channel to that of the
+#' source (`"src"`) or destination (`"dst"`)
 #' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
