@@ -133,6 +133,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -145,6 +146,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
@@ -159,6 +161,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
@@ -173,6 +176,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   ignore_background <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
@@ -186,6 +190,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
@@ -200,6 +205,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
@@ -214,6 +220,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
@@ -228,6 +235,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -240,6 +248,7 @@ gives you free reign over setting the coefficient of the blend calculation.</p>
   c <span class='op'>=</span> <span class='fl'>0</span>,
   d <span class='op'>=</span> <span class='fl'>0</span>,
   flip_order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  alpha <span class='op'>=</span> <span class='cn'>NA</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -265,6 +274,12 @@ to match the dimensions of x.</p></td>
       <th>flip_order</th>
       <td><p>Should the order of the background and the overlay be
 flipped so that <code>bg_layer</code> is treated as being on top and <code>x</code> being below.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>For non-Duff-Porter blends the alpha channel may become modified.
+This argument can be used to set the resulting alpha channel to that of the
+source (<code>"src"</code>) or destination (<code>"dst"</code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
