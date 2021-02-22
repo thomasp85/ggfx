@@ -20,6 +20,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...
 )
 
@@ -31,6 +32,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -44,6 +46,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -57,6 +60,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ignore_background = TRUE,
   ...
 )
@@ -69,6 +73,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -82,6 +87,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -95,6 +101,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...,
   id = NULL,
   include = is.null(id)
@@ -108,6 +115,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...
 )
 
@@ -119,6 +127,7 @@ with_blend_custom(
   c = 0,
   d = 0,
   flip_order = FALSE,
+  alpha = NA,
   ...
 )
 }
@@ -134,6 +143,10 @@ to match the dimensions of x.}
 
 \item{flip_order}{Should the order of the background and the overlay be
 flipped so that \code{bg_layer} is treated as being on top and \code{x} being below.}
+
+\item{alpha}{For non-Duff-Porter blends the alpha channel may become modified.
+This argument can be used to set the resulting alpha channel to that of the
+source (\code{"src"}) or destination (\code{"dst"})}
 
 \item{...}{Arguments to be passed on to methods}
 

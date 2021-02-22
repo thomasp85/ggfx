@@ -125,15 +125,13 @@
 #' library(ggplot2)
 #' ggplot() +
 #'   as_reference(
-#'     geom_polygon(aes(c(0, 1, 1), c(0, 0, 1)), colour = NA, fill = 'magenta' ),
-#'     id = "displace_map"
+#'     geom_text(aes(0.5, 0.5, label = 'Blend Modes!'), size = 10, fontface = 'bold'),
+#'     id = "text"
 #'   ) +
-#'   with_displacement(
-#'     geom_text(aes(0.5, 0.5, label = 'Displacements!'), size = 10),
-#'     map = "displace_map",
-#'     x_channel = "red",
-#'     y_channel = "blue",
-#'     scale = unit(0.025, 'npc')
+#'   with_blend(
+#'     geom_polygon(aes(c(0, 1, 1), c(0, 0, 1)), colour = NA, fill = 'magenta'),
+#'     bg_layer = "text",
+#'     blend_type = 'xor'
 #'   )
 #'
 with_blend <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE, alpha = NA, ...) {
