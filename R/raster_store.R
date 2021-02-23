@@ -21,7 +21,7 @@ purge_store <- function(age = 600) {
 
 raster_id <- function(id, index) {
   if (length(id) == 1 && is.character(id)) {
-    paste0(id, '_<', index, '>')
+    set_channel(paste0(id, '_<', index, '>'), get_channel(id))
   } else {
     id
   }

@@ -12,14 +12,14 @@
 \alias{with_displacement.guide}
 \title{Apply a displacement map to a layer}
 \usage{
-with_displacement(x, map, x_channel, y_channel, scale, ...)
+with_displacement(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
 
 \method{with_displacement}{grob}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ...,
   background = NULL,
   id = NULL,
@@ -28,10 +28,10 @@ with_displacement(x, map, x_channel, y_channel, scale, ...)
 
 \method{with_displacement}{Layer}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ...,
   id = NULL,
   include = is.null(id)
@@ -39,20 +39,20 @@ with_displacement(x, map, x_channel, y_channel, scale, ...)
 
 \method{with_displacement}{ggplot}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ignore_background = TRUE,
   ...
 )
 
 \method{with_displacement}{character}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ...,
   id = NULL,
   include = is.null(id)
@@ -60,10 +60,10 @@ with_displacement(x, map, x_channel, y_channel, scale, ...)
 
 \method{with_displacement}{`function`}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ...,
   id = NULL,
   include = is.null(id)
@@ -71,33 +71,31 @@ with_displacement(x, map, x_channel, y_channel, scale, ...)
 
 \method{with_displacement}{formula}(
   x,
-  map,
-  x_channel,
-  y_channel,
-  scale,
+  x_map,
+  y_map = x_map,
+  x_scale = 1,
+  y_scale = x_scale,
   ...,
   id = NULL,
   include = is.null(id)
 )
 
-\method{with_displacement}{element}(x, map, x_channel, y_channel, scale, ...)
+\method{with_displacement}{element}(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
 
-\method{with_displacement}{guide}(x, map, x_channel, y_channel, scale, ...)
+\method{with_displacement}{guide}(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
 naming a filter}
 
-\item{map}{The displacement map to use. Can either be a string identifying a
-registered filter, or a raster object. The map will be resized to match the
-dimensions of x.}
+\item{x_map, y_map}{The displacement maps to use. Can either be a string
+identifying a registered filter, or a raster object. The maps will be resized
+to match the dimensions of x. Only one channel will be used - see
+\link[=Channels]{the docs on channels} for info on how to set them.}
 
-\item{x_channel, y_channel}{Which channel to use for the displacement in the
-x and y direction.}
-
-\item{scale}{How much displacement should a maximal channel value correspond
-to? If a numeric it will be interpreted as pixel dimensions. If a unit object
-it will be converted to pixel dimension when rendered.}
+\item{x_scale, y_scale}{How much displacement should a maximal channel value
+correspond to? If a numeric it will be interpreted as pixel dimensions. If a
+unit object it will be converted to pixel dimension when rendered.}
 
 \item{...}{Arguments to be passed on to methods}
 
@@ -126,10 +124,10 @@ ggplot() +
   ) +
   with_displacement(
     geom_text(aes(0.5, 0.5, label = 'Displacements!'), size = 10),
-    map = "displace_map",
-    x_channel = "red",
-    y_channel = "blue",
-    scale = unit(0.025, 'npc')
+    x_map = ch_red("displace_map"),
+    y_map = ch_blue("displace_map"),
+    x_scale = unit(0.025, 'npc'),
+    y_scale = unit(0.025, 'npc')
   )
 
 }

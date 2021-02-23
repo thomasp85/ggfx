@@ -3,14 +3,13 @@
 #' This filter displaces the pixels based on the colour values of another layer
 #' or raster object. As such it can be used to distort the content of the layer.
 #'
-#' @param map The displacement map to use. Can either be a string identifying a
-#' registered filter, or a raster object. The map will be resized to match the
-#' dimensions of x.
-#' @param x_channel,y_channel Which channel to use for the displacement in the
-#' x and y direction.
-#' @param scale How much displacement should a maximal channel value correspond
-#' to? If a numeric it will be interpreted as pixel dimensions. If a unit object
-#' it will be converted to pixel dimension when rendered.
+#' @param x_map,y_map The displacement maps to use. Can either be a string
+#' identifying a registered filter, or a raster object. The maps will be resized
+#' to match the dimensions of x. Only one channel will be used - see
+#' [the docs on channels][Channels] for info on how to set them.
+#' @param x_scale,y_scale How much displacement should a maximal channel value
+#' correspond to? If a numeric it will be interpreted as pixel dimensions. If a
+#' unit object it will be converted to pixel dimension when rendered.
 #' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
@@ -26,52 +25,50 @@
 #'   ) +
 #'   with_displacement(
 #'     geom_text(aes(0.5, 0.5, label = 'Displacements!'), size = 10),
-#'     map = "displace_map",
-#'     x_channel = "red",
-#'     y_channel = "blue",
-#'     scale = unit(0.025, 'npc')
+#'     x_map = ch_red("displace_map"),
+#'     y_map = ch_blue("displace_map"),
+#'     x_scale = unit(0.025, 'npc'),
+#'     y_scale = unit(0.025, 'npc')
 #'   )
 #'
-with_displacement <- function(x, map, x_channel, y_channel, scale, ...) {
+with_displacement <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
   UseMethod('with_displacement')
 }
 #' @rdname with_displacement
 #' @importFrom grid gTree
 #' @export
-with_displacement.grob <- function(x, map, x_channel, y_channel, scale, ...,
+with_displacement.grob <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
                                    background = NULL, id = NULL, include = is.null(id)) {
-  gTree(grob = x, map = map, x_channel = x_channel, y_channel = y_channel,
-        scale = scale, background = background, id = id,
+  gTree(grob = x, x_map = x_map, y_map = y_map, x_scale = x_scale,
+        y_scale = y_scale, background = background, id = id,
         include = isTRUE(include), cl = 'displacement_grob')
 }
 #' @rdname with_displacement
 #' @importFrom ggplot2 ggproto
 #' @export
-with_displacement.Layer <- function(x, map, x_channel, y_channel, scale, ...,
+with_displacement.Layer <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
                                     id = NULL, include = is.null(id)) {
-  filter_layer_constructor(x, with_displacement, 'DisplacedGeom',
-                           x_channel = x_channel, y_channel = y_channel,
-                           scale = scale, ..., include = include,
-                           ids = list(id = id, map = map))
+  filter_layer_constructor(x, with_displacement, 'DisplacedGeom', x_scale = x_scale,
+                           y_scale = y_scale, ..., include = include,
+                           ids = list(id = id, x_map = x_map, y_map = y_map))
 }
 #' @rdname with_displacement
 #' @export
-with_displacement.ggplot <- function(x, map, x_channel, y_channel, scale,
+with_displacement.ggplot <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale,
                                      ignore_background = TRUE, ...) {
-  filter_ggplot_constructor(x, with_displacement, map = map,
-                            x_channel = x_channel, y_channel = y_channel,
-                            scale = scale, ..., ignore_background = ignore_background)
+  filter_ggplot_constructor(x, with_displacement, x_map = x_map, y_map = y_map,
+                            x_scale = x_scale, y_scale = y_scale, ...,
+                            ignore_background = ignore_background)
 }
 
 #' @rdname with_displacement
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
-with_displacement.character <- function(x, map, x_channel, y_channel, scale, ...,
+with_displacement.character <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
                                         id = NULL, include = is.null(id)) {
-  filter_character_constructor(x, with_displacement, 'DisplacedGeom',
-                               x_channel = x_channel, y_channel = y_channel,
-                               scale = scale, ..., include = include,
-                               ids = list(id = id, map = map))
+  filter_character_constructor(x, with_displacement, 'DisplacedGeom', x_scale = x_scale,
+                               y_scale = y_scale, ..., include = include,
+                               ids = list(id = id, x_map = x_map, y_map = y_map))
 }
 #' @rdname with_displacement
 #' @export
@@ -81,37 +78,35 @@ with_displacement.function <- with_displacement.character
 with_displacement.formula <- with_displacement.character
 #' @rdname with_displacement
 #' @export
-with_displacement.element <- function(x, map, x_channel, y_channel, scale, ...) {
-  filter_element_constructor(x, with_displacement, map = map,
-                             x_channel = x_channel, y_channel = y_channel,
-                             scale = scale, ...)
+with_displacement.element <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
+  filter_element_constructor(x, with_displacement, x_map = x_map, y_map = y_map,
+                             x_scale = x_scale, y_scale = y_scale, ...)
 }
 #' @rdname with_displacement
 #' @export
-with_displacement.guide <- function(x, map, x_channel, y_channel, scale, ...) {
-  filter_guide_constructor(x, with_displacement, map = map,
-                           x_channel = x_channel, y_channel = y_channel,
-                           scale = scale, ...)
+with_displacement.guide <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
+  filter_guide_constructor(x, with_displacement, x_map = x_map, y_map = y_map,
+                           x_scale = x_scale, y_scale = y_scale, ...)
 }
 
 #' @rdname raster_helpers
-#' @importFrom magick image_read image_blur image_destroy image_composite geometry_size_pixels image_info image_resize image_channel image_combine
+#' @importFrom magick image_read image_blur image_destroy image_composite geometry_size_pixels image_info image_resize image_combine
 #' @export
 #' @keywords internal
-displace_raster <- function(x, map, x_channel, y_channel, scale) {
+displace_raster <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  map <- get_layer(map)
-  map <- image_read(map)
-  map <- image_resize(map, geometry_size_pixels(dim$width, dim$height, FALSE))
-  x <- image_channel(map, x_channel)
-  y <- if (x_channel == y_channel) x else image_channel(map, y_channel)
-  a <- image_channel(map, 'alpha')
-  map <- image_combine(c(x, y, y, a))
-  raster <- image_composite(raster, map, 'displace', compose_args = paste0(scale, 'x', scale))
+  x_map <- magick_channel(x_map)
+  x_map <- image_resize(x_map, geometry_size_pixels(dim$width, dim$height, FALSE))
+  y_map <- magick_channel(y_map)
+  y_map <- image_resize(y_map, geometry_size_pixels(dim$width, dim$height, FALSE))
+  map <- image_combine(c(x_map, y_map))
+  raster <- image_composite(raster, map, 'displace', compose_args = paste0(x_scale, 'x', y_scale))
   x <- as.integer(raster)
   image_destroy(raster)
   image_destroy(map)
+  image_destroy(x_map)
+  image_destroy(y_map)
   x
 }
 
@@ -119,7 +114,7 @@ displace_raster <- function(x, map, x_channel, y_channel, scale) {
 #' @export
 makeContent.displacement_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  raster <- displace_raster(ras$raster, x$map, x$x_channel, x$y_channel, as_pixels(x$scale))
+  raster <- displace_raster(ras$raster, x$x_map, x$y_map, as_pixels(x$x_scale), as_pixels(x$y_scale))
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }
