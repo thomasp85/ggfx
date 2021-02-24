@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggfx: Filters and Shaders for 'ggplot2' — ggfx-package • ggfx</title>
+<title>Rendering information — render_context • ggfx</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,10 @@
 
 
 
-<meta property="og:title" content="ggfx: Filters and Shaders for 'ggplot2' — ggfx-package" />
-<meta property="og:description" content="Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing." />
+<meta property="og:title" content="Rendering information — render_context" />
+<meta property="og:description" content="These utility functions can help when creating custom filters (using
+with_custom()) as they can provide information about the current rendering
+context." />
 
 
 
@@ -113,30 +113,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggfx: Filters and Shaders for 'ggplot2'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/ggfx-package.R'><code>R/ggfx-package.R</code></a></small>
-    <div class="hidden name"><code>ggfx-package.Rd</code></div>
+    <h1>Rendering information</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/rasterise_grob.R'><code>R/rasterise_grob.R</code></a></small>
+    <div class="hidden name"><code>render_context.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing.</p>
+    <p>These utility functions can help when creating custom filters (using
+<code><a href='with_custom.html'>with_custom()</a></code>) as they can provide information about the current rendering
+context.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>viewport_location</span><span class='op'>(</span><span class='op'>)</span>
 
+<span class='fu'>viewport_is_clipping</span><span class='op'>(</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+<span class='fu'>current_resolution</span><span class='op'>(</span><span class='op'>)</span>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/thomasp85/ggfx'>https://github.com/thomasp85/ggfx</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/thomasp85/ggfx/issues'>https://github.com/thomasp85/ggfx/issues</a></p></li>
+<span class='fu'>as_pixels</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>from_pixels</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A numeric or <a href='https://rdrr.io/r/grid/unit.html'>grid::unit</a> object</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>See details</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p><code>viewport_location()</code>: Returns the bounding box defining the current
+viewport in pixels in the order <code>xmin</code>, <code>ymin</code>, <code>xmax</code>, <code>ymax</code></p></li>
+<li><p><code>viewport_is_clipping()</code>: Returns <code>TRUE</code> if the current viewport has
+clipping turned on</p></li>
+<li><p><code>current_resolution()</code>: Returns the resolution of the active device in ppi
+(pixels-per-inch)</p></li>
+<li><p><code>as_pixels(x)</code>: Converts <code>x</code> to pixels if <code>x</code> is given as a unit object. It
+is assumed that x encodes a dimension and not a location. If <code>x</code> is a
+numeric it is assumed to already be in pixels</p></li>
+<li><p><code>from_pixels</code>: Converts a numeric giving some pixel dimension to a unit
+object.</p></li>
 </ul>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p><strong>Maintainer</strong>: Thomas Lin Pedersen <a href='mailto:thomasp85@gmail.com'>thomasp85@gmail.com</a> (<a href='https://orcid.org/0000-0002-5147-4711'>ORCID</a>)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

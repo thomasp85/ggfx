@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply a displacement map to a layer — with_displacement • ggfx</title>
+<title>Apply a variable blur to a layer — with_variable_blur • ggfx</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,12 @@
 
 
 
-<meta property="og:title" content="Apply a displacement map to a layer — with_displacement" />
-<meta property="og:description" content="This filter displaces the pixels based on the colour values of another layer
-or raster object. As such it can be used to distort the content of the layer." />
+<meta property="og:title" content="Apply a variable blur to a layer — with_variable_blur" />
+<meta property="og:description" content="This filter will blur a layer, but in contrast to with_blur() the amount
+and nature of the blur need not be constant across the layer. The blurring is
+based on a weighted ellipsoid, with width and height based on the values in
+the corresponding x_sigma and y_sigma layers. The angle of the ellipsoid
+can also be controlled and further varied based on another layer." />
 
 
 
@@ -112,25 +115,39 @@ or raster object. As such it can be used to distort the content of the layer." /
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply a displacement map to a layer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/displace.R'><code>R/displace.R</code></a></small>
-    <div class="hidden name"><code>with_displacement.Rd</code></div>
+    <h1>Apply a variable blur to a layer</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/variable_blur.R'><code>R/variable_blur.R</code></a></small>
+    <div class="hidden name"><code>with_variable_blur.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This filter displaces the pixels based on the colour values of another layer
-or raster object. As such it can be used to distort the content of the layer.</p>
+    <p>This filter will blur a layer, but in contrast to <code><a href='with_blur.html'>with_blur()</a></code> the amount
+and nature of the blur need not be constant across the layer. The blurring is
+based on a weighted ellipsoid, with width and height based on the values in
+the corresponding <code>x_sigma</code> and <code>y_sigma</code> layers. The angle of the ellipsoid
+can also be controlled and further varied based on another layer.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_displacement</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x_map</span>, y_map <span class='op'>=</span> <span class='va'>x_map</span>, x_scale <span class='op'>=</span> <span class='fl'>1</span>, y_scale <span class='op'>=</span> <span class='va'>x_scale</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grob</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for grob</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_scale <span class='op'>=</span> <span class='fl'>1</span>,
+  y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>,
   background <span class='op'>=</span> <span class='cn'>NULL</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -138,69 +155,97 @@ or raster object. As such it can be used to distort the content of the layer.</p
 <span class='op'>)</span>
 
 <span class='co'># S3 method for Layer</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for ggplot</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   ignore_background <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for `function`</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
   <span class='va'>x</span>,
-  <span class='va'>x_map</span>,
-  y_map <span class='op'>=</span> <span class='va'>x_map</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
   x_scale <span class='op'>=</span> <span class='fl'>1</span>,
   y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>...</span>,
   id <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for element</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x_map</span>, y_map <span class='op'>=</span> <span class='va'>x_map</span>, x_scale <span class='op'>=</span> <span class='fl'>1</span>, y_scale <span class='op'>=</span> <span class='va'>x_scale</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_scale <span class='op'>=</span> <span class='fl'>1</span>,
+  y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for guide</span>
-<span class='fu'>with_displacement</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x_map</span>, y_map <span class='op'>=</span> <span class='va'>x_map</span>, x_scale <span class='op'>=</span> <span class='fl'>1</span>, y_scale <span class='op'>=</span> <span class='va'>x_scale</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>with_variable_blur</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>x_sigma</span>,
+  y_sigma <span class='op'>=</span> <span class='va'>x_sigma</span>,
+  angle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  x_scale <span class='op'>=</span> <span class='fl'>1</span>,
+  y_scale <span class='op'>=</span> <span class='va'>x_scale</span>,
+  angle_range <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,17 +256,25 @@ or raster object. As such it can be used to distort the content of the layer.</p
 naming a filter</p></td>
     </tr>
     <tr>
-      <th>x_map, y_map</th>
-      <td><p>The displacement maps to use. Can either be a string
-identifying a registered filter, or a raster object. The maps will be resized
-to match the dimensions of x. Only one channel will be used - see
+      <th>x_sigma, y_sigma, angle</th>
+      <td><p>The layers to use for looking up the sigma
+values and angledefining the blur ellipse at every point. Can either be a
+string identifying a registered filter, or a raster object. The maps will be
+resized to match the dimensions of x. Only one channel will be used - see
 <a href='Channels.html'>the docs on channels</a> for info on how to set them.</p></td>
     </tr>
     <tr>
       <th>x_scale, y_scale</th>
-      <td><p>How much displacement should a maximal channel value
-correspond to? If a numeric it will be interpreted as pixel dimensions. If a
-unit object it will be converted to pixel dimension when rendered.</p></td>
+      <td><p>Which sigma should a maximal channel value correspond
+to? If a numeric it will be interpreted as pixel dimensions. If a unit object
+it will be converted to pixel dimension when rendered.</p></td>
+    </tr>
+    <tr>
+      <th>angle_range</th>
+      <td><p>The minimum and maximum angle that min and max in the
+<code>angle</code> layer should correspond to. If <code>angle == NULL</code> or only a single value
+is provided to <code>angle_range</code> the rotation will be constant across the whole
+layer</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -252,19 +305,26 @@ the plot background, or should the background be included.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='va'>cos_wave</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>width</span>, <span class='va'>height</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0</span>, ncol <span class='op'>=</span> <span class='va'>width</span>, nrow <span class='op'>=</span> <span class='va'>height</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/col.html'>col</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/grDevices/as.raster.html'>as.raster</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>}</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='with_raster.html'>as_reference</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>, colour <span class='op'>=</span> <span class='cn'>NA</span>, fill <span class='op'>=</span> <span class='st'>'magenta'</span> <span class='op'>)</span>,
-    id <span class='op'>=</span> <span class='st'>"displace_map"</span>
+    <span class='va'>cos_wave</span>,
+    id <span class='op'>=</span> <span class='st'>"wave"</span>
   <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>with_displacement</span><span class='op'>(</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, label <span class='op'>=</span> <span class='st'>'Displacements!'</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
-    x_map <span class='op'>=</span> <span class='fu'><a href='Channels.html'>ch_red</a></span><span class='op'>(</span><span class='st'>"displace_map"</span><span class='op'>)</span>,
-    y_map <span class='op'>=</span> <span class='fu'><a href='Channels.html'>ch_blue</a></span><span class='op'>(</span><span class='st'>"displace_map"</span><span class='op'>)</span>,
-    x_scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.025</span>, <span class='st'>'npc'</span><span class='op'>)</span>,
-    y_scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>0.025</span>, <span class='st'>'npc'</span><span class='op'>)</span>
+  <span class='fu'>with_variable_blur</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>disp</span>, <span class='va'>mpg</span><span class='op'>)</span>, <span class='va'>mtcars</span>, size <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>,
+    x_sigma <span class='op'>=</span> <span class='fu'><a href='Channels.html'>ch_red</a></span><span class='op'>(</span><span class='st'>"wave"</span><span class='op'>)</span>,
+    y_sigma <span class='op'>=</span> <span class='fu'><a href='Channels.html'>ch_alpha</a></span><span class='op'>(</span><span class='st'>"wave"</span><span class='op'>)</span>,
+    angle <span class='op'>=</span> <span class='fu'><a href='Channels.html'>ch_red</a></span><span class='op'>(</span><span class='st'>"wave"</span><span class='op'>)</span>,
+    x_scale <span class='op'>=</span> <span class='fl'>15</span>,
+    y_scale <span class='op'>=</span> <span class='fl'>15</span>,
+    angle_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>45</span>, <span class='fl'>45</span><span class='op'>)</span>
   <span class='op'>)</span>
-</div><div class='img'><img src='with_displacement-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='with_variable_blur-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

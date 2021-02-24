@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ggfx: Filters and Shaders for 'ggplot2' — ggfx-package • ggfx</title>
+<title>Set a channel of interest from a layer — Channels • ggfx</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,14 @@
 
 
 
-<meta property="og:title" content="ggfx: Filters and Shaders for 'ggplot2' — ggfx-package" />
-<meta property="og:description" content="Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing." />
+<meta property="og:title" content="Set a channel of interest from a layer — Channels" />
+<meta property="og:description" content="Some effects uses a particular channel for specific parameters, such as
+with_displacement(), which grabs the relative x and y displacements from
+different channels in some other layer. To facilitate specifying which
+channel to use from a layer (which is always multichannel), you can wrap the
+specification in a channel specifier given below. If a filter requires a
+specific channel and none is specified it will default to luminance (based
+on the hcl colour space)" />
 
 
 
@@ -113,30 +117,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ggfx: Filters and Shaders for 'ggplot2'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/ggfx-package.R'><code>R/ggfx-package.R</code></a></small>
-    <div class="hidden name"><code>ggfx-package.Rd</code></div>
+    <h1>Set a channel of interest from a layer</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/channels.R'><code>R/channels.R</code></a></small>
+    <div class="hidden name"><code>channel_spec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing.</p>
+    <p>Some effects uses a particular channel for specific parameters, such as
+<code><a href='with_displacement.html'>with_displacement()</a></code>, which grabs the relative x and y displacements from
+different channels in some other layer. To facilitate specifying which
+channel to use from a layer (which is always multichannel), you can wrap the
+specification in a channel specifier given below. If a filter requires a
+specific channel and none is specified it will default to <code>luminance</code> (based
+on the <code>hcl</code> colour space)</p>
     </div>
 
+    <pre class="usage"><span class='fu'>ch_red</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
+<span class='fu'>ch_green</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+<span class='fu'>ch_blue</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/thomasp85/ggfx'>https://github.com/thomasp85/ggfx</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/thomasp85/ggfx/issues'>https://github.com/thomasp85/ggfx/issues</a></p></li>
-</ul>
+<span class='fu'>ch_alpha</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+<span class='fu'>ch_hue</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-    <p><strong>Maintainer</strong>: Thomas Lin Pedersen <a href='mailto:thomasp85@gmail.com'>thomasp85@gmail.com</a> (<a href='https://orcid.org/0000-0002-5147-4711'>ORCID</a>)</p>
+<span class='fu'>ch_chroma</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>ch_luminance</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>ch_saturation</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>ch_lightness</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Any object interpretable as a layer</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>x</code> with a channel spec attached</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
