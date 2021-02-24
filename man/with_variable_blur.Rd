@@ -180,8 +180,8 @@ ggplot() +
     x_sigma = ch_red("wave"),
     y_sigma = ch_alpha("wave"),
     angle = ch_red("wave"),
-    x_scale = 5,
-    y_scale = 5,
+    x_scale = 15,
+    y_scale = 15,
     angle_range = c(-45, 45)
   )
 
