@@ -6,16 +6,16 @@
 #' the corresponding `x_sigma` and `y_sigma` layers. The angle of the ellipsoid
 #' can also be controlled and further varied based on another layer.
 #'
-#' @param x_sigma,y_sigma,alpha The layers to use for looking up the sigma
+#' @param x_sigma,y_sigma,angle The layers to use for looking up the sigma
 #' values and angledefining the blur ellipse at every point. Can either be a
 #' string identifying a registered filter, or a raster object. The maps will be
 #' resized to match the dimensions of x. Only one channel will be used - see
 #' [the docs on channels][Channels] for info on how to set them.
-#' @param x_scale,,y_scale Which sigma should a maximal channel value correspond
+#' @param x_scale,y_scale Which sigma should a maximal channel value correspond
 #' to? If a numeric it will be interpreted as pixel dimensions. If a unit object
 #' it will be converted to pixel dimension when rendered.
-#' @param alpha_range The minimum and maximum angle that min and max in the
-#' `alpha` layer should correspond to. If `alpha == NULL` or only a single value
+#' @param angle_range The minimum and maximum angle that min and max in the
+#' `angle` layer should correspond to. If `angle == NULL` or only a single value
 #' is provided to `angle_range` the rotation will be constant across the whole
 #' layer
 #' @inheritParams with_blur
@@ -26,8 +26,8 @@
 #'
 #' @examples
 #' library(ggplot2)
-#' cos_wave <- function(dim, res) {
-#'   x <- matrix(0, ncol = dim[1], nrow = dim[2])
+#' cos_wave <- function(width, height) {
+#'   x <- matrix(0, ncol = width, nrow = height)
 #'   x <- cos(col(x)/100)
 #'   as.raster((x + 1) / 2)
 #' }

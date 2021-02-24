@@ -39,7 +39,7 @@ ch_lightness(x)
 }
 \description{
 Some effects uses a particular channel for specific parameters, such as
-\code{\link[=with_displace]{with_displace()}}, which grabs the relative x and y displacements from
+\code{\link[=with_displacement]{with_displacement()}}, which grabs the relative x and y displacements from
 different channels in some other layer. To facilitate specifying which
 channel to use from a layer (which is always multichannel), you can wrap the
 specification in a channel specifier given below. If a filter requires a

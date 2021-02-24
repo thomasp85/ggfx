@@ -127,15 +127,20 @@ with_variable_blur(
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
 naming a filter}
 
-\item{x_sigma, y_sigma, alpha}{The layers to use for looking up the sigma
+\item{x_sigma, y_sigma, angle}{The layers to use for looking up the sigma
 values and angledefining the blur ellipse at every point. Can either be a
 string identifying a registered filter, or a raster object. The maps will be
 resized to match the dimensions of x. Only one channel will be used - see
 \link[=Channels]{the docs on channels} for info on how to set them.}
 
-\item{x_scale, , y_scale}{Which sigma should a maximal channel value correspond
+\item{x_scale, y_scale}{Which sigma should a maximal channel value correspond
 to? If a numeric it will be interpreted as pixel dimensions. If a unit object
 it will be converted to pixel dimension when rendered.}
+
+\item{angle_range}{The minimum and maximum angle that min and max in the
+\code{angle} layer should correspond to. If \code{angle == NULL} or only a single value
+is provided to \code{angle_range} the rotation will be constant across the whole
+layer}
 
 \item{...}{Arguments to be passed on to methods}
 
@@ -147,11 +152,6 @@ it will be converted to pixel dimension when rendered.}
 
 \item{ignore_background}{Should the filter be applied to everything except
 the plot background, or should the background be included.}
-
-\item{alpha_range}{The minimum and maximum angle that min and max in the
-\code{alpha} layer should correspond to. If \code{alpha == NULL} or only a single value
-is provided to \code{angle_range} the rotation will be constant across the whole
-layer}
 }
 \value{
 A modified \code{Layer} object
@@ -165,8 +165,8 @@ can also be controlled and further varied based on another layer.
 }
 \examples{
 library(ggplot2)
-cos_wave <- function(dim, res) {
-  x <- matrix(0, ncol = dim[1], nrow = dim[2])
+cos_wave <- function(width, height) {
+  x <- matrix(0, ncol = width, nrow = height)
   x <- cos(col(x)/100)
   as.raster((x + 1) / 2)
 }
