@@ -62,16 +62,16 @@ ch_lightness <- function(x) {
   set_channel(x, 'Lightness')
 }
 
-#' @importFrom magick image_read image_convert image_channel
+#' @importFrom magick image_read image_convert image_separate
 magick_channel <- function(x) {
   channel <- get_channel(x) %||% 'Luminance'
   raster <- image_read(get_layer(x))
   if (channel %in% c('Red', 'Green', 'Blue', 'Alpha')) {
-    image_channel(raster, channel)
+    image_separate(raster, channel)
   } else if (channel %in% c('Hue', 'Chroma', 'Luminance')) {
-    image_channel(image_convert(raster, colorspace = 'hcl'), channel)
+    image_separate(image_convert(raster, colorspace = 'hcl'), channel)
   } else if (channel %in% c('Saturation', 'Lightness')) {
-    image_channel(image_convert(raster, colorspace = 'hsl'), channel)
+    image_separate(image_convert(raster, colorspace = 'hsl'), channel)
   } else {
     abort(paste0("Unknown channel: ", channel))
   }
