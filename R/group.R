@@ -1,0 +1,68 @@
+#' Collect layers into a group that can be treated as a single layer
+#'
+#' While you often want to apply filters to layers one by one, there are times
+#' when one filter should be applied to a collection of layers as if they were
+#' one. This can be achieved by first combining all the layers into a group with
+#' `as_group()` and applying the filter to the resulting group. This can only be
+#' done to ggplot2 layers and grobs as the other supported objects are not part
+#' of a graphic stack.
+#'
+#' @param ... A range of layers to combine
+#' @inheritParams with_blur
+#'
+#' @return A list of layers oor a [gTree][grid::gTree] depending on the input
+#'
+#' @export
+#'
+as_group <- function(..., id) {
+  UseMethod("as_group")
+}
+#' @rdname as_group
+#' @importFrom grid is.grob
+#' @export
+as_group.grob <- function(..., id) {
+  grobs <- list(...)
+  if (any(!vapply(grobs, is.grob, logical(1)))) {
+    abort('All objects must be grobs')
+  }
+  gTree(grobs = grobs, id = id, cl = 'grouped_grob')
+}
+#' @rdname as_group
+#' @export
+as_group.Layer <- function(..., id) {
+  layers <- list(...)
+  ids <- paste0('__<', id, '>__<', seq_along(layers), '>__')
+  layers <- Map(as_reference, x = layers, id = ids)
+  if (any(!vapply(layers, inherits, logical(1), 'Layer'))) {
+    abort('All objects must be ggplot2 layers')
+  }
+  group_layer <- filter_layer_constructor(geom_blank(), function(x, ..., id) {
+    gTree(grob = x, id = id, ids = list(...), cl = 'combined_layer_grob')
+  }, 'CombinedGeom', ids = c(list(id = id), as.list(ids)))
+  c(layers, list(group_layer))
+}
+
+#' @importFrom grid makeContent setChildren gList
+#' @export
+makeContent.grouped_grob <- function(x) {
+  rasters <- lapply(x$grobs, rasterise_grob)
+  location <- rasters[[1]]$location
+  dimension <- rasters[[1]]$dimension
+  rasters <- lapply(rasters, function(ras) image_read(ras$raster))
+  raster <- Reduce(function(b, t) image_composite(b, t, 'over'), rasters)
+  lapply(rasters, image_destroy)
+  raster <- groberize_raster(raster, location, dimension, x$id, FALSE)
+  setChildren(x, gList(raster))
+}
+
+#' @importFrom grid makeContent setChildren gList
+#' @export
+makeContent.combined_layer_grob <- function(x) {
+  ras <- rasterise_grob(x$grob)
+  layers <- lapply(x$ids, fetch_raster)
+  layers <- lapply(layers, function(layer) image_read(layer))
+  raster <- Reduce(function(b, t) image_composite(b, t, 'over'), layers)
+  lapply(layers, image_destroy)
+  raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, FALSE)
+  setChildren(x, gList(raster))
+}

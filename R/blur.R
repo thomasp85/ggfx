@@ -73,7 +73,7 @@ with_blur.formula <- with_blur.character
 #' @rdname with_blur
 #' @export
 with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
-  filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
+  filter_element_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }
 #' @rdname with_blur
 #' @export
