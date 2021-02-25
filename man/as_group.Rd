@@ -28,3 +28,21 @@ one. This can be achieved by first combining all the layers into a group with
 done to ggplot2 layers and grobs as the other supported objects are not part
 of a graphic stack.
 }
+\examples{
+library(ggplot2)
+
+# With no grouping the filters on layers are applied one by one
+ggplot(mtcars, aes(mpg, disp)) +
+  with_shadow(geom_smooth(alpha = 1), sigma = 4) +
+  with_shadow(geom_point(), sigma = 4)
+
+# Grouping the layers allows you to apply a filter on the combined result
+ggplot(mtcars, aes(mpg, disp)) +
+  as_group(
+    geom_smooth(alpha = 1),
+    geom_point(),
+    id = 'group_1'
+  ) +
+  with_shadow('group_1', sigma = 4)
+
+}

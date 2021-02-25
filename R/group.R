@@ -14,6 +14,23 @@
 #'
 #' @export
 #'
+#' @examples
+#' library(ggplot2)
+#'
+#' # With no grouping the filters on layers are applied one by one
+#' ggplot(mtcars, aes(mpg, disp)) +
+#'   with_shadow(geom_smooth(alpha = 1), sigma = 4) +
+#'   with_shadow(geom_point(), sigma = 4)
+#'
+#' # Grouping the layers allows you to apply a filter on the combined result
+#' ggplot(mtcars, aes(mpg, disp)) +
+#'   as_group(
+#'     geom_smooth(alpha = 1),
+#'     geom_point(),
+#'     id = 'group_1'
+#'   ) +
+#'   with_shadow('group_1', sigma = 4)
+#'
 as_group <- function(..., id) {
   UseMethod("as_group")
 }
