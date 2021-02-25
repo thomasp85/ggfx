@@ -1,25 +1,25 @@
-#' @importFrom grid widthDetails
+#' @importFrom grid widthDetails grobWidth
 #' @export
 widthDetails.filter_grob <- function(x) {
-  widthDetails(x$grob)
+  grobWidth(x$grob)
 }
 
-#' @importFrom grid heightDetails
+#' @importFrom grid heightDetails grobHeight
 #' @export
 heightDetails.filter_grob <- function(x) {
-  heightDetails(x$grob)
+  grobHeight(x$grob)
 }
 
-#' @importFrom grid ascentDetails
+#' @importFrom grid ascentDetails grobAscent
 #' @export
 ascentDetails.filter_grob <- function(x) {
-  ascentDetails(x$grob)
+  grobAscent(x$grob)
 }
 
-#' @importFrom grid descentDetails
+#' @importFrom grid descentDetails grobDescent
 #' @export
 descentDetails.filter_grob <- function(x) {
-  descentDetails(x$grob)
+  grobDescent(x$grob)
 }
 
 #' @export
