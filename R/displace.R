@@ -41,7 +41,7 @@ with_displacement.grob <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale
                                    background = NULL, id = NULL, include = is.null(id)) {
   gTree(grob = x, x_map = x_map, y_map = y_map, x_scale = x_scale,
         y_scale = y_scale, background = background, id = id,
-        include = isTRUE(include), cl = 'displacement_grob')
+        include = isTRUE(include), cl = c('displacement_grob', 'filter_grob'))
 }
 #' @rdname with_displacement
 #' @importFrom ggplot2 ggproto

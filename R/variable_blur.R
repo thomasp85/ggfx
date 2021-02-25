@@ -59,7 +59,7 @@ with_variable_blur.grob <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
   gTree(grob = x, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle,
         x_scale = x_scale, y_scale = y_scale, angle_range = angle_range,
         background = background, id = id,
-        include = isTRUE(include), cl = 'variable_blur_grob')
+        include = isTRUE(include), cl = c('variable_blur_grob', 'filter_grob'))
 }
 #' @rdname with_variable_blur
 #' @importFrom ggplot2 ggproto

@@ -28,7 +28,7 @@ with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                              background = NULL, ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, kernel = kernel, iterations = iterations, scaling = scaling,
         bias = bias, background = background, stack = stack, id = id,
-        include = isTRUE(include), cl = 'kernel_grob')
+        include = isTRUE(include), cl = c('kernel_grob', 'filter_grob'))
 }
 #' @rdname with_kernel
 #' @importFrom ggplot2 ggproto

@@ -33,7 +33,7 @@ with_blend_custom.grob <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                    include = is.null(id)) {
   gTree(grob = x, bg_layer = bg_layer, a = a, b = b, c = c, d = d,
         flip_order = flip_order, alpha = tolower(alpha), id = id, include = isTRUE(include),
-        cl = 'custom_blend_grob')
+        cl = c('custom_blend_grob', 'filter_grob'))
 }
 #' @rdname with_blend_custom
 #' @importFrom ggplot2 ggproto

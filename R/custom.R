@@ -67,7 +67,7 @@ with_custom <- function(x, filter, ...) {
 with_custom.grob <- function(x, filter, ..., background = NULL, id = NULL,
                             include = is.null(id)) {
   gTree(grob = x, filter = filter, args = list(...), background = background,
-        id = id, include = isTRUE(include), cl = 'custom_filter_grob')
+        id = id, include = isTRUE(include), cl = c('custom_filter_grob', 'filter_grob'))
 }
 #' @rdname with_custom
 #' @importFrom ggplot2 ggproto

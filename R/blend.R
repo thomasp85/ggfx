@@ -199,7 +199,7 @@ with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE
   blend_type <- resolve_blend_type(blend_type)
   gTree(grob = x, bg_layer = bg_layer, blend_type = blend_type,
         flip_order = flip_order, alpha = tolower(alpha), background = background,
-        id = id, include = isTRUE(include), cl = 'blended_grob')
+        id = id, include = isTRUE(include), cl = c('blended_grob', 'filter_grob'))
 }
 #' @rdname with_blend
 #' @importFrom ggplot2 ggproto

@@ -28,7 +28,7 @@ with_shadow.grob <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                              id = NULL, include = is.null(id)) {
   gTree(grob = x, colour = colour, x_offset = x_offset, y_offset = y_offset,
         sigma = sigma, background = background, stack = stack, id = id,
-        include = isTRUE(include), cl = 'shadow_grob')
+        include = isTRUE(include), cl = c('shadow_grob', 'filter_grob'))
 }
 #' @rdname with_shadow
 #' @importFrom ggplot2 ggproto

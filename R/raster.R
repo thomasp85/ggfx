@@ -30,7 +30,7 @@ as_reference <- function(x, id) {
 #' @importFrom grid gTree
 #' @export
 with_raster.grob <- function(x, ..., id = NULL, include = is.null(id)) {
-  gTree(grob = x, id = id, include = isTRUE(include), cl = 'raster_grob')
+  gTree(grob = x, id = id, include = isTRUE(include), cl = c('raster_grob', 'filter_grob'))
 }
 #' @rdname with_raster
 #' @importFrom ggplot2 ggproto

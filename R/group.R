@@ -54,7 +54,7 @@ as_group.Layer <- function(..., id) {
     abort('All objects must be ggplot2 layers')
   }
   group_layer <- filter_layer_constructor(geom_blank(), function(x, ..., id) {
-    gTree(grob = x, id = id, ids = list(...), cl = 'combined_layer_grob')
+    gTree(grob = x, id = id, ids = list(...), cl = c('combined_layer_grob', 'filter_grob'))
   }, 'CombinedGeom', ids = c(list(id = id), as.list(ids)))
   c(layers, list(group_layer))
 }

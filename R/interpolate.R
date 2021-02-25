@@ -29,7 +29,7 @@ with_interpolate.grob <- function(x, bg_layer, src_percent, bg_percent = 100 - s
                                   ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, bg_layer = bg_layer, src_percent = src_percent,
         bg_percent = bg_percent, id = id, include = isTRUE(include),
-        cl = 'interpolate_grob')
+        cl = c('interpolate_grob', 'filter_grob'))
 }
 #' @rdname with_interpolate
 #' @importFrom ggplot2 ggproto
