@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   ggfx: ggfx.html
-last_built: 2021-02-25T09:55Z
+last_built: 2021-02-25T10:09Z
 urls:
   reference: https://ggfx.data-imaginist.com/reference
   article: https://ggfx.data-imaginist.com/articles
