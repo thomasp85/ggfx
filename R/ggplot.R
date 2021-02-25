@@ -26,3 +26,11 @@ element_grob.filtered_element <- function(element, ...) {
   filter <- element[['.__filter']]
   do.call(filter$fun, c(list(grob), filter$settings))
 }
+
+#' @importFrom ggplot2 guide_gengrob
+#' @export
+guide_gengrob.filtered_guide <- function(guide, theme) {
+  grob <- NextMethod()
+  filter <- guide[['.__filter']]
+  do.call(filter$fun, c(list(grob), filter$settings))
+}

@@ -21,3 +21,17 @@ ascentDetails.filter_grob <- function(x) {
 descentDetails.filter_grob <- function(x) {
   descentDetails(x$grob)
 }
+
+#' @export
+`[[.filter_grob` <- function(x, ..., drop = TRUE) {
+  res <- NextMethod()
+  if (!is.null(res)) {
+    return(res)
+  }
+  x <- .subset2(x, 'grob')
+  NextMethod()
+}
+#' @export
+`$.filter_grob` <- function(x, name) {
+  NextMethod() %||% x[['grob']][[name]]
+}
