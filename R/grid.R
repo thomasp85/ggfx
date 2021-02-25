@@ -24,14 +24,17 @@ descentDetails.filter_grob <- function(x) {
 
 #' @export
 `[[.filter_grob` <- function(x, ..., drop = TRUE) {
-  res <- NextMethod()
-  if (!is.null(res)) {
-    return(res)
+  if (..1 %in% names(x)) {
+    .subset2(x, ...)
+  } else {
+    .subset2(x, 'grob')[[...]]
   }
-  x <- .subset2(x, 'grob')
-  NextMethod()
 }
 #' @export
 `$.filter_grob` <- function(x, name) {
-  NextMethod() %||% x[['grob']][[name]]
+  if (name %in% names(x)) {
+    .subset2(x, name)
+  } else {
+    .subset2(x, 'grob')[[name]]
+  }
 }
