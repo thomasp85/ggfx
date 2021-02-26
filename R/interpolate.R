@@ -22,7 +22,6 @@
 with_interpolate <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
   UseMethod('with_interpolate')
 }
-#' @rdname with_interpolate
 #' @importFrom grid gTree
 #' @export
 with_interpolate.grob <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
@@ -31,7 +30,6 @@ with_interpolate.grob <- function(x, bg_layer, src_percent, bg_percent = 100 - s
         bg_percent = bg_percent, id = id, include = isTRUE(include),
         cl = c('interpolate_grob', 'filter_grob'))
 }
-#' @rdname with_interpolate
 #' @importFrom ggplot2 ggproto
 #' @export
 with_interpolate.Layer <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
@@ -39,14 +37,12 @@ with_interpolate.Layer <- function(x, bg_layer, src_percent, bg_percent = 100 - 
   filter_layer_constructor(x, src_percent = src_percent, bg_percent = bg_percent, with_interpolate, 'InterpolatedGeom', ...,
                            include = include, ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_interpolate
 #' @export
 with_interpolate.ggplot <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_interpolate, bg_layer = bg_layer, src_percent = src_percent,
                             bg_percent = bg_percent, ..., ignore_background = ignore_background)
 }
 
-#' @rdname with_interpolate
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
@@ -54,19 +50,15 @@ with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 10
   filter_character_constructor(x, src_percent = src_percent, bg_percent = bg_percent, with_interpolate, 'InterpolatedGeom', ...,
                                include = include, ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_interpolate
 #' @export
 with_interpolate.function <- with_interpolate.character
-#' @rdname with_interpolate
 #' @export
 with_interpolate.formula <- with_interpolate.character
-#' @rdname with_interpolate
 #' @export
 with_interpolate.element <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
   filter_element_constructor(x, with_interpolate, bg_layer = bg_layer,
                              src_percent = src_percent, bg_percent = bg_percent, ...)
 }
-#' @rdname with_interpolate
 #' @export
 with_interpolate.guide <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
   filter_guide_constructor(x, with_interpolate, bg_layer = bg_layer,

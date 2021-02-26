@@ -2,101 +2,9 @@
 % Please edit documentation in R/blend.R
 \name{with_blend}
 \alias{with_blend}
-\alias{with_blend.grob}
-\alias{with_blend.Layer}
-\alias{with_blend.ggplot}
-\alias{with_blend.character}
-\alias{with_blend.function}
-\alias{with_blend.formula}
-\alias{with_blend.element}
-\alias{with_blend.guide}
 \title{Blend a layer with a reference}
 \usage{
 with_blend(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...
-)
-
-\method{with_blend}{grob}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  background = NULL,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend}{Layer}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend}{ggplot}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_blend}{character}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend}{`function`}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend}{formula}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend}{element}(
-  x,
-  bg_layer,
-  blend_type = "over",
-  flip_order = FALSE,
-  alpha = NA,
-  ...
-)
-
-\method{with_blend}{guide}(
   x,
   bg_layer,
   blend_type = "over",
@@ -122,16 +30,9 @@ flipped so that \code{bg_layer} is treated as being on top and \code{x} being be
 This argument can be used to set the resulting alpha channel to that of the
 source (\code{"src"}) or destination (\code{"dst"})}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

@@ -2,20 +2,12 @@
 % Please edit documentation in R/group.R
 \name{as_group}
 \alias{as_group}
-\alias{as_group.grob}
-\alias{as_group.Layer}
 \title{Collect layers into a group that can be treated as a single layer}
 \usage{
 as_group(..., id)
-
-\method{as_group}{grob}(..., id)
-
-\method{as_group}{Layer}(..., id)
 }
 \arguments{
 \item{...}{A range of layers to combine}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
 }
 \value{
 A list of layers oor a \link[grid:grid.grob]{gTree} depending on the input

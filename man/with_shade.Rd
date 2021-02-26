@@ -2,116 +2,9 @@
 % Please edit documentation in R/shade.R
 \name{with_shade}
 \alias{with_shade}
-\alias{with_shade.grob}
-\alias{with_shade.Layer}
-\alias{with_shade.ggplot}
-\alias{with_shade.character}
-\alias{with_shade.function}
-\alias{with_shade.formula}
-\alias{with_shade.element}
-\alias{with_shade.guide}
 \title{Apply a gaussian blur to your layer}
 \usage{
 with_shade(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...
-)
-
-\method{with_shade}{grob}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shade}{Layer}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shade}{ggplot}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_shade}{character}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shade}{`function`}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shade}{formula}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shade}{element}(
-  x,
-  height_map,
-  azimuth = 30,
-  elevation = 30,
-  strength = 10,
-  sigma = 0,
-  blend_type = "overlay",
-  ...
-)
-
-\method{with_shade}{guide}(
   x,
   height_map,
   azimuth = 30,
@@ -143,14 +36,9 @@ low-detail. Adding a slight blur may remove some of those artefacts.}
 \item{blend_type}{A blend type as used in \code{\link[=with_blend]{with_blend()}} for adding the
 calculated shading to the layer. Should generally be left as-is}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

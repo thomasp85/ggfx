@@ -3,48 +3,19 @@
 \name{with_raster}
 \alias{with_raster}
 \alias{as_reference}
-\alias{with_raster.grob}
-\alias{with_raster.Layer}
-\alias{with_raster.ggplot}
-\alias{with_raster.character}
-\alias{with_raster.function}
-\alias{with_raster.formula}
-\alias{with_raster.element}
-\alias{with_raster.guide}
 \title{Convert a layer to a raster}
 \usage{
 with_raster(x, ...)
 
 as_reference(x, id)
-
-\method{with_raster}{grob}(x, ..., id = NULL, include = is.null(id))
-
-\method{with_raster}{Layer}(x, ..., id = NULL, include = is.null(id))
-
-\method{with_raster}{ggplot}(x, ignore_background = TRUE, ...)
-
-\method{with_raster}{character}(x, ..., id = NULL, include = is.null(id))
-
-\method{with_raster}{`function`}(x, ..., id = NULL, include = is.null(id))
-
-\method{with_raster}{formula}(x, ..., id = NULL, include = is.null(id))
-
-\method{with_raster}{element}(x, ...)
-
-\method{with_raster}{guide}(x, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
 naming a filter}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

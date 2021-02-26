@@ -2,41 +2,9 @@
 % Please edit documentation in R/mask.R
 \name{with_mask}
 \alias{with_mask}
-\alias{with_mask.grob}
-\alias{with_mask.Layer}
-\alias{with_mask.ggplot}
-\alias{with_mask.character}
-\alias{with_mask.function}
-\alias{with_mask.formula}
-\alias{with_mask.element}
-\alias{with_mask.guide}
 \title{Apply a mask to a layer}
 \usage{
 with_mask(x, mask, invert = FALSE, ...)
-
-\method{with_mask}{grob}(
-  x,
-  mask,
-  invert = FALSE,
-  ...,
-  background = NULL,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_mask}{Layer}(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_mask}{ggplot}(x, mask, invert = FALSE, ignore_background = TRUE, ...)
-
-\method{with_mask}{character}(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_mask}{`function`}(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_mask}{formula}(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_mask}{element}(x, mask, invert = FALSE, ...)
-
-\method{with_mask}{guide}(x, mask, invert = FALSE, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -49,16 +17,9 @@ one of the \link[=Channels]{channel specification} function.}
 
 \item{invert}{Should the mask be inverted before applying it}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

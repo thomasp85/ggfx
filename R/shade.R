@@ -49,7 +49,6 @@ with_shade <- function(x, height_map, azimuth = 30, elevation = 30, strength = 1
                        sigma = 0, blend_type = 'overlay', ...) {
   UseMethod('with_shade')
 }
-#' @rdname with_shade
 #' @importFrom grid gTree
 #' @export
 with_shade.grob <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
@@ -63,7 +62,6 @@ with_shade.grob <- function(x, height_map, azimuth = 30, elevation = 30, strengt
         strength = strength, sigma = sigma, blend_type = blend_type, id = id,
         include = isTRUE(include), cl = c('shade_grob', 'filter_grob'))
 }
-#' @rdname with_shade
 #' @importFrom ggplot2 ggproto
 #' @export
 with_shade.Layer <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
@@ -74,7 +72,6 @@ with_shade.Layer <- function(x, height_map, azimuth = 30, elevation = 30, streng
                            blend_type = blend_type, ..., include = include,
                            ids = list(id = id, height_map = height_map))
 }
-#' @rdname with_shade
 #' @export
 with_shade.ggplot <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                               sigma = 0, blend_type = 'overlay', ignore_background = TRUE,
@@ -85,7 +82,6 @@ with_shade.ggplot <- function(x, height_map, azimuth = 30, elevation = 30, stren
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_shade
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_shade.character <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
@@ -96,13 +92,10 @@ with_shade.character <- function(x, height_map, azimuth = 30, elevation = 30, st
                                blend_type = blend_type, ..., include = include,
                                ids = list(id = id, height_map = height_map))
 }
-#' @rdname with_shade
 #' @export
 with_shade.function <- with_shade.character
-#' @rdname with_shade
 #' @export
 with_shade.formula <- with_shade.character
-#' @rdname with_shade
 #' @export
 with_shade.element <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                                sigma = 0, blend_type = 'overlay', ...) {
@@ -110,7 +103,6 @@ with_shade.element <- function(x, height_map, azimuth = 30, elevation = 30, stre
                              azimuth = azimuth, elevation = elevation, strength = strength,
                              sigma = sigma, blend_type = blend_type, ...)
 }
-#' @rdname with_shade
 #' @export
 with_shade.guide <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                              sigma = 0, blend_type = 'overlay', ...) {

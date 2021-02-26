@@ -61,7 +61,6 @@
 with_custom <- function(x, filter, ...) {
   UseMethod('with_custom')
 }
-#' @rdname with_custom
 #' @importFrom grid gTree
 #' @export
 with_custom.grob <- function(x, filter, ..., background = NULL, id = NULL,
@@ -69,40 +68,33 @@ with_custom.grob <- function(x, filter, ..., background = NULL, id = NULL,
   gTree(grob = x, filter = filter, args = list(...), background = background,
         id = id, include = isTRUE(include), cl = c('custom_filter_grob', 'filter_grob'))
 }
-#' @rdname with_custom
 #' @importFrom ggplot2 ggproto
 #' @export
 with_custom.Layer <- function(x, filter, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_custom, 'CustomFilteredGeom', filter = filter,
                            ..., include = include, ids = list(id = id))
 }
-#' @rdname with_custom
 #' @export
 with_custom.ggplot <- function(x, filter, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_custom, filter = filter, ...,
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_custom
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_custom.character <- function(x, filter, ..., id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_custom, 'CustomFilteredGeom', filter = filter,
                                ..., include = include, ids = list(id = id))
 }
-#' @rdname with_custom
 #' @export
 with_custom.function <- with_custom.character
-#' @rdname with_custom
 #' @export
 with_custom.formula <- with_custom.character
 
-#' @rdname with_custom
 #' @export
 with_custom.element <- function(x, filter, ...) {
   filter_element_constructor(x, with_custom, filter = filter, ...)
 }
-#' @rdname with_custom
 #' @export
 with_custom.guide <- function(x, filter, ...) {
   filter_guide_constructor(x, with_custom, filter = filter, ...)

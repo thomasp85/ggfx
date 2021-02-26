@@ -2,80 +2,9 @@
 % Please edit documentation in R/interpolate.R
 \name{with_interpolate}
 \alias{with_interpolate}
-\alias{with_interpolate.grob}
-\alias{with_interpolate.Layer}
-\alias{with_interpolate.ggplot}
-\alias{with_interpolate.character}
-\alias{with_interpolate.function}
-\alias{with_interpolate.formula}
-\alias{with_interpolate.element}
-\alias{with_interpolate.guide}
 \title{Blend two layerrs together by averaging them out}
 \usage{
 with_interpolate(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
-
-\method{with_interpolate}{grob}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_interpolate}{Layer}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_interpolate}{ggplot}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_interpolate}{character}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_interpolate}{`function`}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_interpolate}{formula}(
-  x,
-  bg_layer,
-  src_percent,
-  bg_percent = 100 - src_percent,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_interpolate}{element}(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
-
-\method{with_interpolate}{guide}(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -86,14 +15,9 @@ naming a filter}
 \item{src_percent, bg_percent}{The contribution of this layer and the
 background layer to the result. Should be between 0 and 100}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

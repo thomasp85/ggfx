@@ -20,7 +20,6 @@ with_kernel <- function(x, kernel = kernel_gaussian(0.5), iterations = 1, scalin
                         bias = NULL, stack = FALSE, ...) {
   UseMethod('with_kernel')
 }
-#' @rdname with_kernel
 #' @importFrom grid gTree
 #' @export
 with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
@@ -30,7 +29,6 @@ with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
         bias = bias, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('kernel_grob', 'filter_grob'))
 }
-#' @rdname with_kernel
 #' @importFrom ggplot2 ggproto
 #' @export
 with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
@@ -40,7 +38,6 @@ with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                            iterations = iterations, scaling = scaling, bias = bias,
                            stack = stack, ..., include = include, ids = list(id = id))
 }
-#' @rdname with_kernel
 #' @export
 with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
@@ -50,7 +47,6 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_kernel
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
@@ -60,20 +56,16 @@ with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations =
                                iterations = iterations, scaling = scaling, bias = bias,
                                stack = stack, ..., include = include, ids = list(id = id))
 }
-#' @rdname with_kernel
 #' @export
 with_kernel.function <- with_kernel.character
-#' @rdname with_kernel
 #' @export
 with_kernel.formula <- with_kernel.character
-#' @rdname with_kernel
 #' @export
 with_kernel.element <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {
   filter_element_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
                              scaling = scaling, bias = bias, stack = stack, ...)
 }
-#' @rdname with_kernel
 #' @export
 with_kernel.guide <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {

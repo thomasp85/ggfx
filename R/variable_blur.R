@@ -50,7 +50,6 @@ with_variable_blur <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                x_scale = 1, y_scale = x_scale, angle_range = 0, ...) {
   UseMethod('with_variable_blur')
 }
-#' @rdname with_variable_blur
 #' @importFrom grid gTree
 #' @export
 with_variable_blur.grob <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
@@ -61,7 +60,6 @@ with_variable_blur.grob <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
         background = background, id = id,
         include = isTRUE(include), cl = c('variable_blur_grob', 'filter_grob'))
 }
-#' @rdname with_variable_blur
 #' @importFrom ggplot2 ggproto
 #' @export
 with_variable_blur.Layer <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
@@ -71,7 +69,6 @@ with_variable_blur.Layer <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL
                            y_scale = y_scale, angle_range = angle_range, ..., include = include,
                            ids = list(id = id, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle))
 }
-#' @rdname with_variable_blur
 #' @export
 with_variable_blur.ggplot <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                       x_scale = 1, y_scale = x_scale, angle_range = 0,
@@ -81,7 +78,6 @@ with_variable_blur.ggplot <- function(x, x_sigma, y_sigma = x_sigma, angle = NUL
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_variable_blur
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_variable_blur.character <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
@@ -91,20 +87,16 @@ with_variable_blur.character <- function(x, x_sigma, y_sigma = x_sigma, angle = 
                                y_scale = y_scale, angle_range = angle_range, ..., include = include,
                                ids = list(id = id, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle))
 }
-#' @rdname with_variable_blur
 #' @export
 with_variable_blur.function <- with_variable_blur.character
-#' @rdname with_variable_blur
 #' @export
 with_variable_blur.formula <- with_variable_blur.character
-#' @rdname with_variable_blur
 #' @export
 with_variable_blur.element <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                        x_scale = 1, y_scale = x_scale, angle_range = 0, ...) {
   filter_element_constructor(x, with_variable_blur, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle,
                              x_scale = x_scale, y_scale = y_scale, angle_range = angle_range, ...)
 }
-#' @rdname with_variable_blur
 #' @export
 with_variable_blur.guide <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                      x_scale = 1, y_scale = x_scale, angle_range = 0, ...) {

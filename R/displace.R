@@ -34,7 +34,6 @@
 with_displacement <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
   UseMethod('with_displacement')
 }
-#' @rdname with_displacement
 #' @importFrom grid gTree
 #' @export
 with_displacement.grob <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
@@ -43,7 +42,6 @@ with_displacement.grob <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale
         y_scale = y_scale, background = background, id = id,
         include = isTRUE(include), cl = c('displacement_grob', 'filter_grob'))
 }
-#' @rdname with_displacement
 #' @importFrom ggplot2 ggproto
 #' @export
 with_displacement.Layer <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
@@ -52,7 +50,6 @@ with_displacement.Layer <- function(x, x_map, y_map = x_map, x_scale = 1, y_scal
                            y_scale = y_scale, ..., include = include,
                            ids = list(id = id, x_map = x_map, y_map = y_map))
 }
-#' @rdname with_displacement
 #' @export
 with_displacement.ggplot <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale,
                                      ignore_background = TRUE, ...) {
@@ -61,7 +58,6 @@ with_displacement.ggplot <- function(x, x_map, y_map = x_map, x_scale = 1, y_sca
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_displacement
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_displacement.character <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
@@ -70,19 +66,15 @@ with_displacement.character <- function(x, x_map, y_map = x_map, x_scale = 1, y_
                                y_scale = y_scale, ..., include = include,
                                ids = list(id = id, x_map = x_map, y_map = y_map))
 }
-#' @rdname with_displacement
 #' @export
 with_displacement.function <- with_displacement.character
-#' @rdname with_displacement
 #' @export
 with_displacement.formula <- with_displacement.character
-#' @rdname with_displacement
 #' @export
 with_displacement.element <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
   filter_element_constructor(x, with_displacement, x_map = x_map, y_map = y_map,
                              x_scale = x_scale, y_scale = y_scale, ...)
 }
-#' @rdname with_displacement
 #' @export
 with_displacement.guide <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
   filter_guide_constructor(x, with_displacement, x_map = x_map, y_map = y_map,

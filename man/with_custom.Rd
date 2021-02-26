@@ -2,40 +2,9 @@
 % Please edit documentation in R/custom.R
 \name{with_custom}
 \alias{with_custom}
-\alias{with_custom.grob}
-\alias{with_custom.Layer}
-\alias{with_custom.ggplot}
-\alias{with_custom.character}
-\alias{with_custom.function}
-\alias{with_custom.formula}
-\alias{with_custom.element}
-\alias{with_custom.guide}
 \title{Apply a custom filter}
 \usage{
 with_custom(x, filter, ...)
-
-\method{with_custom}{grob}(
-  x,
-  filter,
-  ...,
-  background = NULL,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_custom}{Layer}(x, filter, ..., id = NULL, include = is.null(id))
-
-\method{with_custom}{ggplot}(x, filter, ignore_background = TRUE, ...)
-
-\method{with_custom}{character}(x, filter, ..., id = NULL, include = is.null(id))
-
-\method{with_custom}{`function`}(x, filter, ..., id = NULL, include = is.null(id))
-
-\method{with_custom}{formula}(x, filter, ..., id = NULL, include = is.null(id))
-
-\method{with_custom}{element}(x, filter, ...)
-
-\method{with_custom}{guide}(x, filter, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -45,15 +14,6 @@ naming a filter}
 along with whatever you pass in to \code{...}}
 
 \item{...}{Additional arguments to \code{filter}}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
 }
 \value{
 A modified \code{Layer} object

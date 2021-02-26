@@ -47,7 +47,6 @@
 with_mask <- function(x, mask, invert = FALSE, ...) {
   UseMethod('with_mask')
 }
-#' @rdname with_mask
 #' @importFrom grid gTree
 #' @export
 with_mask.grob <- function(x, mask, invert = FALSE, ..., background = NULL, id = NULL,
@@ -55,21 +54,18 @@ with_mask.grob <- function(x, mask, invert = FALSE, ..., background = NULL, id =
   gTree(grob = x, mask = mask, invert = invert, background = background,
         id = id, include = isTRUE(include), cl = c('masked_grob', 'filter_grob'))
 }
-#' @rdname with_mask
 #' @importFrom ggplot2 ggproto
 #' @export
 with_mask.Layer <- function(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_mask, 'MaskedGeom', invert = invert, ...,
                            include = include, ids = list(id = id, mask = mask))
 }
-#' @rdname with_mask
 #' @export
 with_mask.ggplot <- function(x, mask, invert = FALSE, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_mask, mask = mask, invert = invert, ...,
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_mask
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_mask.character <- function(x, mask, invert = FALSE, ..., id = NULL,
@@ -77,19 +73,15 @@ with_mask.character <- function(x, mask, invert = FALSE, ..., id = NULL,
   filter_character_constructor(x, with_mask, 'MaskedGeom', invert = invert, ...,
                                include = include, ids = list(id = id, mask = mask))
 }
-#' @rdname with_mask
 #' @export
 with_mask.function <- with_mask.character
-#' @rdname with_mask
 #' @export
 with_mask.formula <- with_mask.character
 
-#' @rdname with_mask
 #' @export
 with_mask.element <- function(x, mask, invert = FALSE, ...) {
   filter_element_constructor(x, with_mask, mask = mask, invert = invert, ...)
 }
-#' @rdname with_mask
 #' @export
 with_mask.guide <- function(x, mask, invert = FALSE, ...) {
   filter_guide_constructor(x, with_mask, mask = mask, invert = invert, ...)

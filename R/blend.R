@@ -190,7 +190,6 @@ resolve_blend_type <- function(type) {
   if (type == 'Unique') type <- 'Change_Mask'
   type
 }
-#' @rdname with_blend
 #' @importFrom grid gTree
 #' @export
 with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
@@ -201,7 +200,6 @@ with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE
         flip_order = flip_order, alpha = tolower(alpha), background = background,
         id = id, include = isTRUE(include), cl = c('blended_grob', 'filter_grob'))
 }
-#' @rdname with_blend
 #' @importFrom ggplot2 ggproto
 #' @export
 with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
@@ -210,7 +208,6 @@ with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALS
                            flip_order = flip_order, alpha = alpha, ..., include = include,
                            ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_blend
 #' @export
 with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
                               flip_order = FALSE, alpha = NA,
@@ -220,7 +217,6 @@ with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
                             alpha = alpha, ..., ignore_background = ignore_background)
 }
 
-#' @rdname with_blend
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend.character <- function(x, bg_layer, blend_type = 'over',
@@ -230,14 +226,11 @@ with_blend.character <- function(x, bg_layer, blend_type = 'over',
                                flip_order = flip_order, alpha = alpha, ...,
                                include = include, ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_blend
 #' @export
 with_blend.function <- with_blend.character
-#' @rdname with_blend
 #' @export
 with_blend.formula <- with_blend.character
 
-#' @rdname with_blend
 #' @export
 with_blend.element <- function(x, bg_layer, blend_type = 'over',
                                flip_order = FALSE, alpha = NA, ...) {
@@ -245,7 +238,6 @@ with_blend.element <- function(x, bg_layer, blend_type = 'over',
                             blend_type = blend_type, flip_order = flip_order,
                             alpha = NA, ...)
 }
-#' @rdname with_blend
 #' @export
 with_blend.guide <- function(x, bg_layer, blend_type = 'over',
                              flip_order = FALSE, alpha = NA, ...) {

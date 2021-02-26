@@ -2,109 +2,9 @@
 % Please edit documentation in R/shadow.R
 \name{with_shadow}
 \alias{with_shadow}
-\alias{with_shadow.grob}
-\alias{with_shadow.Layer}
-\alias{with_shadow.ggplot}
-\alias{with_shadow.character}
-\alias{with_shadow.function}
-\alias{with_shadow.formula}
-\alias{with_shadow.element}
-\alias{with_shadow.guide}
 \title{Apply a drop shadow to a layer}
 \usage{
 with_shadow(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...
-)
-
-\method{with_shadow}{grob}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  background = NULL,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shadow}{Layer}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shadow}{ggplot}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_shadow}{character}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shadow}{`function`}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shadow}{formula}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_shadow}{element}(
-  x,
-  colour = "black",
-  x_offset = 10,
-  y_offset = 10,
-  sigma = 1,
-  stack = TRUE,
-  ...
-)
-
-\method{with_shadow}{guide}(
   x,
   colour = "black",
   x_offset = 10,
@@ -130,16 +30,9 @@ time}
 
 \item{stack}{Should the original layer be placed on top?}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \description{
 This filter applies the familiar drop-shadow effect on elements in a layer.

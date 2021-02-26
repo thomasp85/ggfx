@@ -26,44 +26,36 @@ with_raster <- function(x, ...) {
 as_reference <- function(x, id) {
   with_raster(x, id = id, include = FALSE)
 }
-#' @rdname with_raster
 #' @importFrom grid gTree
 #' @export
 with_raster.grob <- function(x, ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, id = id, include = isTRUE(include), cl = c('raster_grob', 'filter_grob'))
 }
-#' @rdname with_raster
 #' @importFrom ggplot2 ggproto
 #' @export
 with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_raster, 'RasterisedGeom', ...,
                            include = include, ids = list(id = id))
 }
-#' @rdname with_raster
 #' @export
 with_raster.ggplot <- function(x, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_raster, ..., ignore_background = ignore_background)
 }
 
-#' @rdname with_raster
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_raster, 'RasterisedGeom', ...,
                                include = include, ids = list(id = id))
 }
-#' @rdname with_raster
 #' @export
 with_raster.function <- with_raster.character
-#' @rdname with_raster
 #' @export
 with_raster.formula <- with_raster.character
-#' @rdname with_raster
 #' @export
 with_raster.element <- function(x, ...) {
   filter_element_constructor(x, with_raster, ...)
 }
-#' @rdname with_raster
 #' @export
 with_raster.guide <- function(x, ...) {
   filter_guide_constructor(x, with_raster, ...)

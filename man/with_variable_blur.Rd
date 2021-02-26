@@ -2,117 +2,9 @@
 % Please edit documentation in R/variable_blur.R
 \name{with_variable_blur}
 \alias{with_variable_blur}
-\alias{with_variable_blur.grob}
-\alias{with_variable_blur.Layer}
-\alias{with_variable_blur.ggplot}
-\alias{with_variable_blur.character}
-\alias{with_variable_blur.function}
-\alias{with_variable_blur.formula}
-\alias{with_variable_blur.element}
-\alias{with_variable_blur.guide}
 \title{Apply a variable blur to a layer}
 \usage{
 with_variable_blur(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...
-)
-
-\method{with_variable_blur}{grob}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...,
-  background = NULL,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_variable_blur}{Layer}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_variable_blur}{ggplot}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_variable_blur}{character}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_variable_blur}{`function`}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_variable_blur}{formula}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_variable_blur}{element}(
-  x,
-  x_sigma,
-  y_sigma = x_sigma,
-  angle = NULL,
-  x_scale = 1,
-  y_scale = x_scale,
-  angle_range = 0,
-  ...
-)
-
-\method{with_variable_blur}{guide}(
   x,
   x_sigma,
   y_sigma = x_sigma,
@@ -142,16 +34,9 @@ it will be converted to pixel dimension when rendered.}
 is provided to \code{angle_range} the rotation will be constant across the whole
 layer}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

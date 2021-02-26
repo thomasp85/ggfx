@@ -2,124 +2,9 @@
 % Please edit documentation in R/blend_custom.R
 \name{with_blend_custom}
 \alias{with_blend_custom}
-\alias{with_blend_custom.grob}
-\alias{with_blend_custom.Layer}
-\alias{with_blend_custom.ggplot}
-\alias{with_blend_custom.character}
-\alias{with_blend_custom.function}
-\alias{with_blend_custom.formula}
-\alias{with_blend_custom.element}
-\alias{with_blend_custom.guide}
 \title{Create a custom blend type}
 \usage{
 with_blend_custom(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...
-)
-
-\method{with_blend_custom}{grob}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend_custom}{Layer}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend_custom}{ggplot}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_blend_custom}{character}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend_custom}{`function`}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend_custom}{formula}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blend_custom}{element}(
-  x,
-  bg_layer,
-  a = 0,
-  b = 0,
-  c = 0,
-  d = 0,
-  flip_order = FALSE,
-  alpha = NA,
-  ...
-)
-
-\method{with_blend_custom}{guide}(
   x,
   bg_layer,
   a = 0,
@@ -148,14 +33,9 @@ flipped so that \code{bg_layer} is treated as being on top and \code{x} being be
 This argument can be used to set the resulting alpha channel to that of the
 source (\code{"src"}) or destination (\code{"dst"})}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

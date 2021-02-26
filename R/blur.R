@@ -11,12 +11,9 @@
 #' If a unit object it will automatically be converted to pixels at rendering
 #' time
 #' @param stack Should the original layer be placed on top?
-#' @param ignore_background Should the filter be applied to everything except
-#' the plot background, or should the background be included.
-#' @param background A grob to draw below the filtered grob.
-#' @param ... Arguments to be passed on to methods
-#' @param id An id that can be used to reference this filter somewhere else
-#' @param include Should the filter be part of the final render
+#' @param ... Arguments to be passed on to methods. See
+#' [the documentation of supported object][object_support] for a description of
+#' object specific arguments.
 #'
 #' @return A modified `Layer` object
 #'
@@ -30,7 +27,6 @@
 with_blur <- function(x, sigma = 0.5, stack = FALSE, ...) {
   UseMethod('with_blur')
 }
-#' @rdname with_blur
 #' @importFrom grid gTree
 #' @export
 with_blur.grob <- function(x, sigma, stack = FALSE, background = NULL,
@@ -38,7 +34,6 @@ with_blur.grob <- function(x, sigma, stack = FALSE, background = NULL,
   gTree(grob = x, sigma = sigma, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('blur_grob', 'filter_grob'))
 }
-#' @rdname with_blur
 #' @importFrom ggplot2 ggproto
 #' @export
 with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
@@ -47,7 +42,6 @@ with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                            stack = stack, ..., include = include,
                            ids = list(id = id))
 }
-#' @rdname with_blur
 #' @export
 with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
                              ignore_background = TRUE, ...) {
@@ -55,7 +49,6 @@ with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
                             ignore_background = ignore_background)
 }
 
-#' @rdname with_blur
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
@@ -64,18 +57,14 @@ with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                                stack = stack, ..., include = include,
                                ids = list(id = id))
 }
-#' @rdname with_blur
 #' @export
 with_blur.function <- with_blur.character
-#' @rdname with_blur
 #' @export
 with_blur.formula <- with_blur.character
-#' @rdname with_blur
 #' @export
 with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
   filter_element_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }
-#' @rdname with_blur
 #' @export
 with_blur.guide <- function(x, sigma = 0.5, stack = FALSE, ...) {
   filter_guide_constructor(x, with_blur, sigma = sigma, stack = stack, ...)

@@ -2,41 +2,9 @@
 % Please edit documentation in R/blur.R
 \name{with_blur}
 \alias{with_blur}
-\alias{with_blur.grob}
-\alias{with_blur.Layer}
-\alias{with_blur.ggplot}
-\alias{with_blur.character}
-\alias{with_blur.function}
-\alias{with_blur.formula}
-\alias{with_blur.element}
-\alias{with_blur.guide}
 \title{Apply a gaussian blur to your layer}
 \usage{
 with_blur(x, sigma = 0.5, stack = FALSE, ...)
-
-\method{with_blur}{grob}(
-  x,
-  sigma,
-  stack = FALSE,
-  background = NULL,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_blur}{Layer}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_blur}{ggplot}(x, sigma = 0.5, stack = FALSE, ignore_background = TRUE, ...)
-
-\method{with_blur}{character}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_blur}{`function`}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_blur}{formula}(x, sigma = 0.5, stack = FALSE, ..., id = NULL, include = is.null(id))
-
-\method{with_blur}{element}(x, sigma = 0.5, stack = FALSE, ...)
-
-\method{with_blur}{guide}(x, sigma = 0.5, stack = FALSE, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -49,16 +17,9 @@ time}
 
 \item{stack}{Should the original layer be placed on top?}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

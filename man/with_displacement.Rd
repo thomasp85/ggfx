@@ -2,87 +2,9 @@
 % Please edit documentation in R/displace.R
 \name{with_displacement}
 \alias{with_displacement}
-\alias{with_displacement.grob}
-\alias{with_displacement.Layer}
-\alias{with_displacement.ggplot}
-\alias{with_displacement.character}
-\alias{with_displacement.function}
-\alias{with_displacement.formula}
-\alias{with_displacement.element}
-\alias{with_displacement.guide}
 \title{Apply a displacement map to a layer}
 \usage{
 with_displacement(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
-
-\method{with_displacement}{grob}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ...,
-  background = NULL,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_displacement}{Layer}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_displacement}{ggplot}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ignore_background = TRUE,
-  ...
-)
-
-\method{with_displacement}{character}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_displacement}{`function`}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_displacement}{formula}(
-  x,
-  x_map,
-  y_map = x_map,
-  x_scale = 1,
-  y_scale = x_scale,
-  ...,
-  id = NULL,
-  include = is.null(id)
-)
-
-\method{with_displacement}{element}(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
-
-\method{with_displacement}{guide}(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -97,16 +19,9 @@ to match the dimensions of x. Only one channel will be used - see
 correspond to? If a numeric it will be interpreted as pixel dimensions. If a
 unit object it will be converted to pixel dimension when rendered.}
 
-\item{...}{Arguments to be passed on to methods}
-
-\item{background}{A grob to draw below the filtered grob.}
-
-\item{id}{An id that can be used to reference this filter somewhere else}
-
-\item{include}{Should the filter be part of the final render}
-
-\item{ignore_background}{Should the filter be applied to everything except
-the plot background, or should the background be included.}
+\item{...}{Arguments to be passed on to methods. See
+\link[=object_support]{the documentation of supported object} for a description of
+object specific arguments.}
 }
 \value{
 A modified \code{Layer} object

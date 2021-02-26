@@ -34,7 +34,6 @@
 as_group <- function(..., id) {
   UseMethod("as_group")
 }
-#' @rdname as_group
 #' @importFrom grid is.grob
 #' @export
 as_group.grob <- function(..., id) {
@@ -44,7 +43,6 @@ as_group.grob <- function(..., id) {
   }
   gTree(grobs = grobs, id = id, cl = 'grouped_grob')
 }
-#' @rdname as_group
 #' @export
 as_group.Layer <- function(..., id) {
   layers <- list(...)

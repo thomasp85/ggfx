@@ -20,7 +20,6 @@ with_shadow <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                         sigma = 1, stack = TRUE, ...) {
   UseMethod('with_shadow')
 }
-#' @rdname with_shadow
 #' @importFrom grid is.unit unit gTree
 #' @export
 with_shadow.grob <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
@@ -30,7 +29,6 @@ with_shadow.grob <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
         sigma = sigma, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('shadow_grob', 'filter_grob'))
 }
-#' @rdname with_shadow
 #' @importFrom ggplot2 ggproto
 #' @export
 with_shadow.Layer <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
@@ -41,7 +39,6 @@ with_shadow.Layer <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                            stack = stack, ..., include = include,
                            ids = list(id = id))
 }
-#' @rdname with_shadow
 #' @export
 with_shadow.ggplot <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ignore_background = TRUE,
@@ -51,7 +48,6 @@ with_shadow.ggplot <- function(x, colour = 'black', x_offset = 10, y_offset = 10
                             ..., ignore_background = ignore_background)
 }
 
-#' @rdname with_shadow
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_shadow.character <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
@@ -62,13 +58,10 @@ with_shadow.character <- function(x, colour = 'black', x_offset = 10, y_offset =
                                stack = stack, ..., include = include,
                                ids = list(id = id))
 }
-#' @rdname with_shadow
 #' @export
 with_shadow.function <- with_shadow.character
-#' @rdname with_shadow
 #' @export
 with_shadow.formula <- with_shadow.character
-#' @rdname with_shadow
 #' @export
 with_shadow.element <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ...) {
@@ -76,7 +69,6 @@ with_shadow.element <- function(x, colour = 'black', x_offset = 10, y_offset = 1
                              y_offset = y_offset, sigma = sigma, stack = stack,
                              ...)
 }
-#' @rdname with_shadow
 #' @export
 with_shadow.guide <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ...) {

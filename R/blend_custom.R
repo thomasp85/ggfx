@@ -25,7 +25,6 @@ with_blend_custom <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                               flip_order = FALSE, alpha = NA, ...) {
   UseMethod('with_blend_custom')
 }
-#' @rdname with_blend_custom
 #' @importFrom grid gTree
 #' @export
 with_blend_custom.grob <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
@@ -35,7 +34,6 @@ with_blend_custom.grob <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
         flip_order = flip_order, alpha = tolower(alpha), id = id, include = isTRUE(include),
         cl = c('custom_blend_grob', 'filter_grob'))
 }
-#' @rdname with_blend_custom
 #' @importFrom ggplot2 ggproto
 #' @export
 with_blend_custom.Layer <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
@@ -45,7 +43,6 @@ with_blend_custom.Layer <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                            c = c, d = d, flip_order = flip_order, alpha = alpha, ...,
                            include = include, ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_blend_custom
 #' @export
 with_blend_custom.ggplot <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                      flip_order = FALSE, alpha = NA, ignore_background = TRUE,
@@ -55,7 +52,6 @@ with_blend_custom.ggplot <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                             ..., ignore_background = ignore_background)
 }
 
-#' @rdname with_blend_custom
 #' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend_custom.character <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
@@ -65,13 +61,10 @@ with_blend_custom.character <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                b = b, c = c, d = d, flip_order = FALSE, alpha = alpha,
                                ..., include = include, ids = list(id = id, bg_layer = bg_layer))
 }
-#' @rdname with_blend_custom
 #' @export
 with_blend_custom.function <- with_blend_custom.character
-#' @rdname with_blend_custom
 #' @export
 with_blend_custom.formula <- with_blend_custom.character
-#' @rdname with_blend_custom
 #' @export
 with_blend_custom.element <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                       flip_order = FALSE, alpha = NA, ...) {
@@ -79,7 +72,6 @@ with_blend_custom.element <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                              b = b, c = c, d = d, flip_order = flip_order,
                              alpha = alpha, ...)
 }
-#' @rdname with_blend_custom
 #' @export
 with_blend_custom.guide <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                     flip_order = FALSE, alpha = NA, ...) {
