@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Imports: 
-    magick,
+    magick (>= 2.6.9000),
     ragg,
     grid,
     ggplot2,
@@ -30,3 +30,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Remotes:  
+    rOpenSci/magick

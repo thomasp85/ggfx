@@ -7,7 +7,7 @@
 #' identifying a registered filter, or a raster object. Will by default extract
 #' the luminosity of the layer and use that as mask. To pick another channel use
 #' one of the [channel specification][Channels] function.
-#' @param invert Should the mask bee
+#' @param invert Should the mask be inverted before applying it
 #' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object

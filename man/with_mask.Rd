@@ -47,7 +47,7 @@ identifying a registered filter, or a raster object. Will by default extract
 the luminosity of the layer and use that as mask. To pick another channel use
 one of the \link[=Channels]{channel specification} function.}
 
-\item{invert}{Should the mask bee}
+\item{invert}{Should the mask be inverted before applying it}
 
 \item{...}{Arguments to be passed on to methods}
 
