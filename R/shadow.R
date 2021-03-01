@@ -29,7 +29,6 @@ with_shadow.grob <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
         sigma = sigma, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('shadow_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_shadow.Layer <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                               sigma = 1, stack = TRUE, ..., id = NULL,
@@ -47,8 +46,6 @@ with_shadow.ggplot <- function(x, colour = 'black', x_offset = 10, y_offset = 10
                             y_offset = y_offset, sigma = sigma, stack = stack,
                             ..., ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_shadow.character <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                   sigma = 1, stack = TRUE, ..., id = NULL,

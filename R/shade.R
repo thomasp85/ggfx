@@ -62,7 +62,6 @@ with_shade.grob <- function(x, height_map, azimuth = 30, elevation = 30, strengt
         strength = strength, sigma = sigma, blend_type = blend_type, id = id,
         include = isTRUE(include), cl = c('shade_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_shade.Layer <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                              sigma = 0, blend_type = 'overlay', ..., id = NULL,
@@ -81,8 +80,6 @@ with_shade.ggplot <- function(x, height_map, azimuth = 30, elevation = 30, stren
                             blend_type = blend_type, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_shade.character <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                                  sigma = 0, blend_type = 'overlay', ..., id = NULL,

@@ -29,7 +29,6 @@ with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
         bias = bias, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('kernel_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                               scaling = NULL, bias = NULL, stack = FALSE, ...,
@@ -46,8 +45,6 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                             scaling = scaling, bias = bias, stack = stack, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                                   scaling = NULL, bias = NULL, stack = FALSE, ...,

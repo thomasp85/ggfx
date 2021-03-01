@@ -30,7 +30,6 @@ with_interpolate.grob <- function(x, bg_layer, src_percent, bg_percent = 100 - s
         bg_percent = bg_percent, id = id, include = isTRUE(include),
         cl = c('interpolate_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_interpolate.Layer <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
                                    ..., id = NULL, include = is.null(id)) {
@@ -42,8 +41,6 @@ with_interpolate.ggplot <- function(x, bg_layer, src_percent, bg_percent = 100 -
   filter_ggplot_constructor(x, with_interpolate, bg_layer = bg_layer, src_percent = src_percent,
                             bg_percent = bg_percent, ..., ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
                                        ..., id = NULL, include = is.null(id)) {

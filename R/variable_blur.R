@@ -60,7 +60,6 @@ with_variable_blur.grob <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
         background = background, id = id,
         include = isTRUE(include), cl = c('variable_blur_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_variable_blur.Layer <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                      x_scale = 1, y_scale = x_scale, angle_range = 0, ...,
@@ -77,8 +76,6 @@ with_variable_blur.ggplot <- function(x, x_sigma, y_sigma = x_sigma, angle = NUL
                             x_scale = x_scale, y_scale = y_scale, angle_range = angle_range, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_variable_blur.character <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                          x_scale = 1, y_scale = x_scale, angle_range = 0, ...,

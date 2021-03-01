@@ -34,7 +34,6 @@ with_blur.grob <- function(x, sigma, stack = FALSE, background = NULL,
   gTree(grob = x, sigma = sigma, background = background, stack = stack, id = id,
         include = isTRUE(include), cl = c('blur_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                             include = is.null(id)) {
@@ -48,8 +47,6 @@ with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
   filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blur.character <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                                 include = is.null(id)) {

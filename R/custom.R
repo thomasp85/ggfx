@@ -68,7 +68,6 @@ with_custom.grob <- function(x, filter, ..., background = NULL, id = NULL,
   gTree(grob = x, filter = filter, args = list(...), background = background,
         id = id, include = isTRUE(include), cl = c('custom_filter_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_custom.Layer <- function(x, filter, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_custom, 'CustomFilteredGeom', filter = filter,
@@ -79,8 +78,6 @@ with_custom.ggplot <- function(x, filter, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_custom, filter = filter, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_custom.character <- function(x, filter, ..., id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_custom, 'CustomFilteredGeom', filter = filter,

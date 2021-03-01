@@ -32,7 +32,7 @@ get_layer <- function(x) {
   if (is_formula(x)) x <- as_function(x)
   if (is_function(x)) {
     dim <- dev.size('px')
-    x(dim[1], dim[2])
+    x(as.integer(dim[[1]]), as.integer(dim[[2]]))
   } else if (length(x) == 1 && is.character(x)) {
     fetch_raster(x)
   } else {

@@ -31,7 +31,6 @@ as_reference <- function(x, id) {
 with_raster.grob <- function(x, ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, id = id, include = isTRUE(include), cl = c('raster_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_raster, 'RasterisedGeom', ...,
@@ -41,8 +40,6 @@ with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
 with_raster.ggplot <- function(x, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_raster, ..., ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_raster.character <- function(x, ..., id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_raster, 'RasterisedGeom', ...,

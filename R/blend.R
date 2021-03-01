@@ -200,7 +200,6 @@ with_blend.grob <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE
         flip_order = flip_order, alpha = tolower(alpha), background = background,
         id = id, include = isTRUE(include), cl = c('blended_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
                              alpha = NA, ..., id = NULL, include = is.null(id)) {
@@ -216,8 +215,6 @@ with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
                             blend_type = blend_type, flip_order = flip_order,
                             alpha = alpha, ..., ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend.character <- function(x, bg_layer, blend_type = 'over',
                                  flip_order = FALSE, alpha = NA, ..., id = NULL,

@@ -1,3 +1,4 @@
+#' @importFrom ggplot2 ggproto
 filter_layer_constructor <- function(x, .filter, .name, ..., ids) {
   parent_geom <- x$geom
   ggproto(NULL, x,
@@ -23,6 +24,7 @@ filter_ggplot_constructor <- function(x, .filter, ..., ignore_background) {
   x
 }
 
+#' @importFrom ggplot2 geom_blank ggproto
 filter_character_constructor <- function(x, .filter, .name, ..., ids) {
   layer <- geom_blank(data = data.frame(x = 1), inherit.aes = FALSE)
   parent_geom <- layer$geom

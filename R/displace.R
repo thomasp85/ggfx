@@ -42,7 +42,6 @@ with_displacement.grob <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale
         y_scale = y_scale, background = background, id = id,
         include = isTRUE(include), cl = c('displacement_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_displacement.Layer <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
                                     id = NULL, include = is.null(id)) {
@@ -57,8 +56,6 @@ with_displacement.ggplot <- function(x, x_map, y_map = x_map, x_scale = 1, y_sca
                             x_scale = x_scale, y_scale = y_scale, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_displacement.character <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
                                         id = NULL, include = is.null(id)) {

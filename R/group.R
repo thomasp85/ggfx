@@ -43,6 +43,8 @@ as_group.grob <- function(..., id) {
   }
   gTree(grobs = grobs, id = id, cl = 'grouped_grob')
 }
+#' @importFrom ggplot2 geom_blank
+#' @importFrom grid gTree
 #' @export
 as_group.Layer <- function(..., id) {
   layers <- list(...)
@@ -51,9 +53,14 @@ as_group.Layer <- function(..., id) {
   if (any(!vapply(layers, inherits, logical(1), 'Layer'))) {
     abort('All objects must be ggplot2 layers')
   }
-  group_layer <- filter_layer_constructor(geom_blank(), function(x, ..., id) {
-    gTree(grob = x, id = id, ids = list(...), cl = c('combined_layer_grob', 'filter_grob'))
-  }, 'CombinedGeom', ids = c(list(id = id), as.list(ids)))
+  group_layer <- filter_layer_constructor(
+    geom_blank(data = data.frame(x = 1), inherit.aes = FALSE),
+    function(x, ..., id) {
+      gTree(grob = x, id = id, ids = list(...),
+            cl = c('combined_layer_grob', 'filter_grob'))
+    },
+    'CombinedGeom',
+    ids = c(list(id = id), as.list(ids)))
   c(layers, list(group_layer))
 }
 

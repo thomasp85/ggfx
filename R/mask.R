@@ -54,7 +54,6 @@ with_mask.grob <- function(x, mask, invert = FALSE, ..., background = NULL, id =
   gTree(grob = x, mask = mask, invert = invert, background = background,
         id = id, include = isTRUE(include), cl = c('masked_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_mask.Layer <- function(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_mask, 'MaskedGeom', invert = invert, ...,
@@ -65,8 +64,6 @@ with_mask.ggplot <- function(x, mask, invert = FALSE, ignore_background = TRUE, 
   filter_ggplot_constructor(x, with_mask, mask = mask, invert = invert, ...,
                             ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_mask.character <- function(x, mask, invert = FALSE, ..., id = NULL,
                                  include = is.null(id)) {

@@ -34,7 +34,6 @@ with_blend_custom.grob <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
         flip_order = flip_order, alpha = tolower(alpha), id = id, include = isTRUE(include),
         cl = c('custom_blend_grob', 'filter_grob'))
 }
-#' @importFrom ggplot2 ggproto
 #' @export
 with_blend_custom.Layer <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                     flip_order = FALSE, alpha = NA, ..., id = NULL,
@@ -51,8 +50,6 @@ with_blend_custom.ggplot <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                             c = c, d = d, flip_order = flip_order, alpha = alpha,
                             ..., ignore_background = ignore_background)
 }
-
-#' @importFrom ggplot2 geom_blank ggproto
 #' @export
 with_blend_custom.character <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                         flip_order = FALSE, alpha = NA, ..., id = NULL,
