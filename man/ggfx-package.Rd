@@ -6,6 +6,8 @@
 \alias{ggfx-package}
 \title{ggfx: Filters and Shaders for 'ggplot2'}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Provides a range of filters and shaders that can be applied to 
     layers from the 'ggplot2' package and its extensions. The filters are 
     applied at draw time and will thus respond to resizing.

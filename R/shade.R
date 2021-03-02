@@ -23,7 +23,7 @@
 #' @export
 #'
 #' @examples
-#' library(ggplot2).
+#' library(ggplot2)
 #' volcano_long <- data.frame(
 #'   x = as.vector(col(volcano)),
 #'   y  = as.vector(row(volcano)),
@@ -110,6 +110,7 @@ with_shade.guide <- function(x, height_map, azimuth = 30, elevation = 30, streng
 
 #' @rdname raster_helpers
 #' @importFrom magick image_read image_shade image_destroy image_resize geometry_size_pixels image_level
+#' @importFrom grDevices col2rgb
 #' @export
 #' @keywords internal
 shade_raster <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10, sigma = 0,

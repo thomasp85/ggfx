@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dev = "ragg_png",
+  fig.width = 6
 )
 ```
 
@@ -80,6 +82,7 @@ To illustrate the complications of working with `nativeRaster` object we'll crea
 fill_patch_naive <- function(x, colour, x_range, y_range) {
   cols <- seq(x_range[1], x_range[2])
   rows <- seq(y_range[1], y_range[2])
+  cat(dim(x))
   x[rows, cols] <- farver::encode_native(colour)
   x
 }
@@ -88,8 +91,8 @@ ggplot(mtcars, aes(x = factor(gear), y = disp)) +
     geom_boxplot(),
     filter = fill_patch_naive,
     colour = 'forestgreen',
-    x_range = c(200, 300),
-    y_range = c(100, 300)
+    x_range = c(80, 250),
+    y_range = c(50, 100)
   )
 ```
 
@@ -118,8 +121,8 @@ ggplot(mtcars, aes(x = factor(gear), y = disp)) +
     geom_boxplot(),
     filter = fill_patch,
     colour = 'forestgreen',
-    x_range = c(200, 300),
-    y_range = c(100, 300)
+    x_range = c(80, 250),
+    y_range = c(50, 100)
   )
 ```
 
@@ -213,8 +216,8 @@ While some effects are pretty easy to achieve just be manipulating the raster da
 
 ```{r}
 implode <- function(x, factor = 0.5) {
-  vp <- image_read(get_viewport_area(x))
-  vp <- image_implode(vp, factor)
+  vp <- magick::image_read(get_viewport_area(x))
+  vp <- magick::image_implode(vp, factor)
   set_viewport_area(x, as.raster(vp, native = TRUE))
 }
 

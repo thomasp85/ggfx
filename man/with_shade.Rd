@@ -49,7 +49,7 @@ be controlled and the result can optionally be put underneath the original
 layer.
 }
 \examples{
-library(ggplot2).
+library(ggplot2)
 volcano_long <- data.frame(
   x = as.vector(col(volcano)),
   y  = as.vector(row(volcano)),

@@ -8,6 +8,8 @@ as_group(..., id)
 }
 \arguments{
 \item{...}{A range of layers to combine}
+
+\item{id}{A string identifying this layer}
 }
 \value{
 A list of layers oor a \link[grid:grid.grob]{gTree} depending on the input

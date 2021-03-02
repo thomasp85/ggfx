@@ -8,7 +8,7 @@
 #' of a graphic stack.
 #'
 #' @param ... A range of layers to combine
-#' @inheritParams with_blur
+#' @inheritParams as_reference
 #'
 #' @return A list of layers oor a [gTree][grid::gTree] depending on the input
 #'

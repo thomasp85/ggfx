@@ -16,6 +16,8 @@ naming a filter}
 \item{...}{Arguments to be passed on to methods. See
 \link[=object_support]{the documentation of supported object} for a description of
 object specific arguments.}
+
+\item{id}{A string identifying this layer}
 }
 \value{
 A modified \code{Layer} object

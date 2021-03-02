@@ -8,6 +8,7 @@
 #' this grob or layer as only a filter reference clear.
 #'
 #' @inheritParams with_blur
+#' @param id A string identifying this layer
 #'
 #' @return A modified `Layer` object
 #'
