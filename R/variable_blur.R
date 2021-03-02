@@ -138,7 +138,7 @@ variably_blur_raster <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
 makeContent.variable_blur_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
   raster <- variably_blur_raster(ras$raster, x$x_sigma, x$y_sigma, x$angle,
-                                 as_pixels(x$x_scale), as_pixels(x$y_scale),
+                                 as_pixels(x$x_scale), as_pixels(x$y_scale, y_axis = TRUE),
                                  angle_range = x$angle_range)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
