@@ -8,6 +8,13 @@
 
 <title>Blend two layerrs together by averaging them out — with_interpolate • ggfx</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Two layers can be blended together in the literal sense (not like
 with_blend()) so that the result is the average of the two. This is the
 purpose of with_interpolate()." />
+<meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
 
@@ -92,6 +100,18 @@ purpose of with_interpolate()." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/custom_filters.html">Custom filters</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -124,78 +144,7 @@ purpose of with_interpolate()." />
 purpose of <code>with_interpolate()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_interpolate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>bg_layer</span>, <span class='va'>src_percent</span>, bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grob</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  <span class='va'>...</span>,
-  id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for Layer</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  <span class='va'>...</span>,
-  id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for ggplot</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  ignore_background <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for character</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  <span class='va'>...</span>,
-  id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for `function`</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  <span class='va'>...</span>,
-  id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for formula</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>bg_layer</span>,
-  <span class='va'>src_percent</span>,
-  bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>,
-  <span class='va'>...</span>,
-  id <span class='op'>=</span> <span class='cn'>NULL</span>,
-  include <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># S3 method for element</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>bg_layer</span>, <span class='va'>src_percent</span>, bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for guide</span>
-<span class='fu'>with_interpolate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>bg_layer</span>, <span class='va'>src_percent</span>, bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>with_interpolate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>bg_layer</span>, <span class='va'>src_percent</span>, bg_percent <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>-</span> <span class='va'>src_percent</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,20 +165,9 @@ background layer to the result. Should be between 0 and 100</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments to be passed on to methods</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>An id that can be used to reference this filter somewhere else</p></td>
-    </tr>
-    <tr>
-      <th>include</th>
-      <td><p>Should the filter be part of the final render</p></td>
-    </tr>
-    <tr>
-      <th>ignore_background</th>
-      <td><p>Should the filter be applied to everything except
-the plot background, or should the background be included.</p></td>
+      <td><p>Arguments to be passed on to methods. See
+<a href='object_support.html'>the documentation of supported object</a> for a description of
+object specific arguments.</p></td>
     </tr>
     </table>
 

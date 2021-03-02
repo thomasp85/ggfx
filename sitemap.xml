@@ -13,6 +13,9 @@
     <loc>https://ggfx.data-imaginist.com/reference/ggfx-package.html</loc>
   </url>
   <url>
+    <loc>https://ggfx.data-imaginist.com/reference/object_support.html</loc>
+  </url>
+  <url>
     <loc>https://ggfx.data-imaginist.com/reference/raster_helpers.html</loc>
   </url>
   <url>
@@ -46,10 +49,16 @@
     <loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc>
   </url>
   <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_shade.html</loc>
+  </url>
+  <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_shadow.html</loc>
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_variable_blur.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/articles/custom_filters.html</loc>
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/articles/ggfx.html</loc>
