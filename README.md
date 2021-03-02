@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggfx
+# ggfx <a href='https://ggfx.data-imaginist.com'><img src='man/figures/logo.png' align="right" height="138" /></a>
 
 <!-- badges: start -->
 
@@ -44,10 +44,9 @@ ggplot() +
   ) + 
   with_displacement(
     geom_text(aes(0.5, 0.5, label = 'ggfx-ggfx'), size = 25, fontface = 'bold'), 
-    map = "displace_map", 
-    x_channel = "red", 
-    y_channel = "blue", 
-    scale = unit(0.025, 'npc'),
+    x_map = ch_red("displace_map"), 
+    y_map = ch_blue("displace_map"),
+    x_scale = unit(0.025, 'npc'),
     id = "text"
   ) +
   with_blend(
