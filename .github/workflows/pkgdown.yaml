@@ -18,6 +18,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      - name: Install imagemagick packages
+        if: runner.os == 'MacOS'
+        run: brew install imagemagick
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
