@@ -3,6 +3,11 @@
 \name{render_context}
 \alias{render_context}
 \alias{viewport_location}
+\alias{index_raster}
+\alias{get_raster_area}
+\alias{set_raster_area}
+\alias{get_viewport_area}
+\alias{set_viewport_area}
 \alias{viewport_is_clipping}
 \alias{current_resolution}
 \alias{as_pixels}
@@ -11,16 +16,34 @@
 \usage{
 viewport_location()
 
+index_raster(raster, cols, rows)
+
+get_raster_area(raster, xmin, ymin, xmax, ymax)
+
+set_raster_area(raster, value, xmin, ymin)
+
+get_viewport_area(raster)
+
+set_viewport_area(raster, value)
+
 viewport_is_clipping()
 
 current_resolution()
 
-as_pixels(x)
+as_pixels(x, y_axis = FALSE, location = FALSE)
 
 from_pixels(x)
 }
 \arguments{
 \item{x}{A numeric or \link[grid:unit]{grid::unit} object}
+
+\item{y_axis}{is the unit pertaining to the y-axis? Defaults to \code{FALSE} (i.e.
+it is measured on the x-axis)}
+
+\item{location}{is the unit encoding a location? Defaults to \code{FALSE} (i.e. it
+is encoding a dimension). Pixel locations are encoded based on a top-left
+starting point, as opposed to grid's bottom-left coordinate system. This
+means that y-axis locations will flip around when converted to pixels.}
 }
 \value{
 See details

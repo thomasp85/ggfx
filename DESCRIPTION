@@ -28,7 +28,8 @@ BugReports: https://github.com/thomasp85/ggfx/issues
 Suggests: 
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    farver (>= 2.1.0)
 VignetteBuilder: knitr
 Remotes:  
     rOpenSci/magick
