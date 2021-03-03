@@ -96,8 +96,8 @@ mask_raster <- function(x, mask, invert = FALSE) {
   if (invert) {
     mask <- image_negate(mask)
   }
-  mask <- image_composite(image_blank(dim$width, dim$height), mask, 'CopyOpacity')
-  result <- image_composite(raster, mask, 'DstIn')
+  mask <- image_composite(image_separate(raster, 'alpha'), mask, 'multiply')
+  result <- image_composite(raster, mask, 'CopyOpacity')
   x <- as.integer(result)
   image_destroy(raster)
   image_destroy(mask)
