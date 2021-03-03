@@ -52,9 +52,9 @@ function must take a nativeRaster object as the first argument along with
 any other arguments passed to .... Be aware that the raster spans the full
 device size and not just the viewport currently rendered to. This is because
 graphics may extend outside of the viewport depending on the clipping
-settings. You can use viewport_location() to figure out which pixels in the
-provided raster is part of the active viewport. Be aware that nativeRaster is
-encoded in row-major order in contrast to how matrices in R are encoded." />
+settings. You can use get_viewport_area() along with all the other raster
+helpers provided by ggfx to facilitate working with the input raster. See the
+example below for some inspiration." />
 <meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
@@ -152,9 +152,9 @@ function must take a <code>nativeRaster</code> object as the first argument alon
 any other arguments passed to <code>...</code>. Be aware that the raster spans the full
 device size and not just the viewport currently rendered to. This is because
 graphics may extend outside of the viewport depending on the clipping
-settings. You can use <code><a href='render_context.html'>viewport_location()</a></code> to figure out which pixels in the
-provided raster is part of the active viewport. Be aware that nativeRaster is
-encoded in row-major order in contrast to how matrices in R are encoded.</p>
+settings. You can use <code><a href='render_context.html'>get_viewport_area()</a></code> along with all the other raster
+helpers provided by ggfx to facilitate working with the input raster. See the
+example below for some inspiration.</p>
     </div>
 
     <pre class="usage"><span class='fu'>with_custom</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>filter</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -185,27 +185,25 @@ along with whatever you pass in to <code>...</code></p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 <span class='va'>flip_raster</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>raster</span>, <span class='va'>horizontal</span> <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># Ensure row-major order</span>
-  <span class='va'>raster_dim</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span>
-  <span class='va'>raster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='va'>raster</span>, nrow <span class='op'>=</span> <span class='va'>raster_dim</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, byrow <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='co'># Get the viewport area of the raster</span>
+  <span class='va'>vp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='render_context.html'>get_viewport_area</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span>
 
-  <span class='co'># Get rows and columns corresponding to viewport</span>
-  <span class='va'>vp_loc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='render_context.html'>viewport_location</a></span><span class='op'>(</span><span class='op'>)</span>
-  <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>vp_loc</span><span class='op'>[</span><span class='st'>'xmin'</span><span class='op'>]</span>, <span class='va'>vp_loc</span><span class='op'>[</span><span class='st'>'xmax'</span><span class='op'>]</span><span class='op'>)</span>
-  <span class='va'>rows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>vp_loc</span><span class='op'>[</span><span class='st'>'ymax'</span><span class='op'>]</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>vp_loc</span><span class='op'>[</span><span class='st'>'ymin'</span><span class='op'>]</span><span class='op'>)</span>
-
-  <span class='co'># Flip viewport pixels</span>
+  <span class='co'># Get the columns and rows of the raster - reverse order depending on</span>
+  <span class='co'># the value of horizontal</span>
+  <span class='va'>dims</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>vp</span><span class='op'>)</span>
+  <span class='va'>rows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>dims</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>dims</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
   <span class='kw'>if</span> <span class='op'>(</span><span class='va'>horizontal</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>raster</span><span class='op'>[</span><span class='va'>rows</span>, <span class='va'>cols</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>raster</span><span class='op'>[</span><span class='va'>rows</span>, <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span><span class='op'>]</span>
+    <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span>
   <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>
-    <span class='va'>raster</span><span class='op'>[</span><span class='va'>rows</span>, <span class='va'>cols</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>raster</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>rows</span><span class='op'>)</span>, <span class='va'>cols</span><span class='op'>]</span>
+    <span class='va'>rows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>rows</span><span class='op'>)</span>
   <span class='op'>}</span>
 
-  <span class='co'># Revert to column-major order</span>
-  <span class='va'>raster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>raster_dim</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'nativeRaster'</span>
-  <span class='va'>raster</span>
+  <span class='co'># change the order of columns or rows in the viewport raster</span>
+  <span class='va'>vp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='render_context.html'>index_raster</a></span><span class='op'>(</span><span class='va'>vp</span>, <span class='va'>cols</span>, <span class='va'>rows</span><span class='op'>)</span>
+
+  <span class='co'># Assign the modified viewport back</span>
+  <span class='fu'><a href='render_context.html'>set_viewport_area</a></span><span class='op'>(</span><span class='va'>raster</span>, <span class='va'>vp</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
