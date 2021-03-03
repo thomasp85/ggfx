@@ -50,7 +50,7 @@ with_bloom.grob <- function(x, threshold_lower = 80, threshold_upper = 100,
                             id = NULL, include = is.null(id)) {
   gTree(grob = x, threshold_lower = threshold_lower,
         threshold_upper = threshold_upper, sigma = sigma, strength = strength,
-        keep_alpha = keep_alpha, background = background, stack = stack, id = id,
+        keep_alpha = keep_alpha, background = background, id = id,
         include = isTRUE(include), cl = c('bloom_grob', 'filter_grob'))
 }
 #' @export
