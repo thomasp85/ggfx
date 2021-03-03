@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply a gaussian blur to your layer — with_blur • ggfx</title>
+<title>Dither image using Floyd-Steinberg error correction dithering — with_dither • ggfx</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="Apply a gaussian blur to your layer — with_blur" />
-<meta property="og:description" content="This filter adds a blur to the provided ggplot layer. The amount of blur can
-be controlled and the result can optionally be put underneath the original
-layer." />
+<meta property="og:title" content="Dither image using Floyd-Steinberg error correction dithering — with_dither" />
+<meta property="og:description" content="This filter reduces the number of colours in your layer and uses the
+Floyd-Steinberg algorithm to even out the error introduced by the colour
+reduction." />
 <meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
@@ -136,18 +136,18 @@ layer." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply a gaussian blur to your layer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/blur.R'><code>R/blur.R</code></a></small>
-    <div class="hidden name"><code>with_blur.Rd</code></div>
+    <h1>Dither image using Floyd-Steinberg error correction dithering</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/dither.R'><code>R/dither.R</code></a></small>
+    <div class="hidden name"><code>with_dither.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This filter adds a blur to the provided ggplot layer. The amount of blur can
-be controlled and the result can optionally be put underneath the original
-layer.</p>
+    <p>This filter reduces the number of colours in your layer and uses the
+Floyd-Steinberg algorithm to even out the error introduced by the colour
+reduction.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_blur</span><span class='op'>(</span><span class='va'>x</span>, sigma <span class='op'>=</span> <span class='fl'>0.5</span>, stack <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>with_dither</span><span class='op'>(</span><span class='va'>x</span>, max_colours <span class='op'>=</span> <span class='fl'>256</span>, colourspace <span class='op'>=</span> <span class='st'>"rgb"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,15 +158,13 @@ layer.</p>
 naming a filter</p></td>
     </tr>
     <tr>
-      <th>sigma</th>
-      <td><p>The standard deviation of the gaussian kernel. Increase it to
-apply more blurring. If a numeric it will be interpreted as given in pixels.
-If a unit object it will automatically be converted to pixels at rendering
-time</p></td>
+      <th>max_colours</th>
+      <td><p>The maximum number of colours to use. The result may
+contain fewer colours but never more.</p></td>
     </tr>
     <tr>
-      <th>stack</th>
-      <td><p>Should the original layer be placed on top?</p></td>
+      <th>colourspace</th>
+      <td><p>In which colourspace should the dithering be calculated</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -181,15 +179,18 @@ object specific arguments.</p></td>
     <p>A modified <code>Layer</code> object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other blur filters: 
-<code><a href='with_motion_blur.html'>with_motion_blur</a>()</code>,
-<code><a href='with_variable_blur.html'>with_variable_blur</a>()</code></p></div>
+    <div class='dont-index'><p>Other dithering filters: 
+<code><a href='with_circle_dither.html'>with_circle_dither</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>with_blur</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>mtcars</span>, size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>, sigma <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='img'><img src='with_blur-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>with_dither</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>, interpolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+    max_colours <span class='op'>=</span> <span class='fl'>10</span>
+  <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>'viridis'</span><span class='op'>)</span>
+</div><div class='img'><img src='with_dither-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -176,6 +176,28 @@
 <p>It works! Now, there are certainly room for improvements. The obvious place to start is the part of the line that peaks out from outside the blur area. This could easily be solved by padding the raster with some repeated values from the start and end, or we could mask the layer so it only showed the part that is getting blurred. I will leave that as an exercise to the reader.</p>
 </div>
 </div>
+<div id="filtering-a-filtered-geom" class="section level2">
+<h2 class="hasAnchor">
+<a href="#filtering-a-filtered-geom" class="anchor"></a>Filtering a filtered geom</h2>
+<p>You may now sit and wonder: “Can I still add a filter to a geom that incorporates a filter?”. Glad you asked! The answer is yes. Let us fix the ugly issue above with a mask filter (though it really should be fixed inside the geom)</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/with_raster.html">as_reference</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,
+      inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>
+    <span class="op">)</span>,
+    id <span class="op">=</span> <span class="st">'draw_area'</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/with_mask.html">with_mask</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="va">GeomBlurrySmooth</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
+    mask <span class="op">=</span> <span class="fu"><a href="../reference/Channels.html">ch_alpha</a></span><span class="op">(</span><span class="st">'draw_area'</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<p><img src="geoms_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<p>Voila!</p>
+<p>I hope this opens up the door for many new ingenious geoms from the creative community of ggplot2 extension developers. Have fun!</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

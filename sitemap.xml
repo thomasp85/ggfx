@@ -40,6 +40,9 @@
     <loc>https://ggfx.data-imaginist.com/reference/with_displacement.html</loc>
   </url>
   <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_dither.html</loc>
+  </url>
+  <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_interpolate.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_motion_blur.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_ordered_dither.html</loc>
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc>
