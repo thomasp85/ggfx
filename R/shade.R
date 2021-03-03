@@ -52,15 +52,16 @@ with_shade <- function(x, height_map, azimuth = 30, elevation = 30, strength = 1
 #' @importFrom grid gTree
 #' @export
 with_shade.grob <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
-                            sigma = 0, blend_type = 'overlay', ..., id = NULL,
-                            include = is.null(id)) {
+                            sigma = 0, blend_type = 'overlay', ...,
+                            background = NULL, id = NULL, include = is.null(id)) {
   blend_type <- resolve_blend_type(blend_type)
   if (strength < 1) {
     abort('strength must be a numeric larger or equal to 1')
   }
   gTree(grob = x, height_map = height_map, azimuth = azimuth, elevation = elevation,
-        strength = strength, sigma = sigma, blend_type = blend_type, id = id,
-        include = isTRUE(include), cl = c('shade_grob', 'filter_grob'))
+        strength = strength, sigma = sigma, blend_type = blend_type,
+        background = background, id = id, include = isTRUE(include),
+        cl = c('shade_grob', 'filter_grob'))
 }
 #' @export
 with_shade.Layer <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
@@ -109,7 +110,7 @@ with_shade.guide <- function(x, height_map, azimuth = 30, elevation = 30, streng
 }
 
 #' @rdname raster_helpers
-#' @importFrom magick image_read image_shade image_destroy image_resize geometry_size_pixels image_level
+#' @importFrom magick image_read image_shade image_destroy image_scale geometry_size_pixels image_level
 #' @importFrom grDevices col2rgb
 #' @export
 #' @keywords internal
@@ -123,7 +124,7 @@ shade_raster <- function(x, height_map, azimuth = 30, elevation = 30, strength =
   flat <- image_shade(image_blank(1, 1, 'white'), azimuth, elevation, TRUE)
   dark <- col2rgb(as.raster(flat)[[1]], )[1] < 128
   diff <- image_composite(flat, image_blank(1, 1, "#808080"), 'Difference')
-  diff <- image_resize(diff, geometry)
+  diff <- image_scale(diff, geometry)
   height_map <- image_shade(height_map, azimuth, elevation, TRUE)
   height_map <- image_composite(diff, height_map, if (dark) 'Plus' else 'Minus')
   strength <- (1 - (1 / strength)) * 50
