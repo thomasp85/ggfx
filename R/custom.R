@@ -5,9 +5,9 @@
 #' any other arguments passed to `...`. Be aware that the raster spans the full
 #' device size and not just the viewport currently rendered to. This is because
 #' graphics may extend outside of the viewport depending on the clipping
-#' settings. You can use [viewport_location()] to figure out which pixels in the
-#' provided raster is part of the active viewport. Be aware that nativeRaster is
-#' encoded in row-major order in contrast to how matrices in R are encoded.
+#' settings. You can use [get_viewport_area()] along with all the other raster
+#' helpers provided by ggfx to facilitate working with the input raster. See the
+#' example below for some inspiration.
 #'
 #' @param filter A function taking a `nativeRaster` object as the first argument
 #' along with whatever you pass in to `...`
@@ -21,27 +21,25 @@
 #' @examples
 #' library(ggplot2)
 #' flip_raster <- function(raster, horizontal = TRUE) {
-#'   # Ensure row-major order
-#'   raster_dim <- dim(raster)
-#'   raster <- matrix(raster, nrow = raster_dim[1], byrow = TRUE)
+#'   # Get the viewport area of the raster
+#'   vp <- get_viewport_area(raster)
 #'
-#'   # Get rows and columns corresponding to viewport
-#'   vp_loc <- viewport_location()
-#'   cols <- seq(vp_loc['xmin'], vp_loc['xmax'])
-#'   rows <- seq(nrow(raster) - vp_loc['ymax'], nrow(raster) - vp_loc['ymin'])
-#'
-#'   # Flip viewport pixels
+#'   # Get the columns and rows of the raster - reverse order depending on
+#'   # the value of horizontal
+#'   dims <- dim(vp)
+#'   rows <- seq_len(dims[1])
+#'   cols <- seq_len(dims[2])
 #'   if (horizontal) {
-#'     raster[rows, cols] <- raster[rows, rev(cols)]
+#'     cols <- rev(cols)
 #'   } else {
-#'     raster[rows, cols] <- raster[rev(rows), cols]
+#'     rows <- rev(rows)
 #'   }
 #'
-#'   # Revert to column-major order
-#'   raster <- t(raster)
-#'   dim(raster) <- raster_dim
-#'   class(raster) <- 'nativeRaster'
-#'   raster
+#'   # change the order of columns or rows in the viewport raster
+#'   vp <- index_raster(vp, cols, rows)
+#'
+#'   # Assign the modified viewport back
+#'   set_viewport_area(raster, vp)
 #' }
 #'
 #' ggplot() +
