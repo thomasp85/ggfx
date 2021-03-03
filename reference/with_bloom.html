@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ggfx</title>
+<title>Apply bloom to your layer — with_bloom • ggfx</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Apply bloom to your layer — with_bloom" />
+<meta property="og:description" content="Bloom is the effect of strong light sources spilling over into neighbouring
+dark areas. It is used a lot in video games and movies to give the effect of
+strong light, even though the monitor is not itself capable of showing light
+at that strength." />
 <meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
@@ -66,7 +70,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,132 +135,88 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Apply bloom to your layer</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/bloom.R'><code>R/bloom.R</code></a></small>
+    <div class="hidden name"><code>with_bloom.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Bloom is the effect of strong light sources spilling over into neighbouring
+dark areas. It is used a lot in video games and movies to give the effect of
+strong light, even though the monitor is not itself capable of showing light
+at that strength.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>with_bloom</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  threshold_lower <span class='op'>=</span> <span class='fl'>80</span>,
+  threshold_upper <span class='op'>=</span> <span class='fl'>100</span>,
+  sigma <span class='op'>=</span> <span class='fl'>5</span>,
+  strength <span class='op'>=</span> <span class='fl'>1</span>,
+  keep_alpha <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="as_group.html">as_group()</a></code> </p>
-        </td>
-        <td><p>Collect layers into a group that can be treated as a single layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="channel_spec.html">ch_red()</a></code> <code><a href="channel_spec.html">ch_green()</a></code> <code><a href="channel_spec.html">ch_blue()</a></code> <code><a href="channel_spec.html">ch_alpha()</a></code> <code><a href="channel_spec.html">ch_hue()</a></code> <code><a href="channel_spec.html">ch_chroma()</a></code> <code><a href="channel_spec.html">ch_luminance()</a></code> <code><a href="channel_spec.html">ch_saturation()</a></code> <code><a href="channel_spec.html">ch_lightness()</a></code> </p>
-        </td>
-        <td><p>Set a channel of interest from a layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="object_support.html">object_support</a></code> </p>
-        </td>
-        <td><p>Supported object types</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_blend.html">with_blend()</a></code> </p>
-        </td>
-        <td><p>Blend a layer with a reference</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_blend_custom.html">with_blend_custom()</a></code> </p>
-        </td>
-        <td><p>Create a custom blend type</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_bloom.html">with_bloom()</a></code> </p>
-        </td>
-        <td><p>Apply bloom to your layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_blur.html">with_blur()</a></code> </p>
-        </td>
-        <td><p>Apply a gaussian blur to your layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_custom.html">with_custom()</a></code> </p>
-        </td>
-        <td><p>Apply a custom filter</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_displacement.html">with_displacement()</a></code> </p>
-        </td>
-        <td><p>Apply a displacement map to a layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_interpolate.html">with_interpolate()</a></code> </p>
-        </td>
-        <td><p>Blend two layerrs together by averaging them out</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_kernel.html">with_kernel()</a></code> </p>
-        </td>
-        <td><p>Apply a gaussian blur to your layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_mask.html">with_mask()</a></code> </p>
-        </td>
-        <td><p>Apply a mask to a layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_raster.html">with_raster()</a></code> <code><a href="with_raster.html">as_reference()</a></code> </p>
-        </td>
-        <td><p>Convert a layer to a raster</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_shade.html">with_shade()</a></code> </p>
-        </td>
-        <td><p>Apply a gaussian blur to your layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_shadow.html">with_shadow()</a></code> </p>
-        </td>
-        <td><p>Apply a drop shadow to a layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="with_variable_blur.html">with_variable_blur()</a></code> </p>
-        </td>
-        <td><p>Apply a variable blur to a layer</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter</p></td>
+    </tr>
+    <tr>
+      <th>threshold_lower, threshold_upper</th>
+      <td><p>The lowest channel value to consider
+emitting light and the highest channel value that should be considered
+maximum light strength, given in percent</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>The standard deviation of the gaussian kernel used for the
+bloom. Will affect the size of the halo around light objects</p></td>
+    </tr>
+    <tr>
+      <th>strength</th>
+      <td><p>A value between 0 and 1 to use for changing the strength of
+the effect.</p></td>
+    </tr>
+    <tr>
+      <th>keep_alpha</th>
+      <td><p>Should the alpha channel of the layer be kept, effectively
+limiting the bloom effect to the filtered layer. Setting this to false will
+allow the bloom to spill out to the background, but since it is not being
+blended correctly with the background the effect looks off.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments to be passed on to methods. See
+<a href='object_support.html'>the documentation of supported object</a> for a description of
+object specific arguments.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A modified <code>Layer</code> object</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='va'>points</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>,
+  y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>,
+  col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>points</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, colour <span class='op'>=</span> <span class='va'>col</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>with_bloom</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+  <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_colour_continuous</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>'viridis'</span><span class='op'>)</span>
+</div><div class='img'><img src='with_bloom-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
