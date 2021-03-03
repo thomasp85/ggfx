@@ -55,3 +55,10 @@ ggplot(mpg, aes(class, hwy)) +
                     bg_layer = 'box', a = -0.5, b = 1, c = 1)
 
 }
+\seealso{
+Other blend filters: 
+\code{\link{with_blend}()},
+\code{\link{with_interpolate}()},
+\code{\link{with_mask}()}
+}
+\concept{blend filters}

@@ -34,3 +34,10 @@ ggplot(mpg, aes(class, hwy)) +
   with_interpolate(geom_point(), bg_layer = 'box', src_percent = 70)
 
 }
+\seealso{
+Other blend filters: 
+\code{\link{with_blend_custom}()},
+\code{\link{with_blend}()},
+\code{\link{with_mask}()}
+}
+\concept{blend filters}

@@ -39,3 +39,9 @@ ggplot(mtcars, aes(mpg, disp)) +
   )
 
 }
+\seealso{
+Other blur filters: 
+\code{\link{with_blur}()},
+\code{\link{with_variable_blur}()}
+}
+\concept{blur filters}

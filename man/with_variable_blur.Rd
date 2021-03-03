@@ -71,3 +71,9 @@ ggplot() +
   )
 
 }
+\seealso{
+Other blur filters: 
+\code{\link{with_blur}()},
+\code{\link{with_motion_blur}()}
+}
+\concept{blur filters}

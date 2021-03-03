@@ -119,6 +119,8 @@
 #'
 #' @return A modified `Layer` object
 #'
+#' @family blend filters
+#'
 #' @export
 #'
 #' @examples

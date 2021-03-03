@@ -59,3 +59,10 @@ ggplot() +
   )
 
 }
+\seealso{
+Other blend filters: 
+\code{\link{with_blend_custom}()},
+\code{\link{with_blend}()},
+\code{\link{with_interpolate}()}
+}
+\concept{blend filters}

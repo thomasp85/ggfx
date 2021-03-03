@@ -3,19 +3,17 @@
 #' This filter adds a directional blur to the provided ggplot layer. The amount
 #' of blur, as well as the angle, can be controlled.
 #'
-#' @param x A ggplot2 layer object, a ggplot, a grob, or a character string
-#' naming a filter
 #' @param sigma The standard deviation of the gaussian kernel. Increase it to
 #' apply more blurring. If a numeric it will be interpreted as given in pixels.
 #' If a unit object it will automatically be converted to pixels at rendering
 #' time
 #' @param angle Direction of the movement in degrees (0 corresponds to a
 #' left-to-right motion and the angles move in clockwise direction)
-#' @param ... Arguments to be passed on to methods. See
-#' [the documentation of supported object][object_support] for a description of
-#' object specific arguments.
+#' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
+#'
+#' @family blur filters
 #'
 #' @export
 #'

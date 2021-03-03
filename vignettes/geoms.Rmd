@@ -95,3 +95,26 @@ ggplot(mpg, aes(displ, hwy)) +
 ```
 
 It works! Now, there are certainly room for improvements. The obvious place to start is the part of the line that peaks out from outside the blur area. This could easily be solved by padding the raster with some repeated values from the start and end, or we could mask the layer so it only showed the part that is getting blurred. I will leave that as an exercise to the reader.
+
+## Filtering a filtered geom
+
+You may now sit and wonder: "Can I still add a filter to a geom that incorporates a filter?". Glad you asked! The answer is yes. Let us fix the ugly issue above with a mask filter (though it really should be fixed inside the geom)
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  as_reference(
+    geom_rect(
+      aes(xmin = min(displ), xmax = max(displ), ymin = -Inf, ymax = Inf),
+      inherit.aes = FALSE
+    ),
+    id = 'draw_area'
+  ) +
+  with_mask(
+    stat_smooth(geom = GeomBlurrySmooth, size = 5, alpha = 1),
+    mask = ch_alpha('draw_area')
+  )
+```
+
+Voila!
+
+I hope this opens up the door for many new ingenious geoms from the creative community of ggplot2 extension developers. Have fun!

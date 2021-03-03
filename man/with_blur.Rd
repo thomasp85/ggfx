@@ -35,3 +35,9 @@ ggplot(mtcars, aes(mpg, disp)) +
   with_blur(geom_point(data = mtcars, size = 3), sigma = 3)
 
 }
+\seealso{
+Other blur filters: 
+\code{\link{with_motion_blur}()},
+\code{\link{with_variable_blur}()}
+}
+\concept{blur filters}

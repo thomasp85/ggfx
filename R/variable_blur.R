@@ -22,6 +22,8 @@
 #'
 #' @return A modified `Layer` object
 #'
+#' @family blur filters
+#'
 #' @export
 #'
 #' @examples

@@ -5,8 +5,6 @@
 #' strong light, even though the monitor is not itself capable of showing light
 #' at that strength.
 #'
-#' @param x A ggplot2 layer object, a ggplot, a grob, or a character string
-#' naming a filter
 #' @param threshold_lower,threshold_upper The lowest channel value to consider
 #' emitting light and the highest channel value that should be considered
 #' maximum light strength, given in percent
@@ -18,9 +16,7 @@
 #' limiting the bloom effect to the filtered layer. Setting this to false will
 #' allow the bloom to spill out to the background, but since it is not being
 #' blended correctly with the background the effect looks off.
-#' @param ... Arguments to be passed on to methods. See
-#' [the documentation of supported object][object_support] for a description of
-#' object specific arguments.
+#' @inheritParams with_blur
 #'
 #' @return A modified `Layer` object
 #'
