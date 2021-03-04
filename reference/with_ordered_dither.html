@@ -151,10 +151,18 @@ threshold maps along with a dithering algorithm to disperse colour error.</p>
   levels <span class='op'>=</span> <span class='cn'>NULL</span>,
   black <span class='op'>=</span> <span class='cn'>TRUE</span>,
   colourspace <span class='op'>=</span> <span class='st'>"rgb"</span>,
+  offset <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>with_custom_dither</span><span class='op'>(</span><span class='va'>x</span>, map <span class='op'>=</span> <span class='st'>"checks"</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span>, colourspace <span class='op'>=</span> <span class='st'>"rgb"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>with_custom_dither</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  map <span class='op'>=</span> <span class='st'>"checks"</span>,
+  levels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colourspace <span class='op'>=</span> <span class='st'>"rgb"</span>,
+  offset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='fu'>with_halftone_dither</span><span class='op'>(</span>
   <span class='va'>x</span>,
@@ -162,6 +170,7 @@ threshold maps along with a dithering algorithm to disperse colour error.</p>
   levels <span class='op'>=</span> <span class='cn'>NULL</span>,
   angled <span class='op'>=</span> <span class='cn'>TRUE</span>,
   colourspace <span class='op'>=</span> <span class='st'>"rgb"</span>,
+  offset <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -194,6 +203,10 @@ or the reverse</p></td>
     <tr>
       <th>colourspace</th>
       <td><p>In which colourspace should the dithering be calculated</p></td>
+    </tr>
+    <tr>
+      <th>offset</th>
+      <td><p>The angle offset between the colour channels</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -237,10 +250,11 @@ object specific arguments.</p></td>
   <span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>'viridis'</span><span class='op'>)</span>
 </div><div class='img'><img src='with_ordered_dither-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Circle dither</span>
+<span class='co'># Circle dither with offset</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>faithfuld</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>waiting</span>, <span class='va'>eruptions</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>with_ordered_dither</span><span class='op'>(</span>
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>, interpolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'>with_circle_dither</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>density</span><span class='op'>)</span>, interpolate <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+    offset <span class='op'>=</span> <span class='fl'>15</span>
   <span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html'>scale_fill_continuous</a></span><span class='op'>(</span>type <span class='op'>=</span> <span class='st'>'viridis'</span><span class='op'>)</span>
 </div><div class='img'><img src='with_ordered_dither-3.png' alt='' width='700' height='433' /></div><div class='input'>
