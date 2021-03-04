@@ -14,10 +14,18 @@ with_circle_dither(
   levels = NULL,
   black = TRUE,
   colourspace = "rgb",
+  offset = NULL,
   ...
 )
 
-with_custom_dither(x, map = "checks", levels = NULL, colourspace = "rgb", ...)
+with_custom_dither(
+  x,
+  map = "checks",
+  levels = NULL,
+  colourspace = "rgb",
+  offset = NULL,
+  ...
+)
 
 with_halftone_dither(
   x,
@@ -25,6 +33,7 @@ with_halftone_dither(
   levels = NULL,
   angled = TRUE,
   colourspace = "rgb",
+  offset = NULL,
   ...
 )
 
@@ -45,6 +54,8 @@ the levels individually for each colour channel}
 or the reverse}
 
 \item{colourspace}{In which colourspace should the dithering be calculated}
+
+\item{offset}{The angle offset between the colour channels}
 
 \item{...}{Arguments to be passed on to methods. See
 \link[=object_support]{the documentation of supported object} for a description of
@@ -79,10 +90,11 @@ ggplot(faithfuld, aes(waiting, eruptions)) +
   ) +
   scale_fill_continuous(type = 'viridis')
 
-# Circle dither
+# Circle dither with offset
 ggplot(faithfuld, aes(waiting, eruptions)) +
-  with_ordered_dither(
-    geom_raster(aes(fill = density), interpolate = TRUE)
+  with_circle_dither(
+    geom_raster(aes(fill = density), interpolate = TRUE),
+    offset = 15
   ) +
   scale_fill_continuous(type = 'viridis')
 
