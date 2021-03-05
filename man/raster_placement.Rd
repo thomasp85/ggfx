@@ -71,4 +71,11 @@ ggplot(mtcars) +
     ras_place(logo, 'vp', 'bottomright')
   )
 
+# Here we tile it with flipping, centering on the middle of the canvas
+ggplot(mtcars) +
+  with_blend(
+    geom_point(aes(mpg, disp)),
+    ras_tile(logo, anchor = 'center', flip = TRUE)
+  )
+
 }
