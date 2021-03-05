@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply a gaussian blur to your layer — with_kernel • ggfx</title>
+<title>Control placements of raster in the plot — raster_placement • ggfx</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="Apply a gaussian blur to your layer — with_kernel" />
-<meta property="og:description" content="This filter allows you to apply a custom kernel to your layer, thus giving
-you more control than e.g. with_blur() which is also applying a kernel." />
+<meta property="og:title" content="Control placements of raster in the plot — raster_placement" />
+<meta property="og:description" content="When using raster objects directly you need to somehow define how it should
+be located in resized in the plot. These function can be used to inform the
+filter on how it should be used. They only work on raster type object, so
+cannot be used around functions or layer id's." />
 <meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
@@ -135,75 +137,89 @@ you more control than e.g. with_blur() which is also applying a kernel." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply a gaussian blur to your layer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/kernel.R'><code>R/kernel.R</code></a></small>
-    <div class="hidden name"><code>with_kernel.Rd</code></div>
+    <h1>Control placements of raster in the plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/raster-location.R'><code>R/raster-location.R</code></a></small>
+    <div class="hidden name"><code>raster_placement.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This filter allows you to apply a custom kernel to your layer, thus giving
-you more control than e.g. <code><a href='with_blur.html'>with_blur()</a></code> which is also applying a kernel.</p>
+    <p>When using raster objects directly you need to somehow define how it should
+be located in resized in the plot. These function can be used to inform the
+filter on how it should be used. They only work on <code>raster</code> type object, so
+cannot be used around functions or layer id's.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_kernel</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  kernel <span class='op'>=</span> <span class='st'>"Gaussian:0x2"</span>,
-  iterations <span class='op'>=</span> <span class='fl'>1</span>,
-  scaling <span class='op'>=</span> <span class='cn'>NULL</span>,
-  bias <span class='op'>=</span> <span class='cn'>NULL</span>,
-  stack <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
+    <pre class="usage"><span class='fu'>ras_fill</span><span class='op'>(</span><span class='va'>raster</span>, align_to <span class='op'>=</span> <span class='st'>"canvas"</span><span class='op'>)</span>
+
+<span class='fu'>ras_fit</span><span class='op'>(</span><span class='va'>raster</span>, align_to <span class='op'>=</span> <span class='st'>"canvas"</span><span class='op'>)</span>
+
+<span class='fu'>ras_stretch</span><span class='op'>(</span><span class='va'>raster</span>, align_to <span class='op'>=</span> <span class='st'>"canvas"</span><span class='op'>)</span>
+
+<span class='fu'>ras_place</span><span class='op'>(</span><span class='va'>raster</span>, align_to <span class='op'>=</span> <span class='st'>"canvas"</span>, anchor <span class='op'>=</span> <span class='st'>"topleft"</span>, offset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>ras_tile</span><span class='op'>(</span>
+  <span class='va'>raster</span>,
+  align_to <span class='op'>=</span> <span class='st'>"canvas"</span>,
+  anchor <span class='op'>=</span> <span class='st'>"topleft"</span>,
+  offset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  flip <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A ggplot2 layer object, a ggplot, a grob, or a character string
-naming a filter</p></td>
+      <th>raster</th>
+      <td><p>A <code>raster</code> or <code>nativeRaster</code> object or an object coercible to
+a <code>raster</code> object</p></td>
     </tr>
     <tr>
-      <th>kernel</th>
-      <td><p>either a square matrix or a string. The string can either be a
-parameterized <a href='https://docs.ropensci.org/magick/reference/options.html'>kerneltype</a> such as: <code>"DoG:0,0,2"</code> or <code>"Diamond"</code>
-or it can contain a custom matrix (see examples)</p></td>
+      <th>align_to</th>
+      <td><p>Should the raster be positioned according to the canvas or
+the current viewport</p></td>
     </tr>
     <tr>
-      <th>iterations</th>
-      <td><p>number of iterations</p></td>
+      <th>anchor</th>
+      <td><p>Where should the raster be placed relative to the alignment
+area</p></td>
     </tr>
     <tr>
-      <th>scaling</th>
-      <td><p>string with kernel scaling. The special flag <code>"!"</code> automatically scales to full
-dynamic range, for example: <code>"50%!"</code></p></td>
+      <th>offset</th>
+      <td><p>A unit or numeric vector giving an additional offset relative
+to the anchor. Positive values moves right/down and negative values move
+left/up</p></td>
     </tr>
     <tr>
-      <th>bias</th>
-      <td><p>output bias string, for example <code>"50%"</code></p></td>
-    </tr>
-    <tr>
-      <th>stack</th>
-      <td><p>Should the original layer be placed on top?</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments to be passed on to methods. See
-<a href='object_support.html'>the documentation of supported object</a> for a description of
-object specific arguments.</p></td>
+      <th>flip</th>
+      <td><p>Should every other repetition be flipped</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A modified <code>Layer</code> object</p>
+    <p>The input with additional information attached</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
-<span class='co'># Add directional blur using the comet kernel</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>with_kernel</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>, <span class='st'>'Comet:0,10'</span><span class='op'>)</span>
-</div><div class='img'><img src='with_kernel-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>logo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/as.raster.html'>as.raster</a></span><span class='op'>(</span><span class='fu'>magick</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/magick/reference/editing.html'>image_read</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'help'</span>, <span class='st'>'figures'</span>, <span class='st'>'logo.png'</span>, package <span class='op'>=</span> <span class='st'>'ggfx'</span><span class='op'>)</span>
+<span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Default is to fill the viewport area, preserving the aspect ratio of the</span>
+<span class='co'># raster</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='with_blend.html'>with_blend</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span>,
+    <span class='va'>logo</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='raster_placement-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># But you can change that with these functions:</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='with_blend.html'>with_blend</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>mpg</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span>,
+    <span class='fu'>ras_place</span><span class='op'>(</span><span class='va'>logo</span>, <span class='st'>'vp'</span>, <span class='st'>'bottomright'</span><span class='op'>)</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='raster_placement-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
