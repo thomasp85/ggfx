@@ -16,13 +16,13 @@
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_kernel(geom_point(size = 3), 'Comet:0,10')
 #'
-with_kernel <- function(x, kernel = kernel_gaussian(0.5), iterations = 1, scaling = NULL,
+with_kernel <- function(x, kernel = 'Gaussian:0x2', iterations = 1, scaling = NULL,
                         bias = NULL, stack = FALSE, ...) {
   UseMethod('with_kernel')
 }
 #' @importFrom grid gTree
 #' @export
-with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.grob <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                              scaling = NULL, bias = NULL, stack = FALSE,
                              background = NULL, ..., id = NULL, include = is.null(id)) {
   gTree(grob = x, kernel = kernel, iterations = iterations, scaling = scaling,
@@ -30,7 +30,7 @@ with_kernel.grob <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
         include = isTRUE(include), cl = c('kernel_grob', 'filter_grob'))
 }
 #' @export
-with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.Layer <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                               scaling = NULL, bias = NULL, stack = FALSE, ...,
                               id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
@@ -38,7 +38,7 @@ with_kernel.Layer <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                            stack = stack, ..., include = include, ids = list(id = id))
 }
 #' @export
-with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.ggplot <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
                                ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
@@ -46,7 +46,7 @@ with_kernel.ggplot <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
                             ignore_background = ignore_background)
 }
 #' @export
-with_kernel.character <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.character <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                   scaling = NULL, bias = NULL, stack = FALSE, ...,
                                   id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
@@ -58,13 +58,13 @@ with_kernel.function <- with_kernel.character
 #' @export
 with_kernel.formula <- with_kernel.character
 #' @export
-with_kernel.element <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.element <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {
   filter_element_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
                              scaling = scaling, bias = bias, stack = stack, ...)
 }
 #' @export
-with_kernel.guide <- function(x, kernel = kernel_gaussian(0.5), iterations = 1,
+with_kernel.guide <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {
   filter_guide_constructor(x, with_kernel, kernel = kernel, iterations = iterations,
                            scaling = scaling, bias = bias, stack = stack, ...)

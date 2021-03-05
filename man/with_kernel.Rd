@@ -6,7 +6,7 @@
 \usage{
 with_kernel(
   x,
-  kernel = kernel_gaussian(0.5),
+  kernel = "Gaussian:0x2",
   iterations = 1,
   scaling = NULL,
   bias = NULL,
