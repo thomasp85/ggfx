@@ -36,7 +36,10 @@ get_layer <- function(x) {
   } else if (length(x) == 1 && is.character(x)) {
     fetch_raster(x)
   } else {
-    as.raster(x)
+    if (!inherits(x, 'nativeRaster')) {
+      x <- as.raster(x)
+    }
+    raster_on_canvas(x)
   }
 }
 
