@@ -60,6 +60,10 @@ with_shadow.function <- with_shadow.character
 #' @export
 with_shadow.formula <- with_shadow.character
 #' @export
+with_shadow.raster <- with_shadow.character
+#' @export
+with_shadow.nativeRaster <- with_shadow.character
+#' @export
 with_shadow.element <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ...) {
   filter_element_constructor(x, with_shadow, colour = colour, x_offset = x_offset,

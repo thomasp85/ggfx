@@ -54,6 +54,10 @@ with_custom_dither.function <- with_custom_dither.character
 #' @export
 with_custom_dither.formula <- with_custom_dither.character
 #' @export
+with_custom_dither.raster <- with_custom_dither.character
+#' @export
+with_custom_dither.nativeRaster <- with_custom_dither.character
+#' @export
 with_custom_dither.element <- function(x, map = 'checks', levels = NULL,
                                        colourspace = 'rgb', offset = NULL, ...) {
   filter_element_constructor(x, with_custom_dither, map = map, levels = levels,

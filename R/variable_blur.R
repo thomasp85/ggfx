@@ -91,6 +91,10 @@ with_variable_blur.function <- with_variable_blur.character
 #' @export
 with_variable_blur.formula <- with_variable_blur.character
 #' @export
+with_variable_blur.raster <- with_variable_blur.character
+#' @export
+with_variable_blur.nativeRaster <- with_variable_blur.character
+#' @export
 with_variable_blur.element <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                        x_scale = 1, y_scale = x_scale, angle_range = 0, ...) {
   filter_element_constructor(x, with_variable_blur, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle,

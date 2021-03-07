@@ -54,6 +54,10 @@ with_interpolate.function <- with_interpolate.character
 #' @export
 with_interpolate.formula <- with_interpolate.character
 #' @export
+with_interpolate.raster <- with_interpolate.character
+#' @export
+with_interpolate.nativeRaster <- with_interpolate.character
+#' @export
 with_interpolate.element <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
   filter_element_constructor(x, with_interpolate, bg_layer = bg_layer,
                              src_percent = src_percent, bg_percent = bg_percent, ...)

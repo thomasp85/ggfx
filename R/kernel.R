@@ -58,6 +58,10 @@ with_kernel.function <- with_kernel.character
 #' @export
 with_kernel.formula <- with_kernel.character
 #' @export
+with_kernel.raster <- with_kernel.character
+#' @export
+with_kernel.nativeRaster <- with_kernel.character
+#' @export
 with_kernel.element <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE, ...) {
   filter_element_constructor(x, with_kernel, kernel = kernel, iterations = iterations,

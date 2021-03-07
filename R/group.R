@@ -63,6 +63,16 @@ as_group.Layer <- function(..., id) {
     ids = c(list(id = id), as.list(ids)))
   c(layers, list(group_layer))
 }
+#' @export
+as_group.character <- as_group.Layer
+#' @export
+as_group.function <- as_group.Layer
+#' @export
+as_group.formula <- as_group.Layer
+#' @export
+as_group.raster <- as_group.Layer
+#' @export
+as_group.nativeRaster <- as_group.Layer
 
 #' @importFrom grid makeContent setChildren gList
 #' @export

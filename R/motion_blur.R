@@ -61,6 +61,10 @@ with_motion_blur.function <- with_motion_blur.character
 #' @export
 with_motion_blur.formula <- with_motion_blur.character
 #' @export
+with_motion_blur.raster <- with_motion_blur.character
+#' @export
+with_motion_blur.nativeRaster <- with_motion_blur.character
+#' @export
 with_motion_blur.element <- function(x, sigma = 0.5, angle = 0, ...) {
   filter_element_constructor(x, with_motion_blur, sigma = sigma, angle = angle,
                              ...)

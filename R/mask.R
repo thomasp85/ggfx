@@ -76,7 +76,10 @@ with_mask.character <- function(x, mask, invert = FALSE, ..., id = NULL,
 with_mask.function <- with_mask.character
 #' @export
 with_mask.formula <- with_mask.character
-
+#' @export
+with_mask.raster <- with_mask.character
+#' @export
+with_mask.nativeRaster <- with_mask.character
 #' @export
 with_mask.element <- function(x, mask, invert = FALSE, ...) {
   filter_element_constructor(x, with_mask, mask = mask, invert = invert, ...)

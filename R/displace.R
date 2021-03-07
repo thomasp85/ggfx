@@ -68,6 +68,10 @@ with_displacement.function <- with_displacement.character
 #' @export
 with_displacement.formula <- with_displacement.character
 #' @export
+with_displacement.raster <- with_displacement.character
+#' @export
+with_displacement.nativeRaster <- with_displacement.character
+#' @export
 with_displacement.element <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...) {
   filter_element_constructor(x, with_displacement, x_map = x_map, y_map = y_map,
                              x_scale = x_scale, y_scale = y_scale, ...)

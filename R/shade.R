@@ -95,6 +95,10 @@ with_shade.function <- with_shade.character
 #' @export
 with_shade.formula <- with_shade.character
 #' @export
+with_shade.raster <- with_shade.character
+#' @export
+with_shade.nativeRaster <- with_shade.character
+#' @export
 with_shade.element <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                                sigma = 0, blend_type = 'overlay', ...) {
   filter_element_constructor(x, with_shade, height_map = height_map,

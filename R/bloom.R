@@ -83,6 +83,10 @@ with_bloom.function <- with_bloom.character
 #' @export
 with_bloom.formula <- with_bloom.character
 #' @export
+with_bloom.raster <- with_bloom.character
+#' @export
+with_bloom.nativeRaster <- with_bloom.character
+#' @export
 with_bloom.element <- function(x, threshold_lower = 80, threshold_upper = 100,
                                sigma = 5, strength = 1, keep_alpha = TRUE, ...) {
   filter_element_constructor(x, with_bloom, threshold_lower = threshold_lower,

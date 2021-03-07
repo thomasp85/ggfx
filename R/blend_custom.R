@@ -65,6 +65,10 @@ with_blend_custom.function <- with_blend_custom.character
 #' @export
 with_blend_custom.formula <- with_blend_custom.character
 #' @export
+with_blend_custom.raster <- with_blend_custom.character
+#' @export
+with_blend_custom.nativeRaster <- with_blend_custom.character
+#' @export
 with_blend_custom.element <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                       flip_order = FALSE, alpha = NA, ...) {
   filter_element_constructor(x, with_blend_custom, bg_layer = bg_layer, a = a,

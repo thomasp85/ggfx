@@ -63,6 +63,10 @@ with_dither.function <- with_dither.character
 #' @export
 with_dither.formula <- with_dither.character
 #' @export
+with_dither.raster <- with_dither.character
+#' @export
+with_dither.nativeRaster <- with_dither.character
+#' @export
 with_dither.element <- function(x, max_colours = 256, colourspace = 'rgb', ...) {
   filter_element_constructor(x, with_dither, max_colours = max_colours,
                              colourspace = colourspace, ...)

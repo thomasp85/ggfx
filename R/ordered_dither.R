@@ -92,6 +92,10 @@ with_ordered_dither.function <- with_ordered_dither.character
 #' @export
 with_ordered_dither.formula <- with_ordered_dither.character
 #' @export
+with_ordered_dither.raster <- with_ordered_dither.character
+#' @export
+with_ordered_dither.nativeRaster <- with_ordered_dither.character
+#' @export
 with_ordered_dither.element <- function(x, map_size = 8, levels = NULL,
                                         colourspace =  'rgb', ...) {
   filter_element_constructor(x, with_ordered_dither, map_size = map_size,

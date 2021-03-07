@@ -85,7 +85,10 @@ with_custom.character <- function(x, filter, ..., id = NULL, include = is.null(i
 with_custom.function <- with_custom.character
 #' @export
 with_custom.formula <- with_custom.character
-
+#' @export
+with_custom.raster <- with_custom.character
+#' @export
+with_custom.nativeRaster <- with_custom.character
 #' @export
 with_custom.element <- function(x, filter, ...) {
   filter_element_constructor(x, with_custom, filter = filter, ...)

@@ -67,6 +67,10 @@ with_halftone_dither.function <- with_halftone_dither.character
 #' @export
 with_halftone_dither.formula <- with_halftone_dither.character
 #' @export
+with_halftone_dither.raster <- with_halftone_dither.character
+#' @export
+with_halftone_dither.nativeRaster <- with_halftone_dither.character
+#' @export
 with_halftone_dither.element <- function(x, map_size = 8, levels = NULL,
                                          angled = TRUE, colourspace = 'rgb',
                                          offset = NULL, ...) {

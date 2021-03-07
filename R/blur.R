@@ -61,6 +61,10 @@ with_blur.function <- with_blur.character
 #' @export
 with_blur.formula <- with_blur.character
 #' @export
+with_blur.raster <- with_blur.character
+#' @export
+with_blur.nativeRaster <- with_blur.character
+#' @export
 with_blur.element <- function(x, sigma = 0.5, stack = FALSE, ...) {
   filter_element_constructor(x, with_blur, sigma = sigma, stack = stack, ...)
 }

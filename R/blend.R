@@ -229,7 +229,10 @@ with_blend.character <- function(x, bg_layer, blend_type = 'over',
 with_blend.function <- with_blend.character
 #' @export
 with_blend.formula <- with_blend.character
-
+#' @export
+with_blend.raster <- with_blend.character
+#' @export
+with_blend.nativeRaster <- with_blend.character
 #' @export
 with_blend.element <- function(x, bg_layer, blend_type = 'over',
                                flip_order = FALSE, alpha = NA, ...) {

@@ -61,6 +61,10 @@ with_circle_dither.function <- with_circle_dither.character
 #' @export
 with_circle_dither.formula <- with_circle_dither.character
 #' @export
+with_circle_dither.raster <- with_circle_dither.character
+#' @export
+with_circle_dither.nativeRaster <- with_circle_dither.character
+#' @export
 with_circle_dither.element <- function(x, map_size = 7, levels = NULL,
                                        black = TRUE, colourspace = 'rgb',
                                        offset = NULL, ...) {

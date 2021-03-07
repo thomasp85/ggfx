@@ -51,6 +51,10 @@ with_raster.function <- with_raster.character
 #' @export
 with_raster.formula <- with_raster.character
 #' @export
+with_raster.raster <- with_raster.character
+#' @export
+with_raster.nativeRaster <- with_raster.character
+#' @export
 with_raster.element <- function(x, ...) {
   filter_element_constructor(x, with_raster, ...)
 }
