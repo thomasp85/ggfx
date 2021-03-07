@@ -8,3 +8,50 @@ authors:
 template:
   params:
     bootswatch: spacelab
+
+reference:
+- title: Filters
+  desc: >
+    Filters are the bread and butter of ggfx, and thankfully it has a lot. If
+    something is missing there is always `with_custom()` to let your creativety
+    go wild.
+  contents:
+  - starts_with('with_')
+- title: References
+  desc: >
+    Filters sometimes need to work with multiple layers. This can be achieved by
+    turning a layer into a reference, either directly through the filter, or by
+    using one of the refefence creators.
+  contents:
+  - starts_with('as_')
+- title: Channels
+  desc: >
+    Some filters use layers as variable argument input - e.g. the amount of blur
+    at each pixel in `with_variable_blur()` is determined by another layer. In
+    these instances only a single channel is needed, which can be selected with
+    a `ch_*()` selector. If none is given the luminance is used.
+  contents:
+  - starts_with('ch_')
+- title: Raster placement
+  desc: >
+    Instead of using a layer as input, one can use a raster object. Since the
+    dimensions of the object does not necessarily fit the dimension of the
+    rendered plot it is necessary to specify how the raster should be placed and
+    resized.
+  contents:
+  - starts_with('ras_')
+- title: Helpers
+  desc: >
+    For ultimate power over the rendering you may need to create your own
+    filters. This can be a daunting task but ggfx provides a set of helpers for
+    removing some of the pain of working with raster objects and figuring out
+    the dimensions and location of the drawing area.
+  contents:
+  - starts_with('viewport_location')
+- title: Object support
+  desc: >
+    ggfx supports a wide range of different object that can be filtered. Most
+    are somehow related to ggplot2. The following doc lays out the different
+    supported objects.
+  contents:
+  - object_support

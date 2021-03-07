@@ -11,6 +11,14 @@
 #' @details
 #' - `viewport_location()`: Returns the bounding box defining the current
 #'   viewport in pixels in the order `xmin`, `ymin`, `xmax`, `ymax`
+#' - `index_raster()`: Is a version of the classic `[,]` indexing that is aware
+#'   of the row-major order of rasters
+#' - `get_raster_area()`: Extracts an area of a raster based on a bounding box
+#' - `set_raster_area()`: Sets an area of a raster to a new raster value
+#' - `get_viewport_area()`: A version of `get_raster_area()` that specifically
+#'   extract the area defined by the current viewport
+#' - `set_viewport_area()`: A version of `set_raster_area()` that specifically
+#'   sets the area defined by the current viewport
 #' - `viewport_is_clipping()`: Returns `TRUE` if the current viewport has
 #'   clipping turned on
 #' - `current_resolution()`: Returns the resolution of the active device in ppi
