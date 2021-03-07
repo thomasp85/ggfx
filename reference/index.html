@@ -147,8 +147,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-filters" class="hasAnchor"><a href="#section-filters" class="anchor"></a>Filters</h2>
+          <p class="section-desc"><p>Filters are the bread and butter of ggfx, and thankfully it has a lot. If something is missing there is always <code><a href="../reference/with_custom.html">with_custom()</a></code> to let your creativety go wild.</p></p>
         </th>
       </tr>
       
@@ -157,30 +157,6 @@
       
       
       <tr>
-        
-        <td>
-          <p><code><a href="as_group.html">as_group()</a></code> </p>
-        </td>
-        <td><p>Collect layers into a group that can be treated as a single layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="channel_spec.html">ch_red()</a></code> <code><a href="channel_spec.html">ch_green()</a></code> <code><a href="channel_spec.html">ch_blue()</a></code> <code><a href="channel_spec.html">ch_alpha()</a></code> <code><a href="channel_spec.html">ch_hue()</a></code> <code><a href="channel_spec.html">ch_chroma()</a></code> <code><a href="channel_spec.html">ch_luminance()</a></code> <code><a href="channel_spec.html">ch_saturation()</a></code> <code><a href="channel_spec.html">ch_lightness()</a></code> </p>
-        </td>
-        <td><p>Set a channel of interest from a layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="object_support.html">object_support</a></code> </p>
-        </td>
-        <td><p>Supported object types</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="raster_placement.html">ras_fill()</a></code> <code><a href="raster_placement.html">ras_fit()</a></code> <code><a href="raster_placement.html">ras_stretch()</a></code> <code><a href="raster_placement.html">ras_place()</a></code> <code><a href="raster_placement.html">ras_tile()</a></code> </p>
-        </td>
-        <td><p>Control placements of raster in the plot</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="with_blend.html">with_blend()</a></code> </p>
@@ -276,6 +252,101 @@
           <p><code><a href="with_variable_blur.html">with_variable_blur()</a></code> </p>
         </td>
         <td><p>Apply a variable blur to a layer</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-references" class="hasAnchor"><a href="#section-references" class="anchor"></a>References</h2>
+          <p class="section-desc"><p>Filters sometimes need to work with multiple layers. This can be achieved by turning a layer into a reference, either directly through the filter, or by using one of the refefence creators.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="as_group.html">as_group()</a></code> </p>
+        </td>
+        <td><p>Collect layers into a group that can be treated as a single layer</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="with_raster.html">with_raster()</a></code> <code><a href="with_raster.html">as_reference()</a></code> </p>
+        </td>
+        <td><p>Convert a layer to a raster</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-channels" class="hasAnchor"><a href="#section-channels" class="anchor"></a>Channels</h2>
+          <p class="section-desc"><p>Some filters use layers as variable argument input - e.g. the amount of blur at each pixel in <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> is determined by another layer. In these instances only a single channel is needed, which can be selected with a <code>ch_*()</code> selector. If none is given the luminance is used.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="channel_spec.html">ch_red()</a></code> <code><a href="channel_spec.html">ch_green()</a></code> <code><a href="channel_spec.html">ch_blue()</a></code> <code><a href="channel_spec.html">ch_alpha()</a></code> <code><a href="channel_spec.html">ch_hue()</a></code> <code><a href="channel_spec.html">ch_chroma()</a></code> <code><a href="channel_spec.html">ch_luminance()</a></code> <code><a href="channel_spec.html">ch_saturation()</a></code> <code><a href="channel_spec.html">ch_lightness()</a></code> </p>
+        </td>
+        <td><p>Set a channel of interest from a layer</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-raster-placement" class="hasAnchor"><a href="#section-raster-placement" class="anchor"></a>Raster placement</h2>
+          <p class="section-desc"><p>Instead of using a layer as input, one can use a raster object. Since the dimensions of the object does not necessarily fit the dimension of the rendered plot it is necessary to specify how the raster should be placed and resized.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="raster_placement.html">ras_fill()</a></code> <code><a href="raster_placement.html">ras_fit()</a></code> <code><a href="raster_placement.html">ras_stretch()</a></code> <code><a href="raster_placement.html">ras_place()</a></code> <code><a href="raster_placement.html">ras_tile()</a></code> </p>
+        </td>
+        <td><p>Control placements of raster in the plot</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helpers" class="hasAnchor"><a href="#section-helpers" class="anchor"></a>Helpers</h2>
+          <p class="section-desc"><p>For ultimate power over the rendering you may need to create your own filters. This can be a daunting task but ggfx provides a set of helpers for removing some of the pain of working with raster objects and figuring out the dimensions and location of the drawing area.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-object-support" class="hasAnchor"><a href="#section-object-support" class="anchor"></a>Object support</h2>
+          <p class="section-desc"><p>ggfx supports a wide range of different object that can be filtered. Most are somehow related to ggplot2. The following doc lays out the different supported objects.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="object_support.html">object_support</a></code> </p>
+        </td>
+        <td><p>Supported object types</p></td>
       </tr>
     </tbody>
     </table>
