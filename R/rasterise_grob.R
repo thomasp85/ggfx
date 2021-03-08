@@ -2,6 +2,9 @@
 #' @importFrom ragg agg_capture
 #' @importFrom grDevices dev.off dev.cur dev.set dev.size
 rasterise_grob <- function(grob, vp = NULL) {
+  if (is.null(vp) && is_reference_grob(grob)) {
+    return(get_layer(grob$id))
+  }
   if (is.null(vp)) vp <- viewport()
   dim_inch <- dev.size("in")
   dim_pix <- dev.size("px")
