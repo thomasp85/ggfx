@@ -51,7 +51,7 @@
 #'
 #' ggplot() +
 #'   with_custom(
-#'     geom_text(aes(0.5, 0.75, label = 'Flippediflop!'), size = 10, fontface = 'bold'),
+#'     geom_text(aes(0.5, 0.75, label = 'Flippediflop!'), size = 10),
 #'     filter = flip_raster,
 #'     horizontal = FALSE
 #'   )

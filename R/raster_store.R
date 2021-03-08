@@ -58,8 +58,9 @@ get_layer <- function(x) {
     x
   }
 }
+#' @importFrom magick image_separate image_read
 get_layer_channel <- function(x) {
-  get_layer(ch_default(x))
+  image_separate(image_read(get_layer(ch_default(x))), 'red')
 }
 
 reference_grob <- function(id) {

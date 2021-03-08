@@ -89,9 +89,9 @@ with_displacement.guide <- function(x, x_map, y_map = x_map, x_scale = 1, y_scal
 displace_raster <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  x_map <- image_read(get_layer_channel(x_map))
+  x_map <- get_layer_channel(x_map)
   x_map <- image_resize(x_map, geometry_size_pixels(dim$width, dim$height, FALSE))
-  y_map <- image_read(get_layer_channel(y_map))
+  y_map <- get_layer_channel(y_map)
   y_map <- image_resize(y_map, geometry_size_pixels(dim$width, dim$height, FALSE))
   map <- image_combine(c(x_map, y_map))
   raster <- image_composite(raster, map, 'displace', compose_args = paste0(x_scale, 'x', y_scale))

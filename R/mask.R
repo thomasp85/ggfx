@@ -96,7 +96,7 @@ with_mask.guide <- function(x, mask, invert = FALSE, ...) {
 mask_raster <- function(x, mask, invert = FALSE) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  mask <- image_read(get_layer_channel(mask))
+  mask <- get_layer_channel(mask)
   mask <- image_resize(mask, geometry_size_pixels(dim$width, dim$height, FALSE))
   if (invert) {
     mask <- image_negate(mask)

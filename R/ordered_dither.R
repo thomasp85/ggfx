@@ -37,7 +37,8 @@
 #' ggplot(faithfuld, aes(waiting, eruptions)) +
 #'   with_circle_dither(
 #'     geom_raster(aes(fill = density), interpolate = TRUE),
-#'     offset = 15
+#'     offset = 29,
+#'     colourspace = 'cmyk'
 #'   ) +
 #'   scale_fill_continuous(type = 'viridis')
 #'
@@ -114,7 +115,7 @@ with_ordered_dither.guide <- function(x, map_size = 8, levels = NULL,
 #' @keywords internal
 ordered_dither_raster <- function(x, map, colourspace =  'sRGB', offset = NULL) {
   raster <- image_read(x)
-  if (colourspace != 'sRGB') {
+  if (colourspace != 'srgb') {
     raster <- image_convert(raster, colorspace = colourspace)
   }
   if (is.null(offset)) {
@@ -160,7 +161,7 @@ ordered_dither_raster <- function(x, map, colourspace =  'sRGB', offset = NULL) 
       geometry_area(dim$width, dim$height, dim$width / 2, dim$height / 2)
     )
   }
-  if (colourspace != 'sRGB') {
+  if (colourspace != 'srgb') {
     dithered <- image_convert(dithered, colorspace = 'sRGB')
   }
   x <- as.integer(dithered)
