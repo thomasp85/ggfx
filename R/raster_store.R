@@ -30,17 +30,26 @@ raster_id <- function(id, index) {
 
 #' @importFrom grDevices as.raster dev.size
 get_layer <- function(x) {
+  includes_channel <- has_channel(x)
+  channel <- get_channel(x)
+  space <- get_channel_space(x)
   if (is_formula(x)) x <- as_function(x)
   if (is_function(x)) {
     dim <- dev.size('px')
-    x(as.integer(dim[[1]]), as.integer(dim[[2]]))
+    x <- x(as.integer(dim[[1]]), as.integer(dim[[2]]))
   } else if (length(x) == 1 && is.character(x)) {
-    fetch_raster(x)
+    x <- fetch_raster(x)
   } else {
     if (!inherits(x, 'nativeRaster')) {
       x <- as.raster(x)
     }
-    raster_on_canvas(x)
+    x <- raster_on_canvas(x)
+  }
+  if (includes_channel) {
+    x <- set_channel(x, channel, space)
+    as.integer(magick_channel(x))
+  } else {
+    x
   }
 }
 
