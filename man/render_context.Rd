@@ -35,7 +35,16 @@ as_pixels(x, y_axis = FALSE, location = FALSE)
 from_pixels(x)
 }
 \arguments{
-\item{x}{A numeric or \link[grid:unit]{grid::unit} object}
+\item{raster}{A \code{raster} or \code{nativeRaster} object}
+
+\item{cols, rows}{Column and row indices}
+
+\item{xmin, ymin, xmax, ymax}{Boundaries of the area in pixels. {0,0} is the
+top-left corner}
+
+\item{value}{An object of the same type as \code{raster}}
+
+\item{x}{A numeric or unit object}
 
 \item{y_axis}{is the unit pertaining to the y-axis? Defaults to \code{FALSE} (i.e.
 it is measured on the x-axis)}
@@ -57,6 +66,14 @@ context.
 \itemize{
 \item \code{viewport_location()}: Returns the bounding box defining the current
 viewport in pixels in the order \code{xmin}, \code{ymin}, \code{xmax}, \code{ymax}
+\item \code{index_raster()}: Is a version of the classic \verb{[,]} indexing that is aware
+of the row-major order of rasters
+\item \code{get_raster_area()}: Extracts an area of a raster based on a bounding box
+\item \code{set_raster_area()}: Sets an area of a raster to a new raster value
+\item \code{get_viewport_area()}: A version of \code{get_raster_area()} that specifically
+extract the area defined by the current viewport
+\item \code{set_viewport_area()}: A version of \code{set_raster_area()} that specifically
+sets the area defined by the current viewport
 \item \code{viewport_is_clipping()}: Returns \code{TRUE} if the current viewport has
 clipping turned on
 \item \code{current_resolution()}: Returns the resolution of the active device in ppi
@@ -68,4 +85,37 @@ numeric it is assumed to already be in pixels
 object.
 }
 }
-\keyword{internal}
+\examples{
+# These functions are intended to be used inside filter functions, e.g.
+library(ggplot2)
+
+flip_raster <- function(raster, horizontal = TRUE) {
+  # Get the viewport area of the raster
+  vp <- get_viewport_area(raster)
+
+  # Get the columns and rows of the raster - reverse order depending on
+  # the value of horizontal
+  dims <- dim(vp)
+  rows <- seq_len(dims[1])
+  cols <- seq_len(dims[2])
+  if (horizontal) {
+    cols <- rev(cols)
+  } else {
+    rows <- rev(rows)
+  }
+
+  # change the order of columns or rows in the viewport raster
+  vp <- index_raster(vp, cols, rows)
+
+  # Assign the modified viewport back
+  set_viewport_area(raster, vp)
+}
+
+ggplot() +
+  with_custom(
+    geom_text(aes(0.5, 0.75, label = 'Flippediflop!'), size = 10),
+    filter = flip_raster,
+    horizontal = TRUE
+  )
+
+}

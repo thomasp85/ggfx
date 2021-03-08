@@ -4,8 +4,6 @@
 #' [with_custom()]) as they can provide information about the current rendering
 #' context.
 #'
-#' @param x A numeric or [grid::unit] object
-#'
 #' @return See details
 #'
 #' @details
@@ -29,9 +27,41 @@
 #' - `from_pixels`: Converts a numeric giving some pixel dimension to a unit
 #'   object.
 #'
-#' @keywords internal
 #' @rdname render_context
 #' @name render_context
+#'
+#' @examples
+#' # These functions are intended to be used inside filter functions, e.g.
+#' library(ggplot2)
+#'
+#' flip_raster <- function(raster, horizontal = TRUE) {
+#'   # Get the viewport area of the raster
+#'   vp <- get_viewport_area(raster)
+#'
+#'   # Get the columns and rows of the raster - reverse order depending on
+#'   # the value of horizontal
+#'   dims <- dim(vp)
+#'   rows <- seq_len(dims[1])
+#'   cols <- seq_len(dims[2])
+#'   if (horizontal) {
+#'     cols <- rev(cols)
+#'   } else {
+#'     rows <- rev(rows)
+#'   }
+#'
+#'   # change the order of columns or rows in the viewport raster
+#'   vp <- index_raster(vp, cols, rows)
+#'
+#'   # Assign the modified viewport back
+#'   set_viewport_area(raster, vp)
+#' }
+#'
+#' ggplot() +
+#'   with_custom(
+#'     geom_text(aes(0.5, 0.75, label = 'Flippediflop!'), size = 10),
+#'     filter = flip_raster,
+#'     horizontal = TRUE
+#'   )
 #'
 NULL
 
@@ -50,6 +80,10 @@ viewport_location <- function() {
 }
 
 #' @rdname render_context
+#'
+#' @param raster A `raster` or `nativeRaster` object
+#' @param cols,rows Column and row indices
+#'
 #' @export
 index_raster <- function(raster, cols, rows) {
   dims <- dim(raster)
@@ -62,12 +96,19 @@ index_raster <- function(raster, cols, rows) {
 }
 
 #' @rdname render_context
+#'
+#' @param xmin,ymin,xmax,ymax Boundaries of the area in pixels. {0,0} is the
+#' top-left corner
+#'
 #' @export
 get_raster_area <- function(raster, xmin, ymin, xmax, ymax) {
   index_raster(raster, seq(xmin, xmax), seq(ymin, ymax))
 }
 
 #' @rdname render_context
+#'
+#' @param value An object of the same type as `raster`
+#'
 #' @export
 set_raster_area <- function(raster, value, xmin, ymin) {
   value_dim <- dim(value)
@@ -108,6 +149,7 @@ current_resolution <- function() {
 
 #' @rdname render_context
 #'
+#' @param x A numeric or unit object
 #' @param y_axis is the unit pertaining to the y-axis? Defaults to `FALSE` (i.e.
 #' it is measured on the x-axis)
 #' @param location is the unit encoding a location? Defaults to `FALSE` (i.e. it
