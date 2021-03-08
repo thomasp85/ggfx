@@ -2,16 +2,20 @@
 #' @importFrom ragg agg_capture
 #' @importFrom grDevices dev.off dev.cur dev.set dev.size
 rasterise_grob <- function(grob, vp = NULL) {
-  if (is.null(vp) && is_reference_grob(grob)) {
-    return(get_layer(grob$id))
-  }
-  if (is.null(vp)) vp <- viewport()
   dim_inch <- dev.size("in")
   dim_pix <- dev.size("px")
   res <- dim_pix[1] / dim_inch[1]
   vp_size <- deviceDim(unit(1, 'npc'), unit(1, 'npc'))
   vp_loc <- deviceLoc(unit(0, 'npc'), unit(0, 'npc'))
   raster_loc <- unit.c(-1 * vp_loc$x, -1 * vp_loc$y)
+  if (is.null(vp) && is_reference_grob(grob)) {
+    return(list(
+      raster = get_layer(grob$id),
+      location = raster_loc,
+      dimension = unit(dim_inch, 'inch')
+    ))
+  }
+  if (is.null(vp)) vp <- viewport()
   vp_parent <- viewport(vp_loc$x, vp_loc$y, vp_size$w, vp_size$h,
                         just = c('left', 'bottom'), clip = 'off')
   cur <- dev.cur()

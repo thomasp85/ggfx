@@ -123,7 +123,7 @@ shade_raster <- function(x, height_map, azimuth = 30, elevation = 30, strength =
   raster <- image_read(x)
   dim <- image_info(raster)
   geometry <- geometry_size_pixels(dim$width, dim$height, FALSE)
-  height_map <- magick_channel(height_map)
+  height_map <- image_read(get_layer_channel(height_map))
   height_map <- image_resize(height_map, geometry)
   flat <- image_shade(image_blank(1, 1, 'white'), azimuth, elevation, TRUE)
   dark <- col2rgb(as.raster(flat)[[1]], )[1] < 128

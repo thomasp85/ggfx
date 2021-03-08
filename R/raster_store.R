@@ -29,6 +29,7 @@ raster_id <- function(id, index) {
 }
 
 #' @importFrom grDevices as.raster dev.size
+#' @importFrom magick image_read image_convert image_separate
 get_layer <- function(x) {
   includes_channel <- has_channel(x)
   channel <- get_channel(x)
@@ -46,11 +47,19 @@ get_layer <- function(x) {
     x <- raster_on_canvas(x)
   }
   if (includes_channel) {
-    x <- set_channel(x, channel, space)
-    as.integer(magick_channel(x))
+    x <- image_read(x)
+    if (tolower(space) == 'srgb') {
+      x <- image_separate(x, channel)
+    } else {
+      x <- image_separate(image_convert(x, colorspace = space), channel)
+    }
+    as.integer(x)
   } else {
     x
   }
+}
+get_layer_channel <- function(x) {
+  get_layer(ch_default(x))
 }
 
 reference_grob <- function(id) {

@@ -51,9 +51,9 @@ segments <- data.frame(
 # We use 'white' as that is the maximum value in all channels
 ggplot(mapping = aes(x, y, xend = xend, yend = yend)) +
   as_colourspace(
-    geom_segments(data = segments[1:100,], colour = 'white'),
-    geom_segments(data = segments[101:200,], colour = 'white'),
-    geom_segments(data = segments[201:300,], colour = 'white'),
+    geom_segment(data = segments[1:100,], colour = 'white'),
+    geom_segment(data = segments[101:200,], colour = 'white'),
+    geom_segment(data = segments[201:300,], colour = 'white'),
     colourspace = 'CMY'
   )
 

@@ -115,15 +115,15 @@ variably_blur_raster <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                  x_scale = 1, y_scale = x_scale, angle_range = 0) {
   raster <- image_read(x)
   dim <- image_info(raster)
-  x_sigma <- magick_channel(x_sigma)
+  x_sigma <- image_read(get_layer_channel(x_sigma))
   x_sigma <- image_resize(x_sigma, geometry_size_pixels(dim$width, dim$height, FALSE))
-  y_sigma <- magick_channel(y_sigma)
+  y_sigma <- image_read(get_layer_channel(y_sigma))
   y_sigma <- image_resize(y_sigma, geometry_size_pixels(dim$width, dim$height, FALSE))
 
   if (is.null(angle) || length(angle_range) == 1) {
     sigma <- image_combine(c(x_sigma, y_sigma))
   } else {
-    angle <- magick_channel(angle)
+    angle <- image_read(get_layer_channel(angle))
     angle <- image_resize(angle, geometry_size_pixels(dim$width, dim$height, FALSE))
     sigma <- image_combine(c(x_sigma, y_sigma, angle))
     image_destroy(angle)

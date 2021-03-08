@@ -92,15 +92,11 @@ ch_custom <- function(x, channel, colourspace) {
   set_channel(x, channel, colourspace = colourspace)
 }
 
-#' @importFrom magick image_read image_convert image_separate
-magick_channel <- function(x) {
-  channel <- get_channel(x) %||% 'Luminance'
-  space <- get_channel_space(x) %||% 'sRGB'
-  raster <- image_read(get_layer(x))
-  if (tolower(space) == 'srgb') {
-    image_separate(raster, channel)
+ch_default <- function(x) {
+  if (!has_channel(x)) {
+    ch_luminance(x)
   } else {
-    image_separate(image_convert(raster, colorspace = space), channel)
+    x
   }
 }
 

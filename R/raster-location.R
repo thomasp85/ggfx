@@ -138,6 +138,10 @@ raster_on_canvas <- function(x) {
 raster_on_canvas.raster <- function(x) {
   raster_on_canvas(ras_fill(x, 'vp'))
 }
+#' @export
+raster_on_canvas.nativeRaster <- function(x) {
+  raster_on_canvas(ras_fill(x, 'vp'))
+}
 #' @importFrom magick image_resize image_read geometry_size_pixels
 #' @export
 raster_on_canvas.stretch_raster <- function(x) {
