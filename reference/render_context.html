@@ -163,7 +163,7 @@ context.</p>
 
 <span class='fu'>current_resolution</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>as_pixels</span><span class='op'>(</span><span class='va'>x</span>, y_axis <span class='op'>=</span> <span class='cn'>FALSE</span>, location <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>to_pixels</span><span class='op'>(</span><span class='va'>x</span>, y_axis <span class='op'>=</span> <span class='cn'>FALSE</span>, location <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>from_pixels</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
@@ -226,7 +226,7 @@ sets the area defined by the current viewport</p></li>
 clipping turned on</p></li>
 <li><p><code>current_resolution()</code>: Returns the resolution of the active device in ppi
 (pixels-per-inch)</p></li>
-<li><p><code>as_pixels(x)</code>: Converts <code>x</code> to pixels if <code>x</code> is given as a unit object. It
+<li><p><code>to_pixels(x)</code>: Converts <code>x</code> to pixels if <code>x</code> is given as a unit object. It
 is assumed that x encodes a dimension and not a location. If <code>x</code> is a
 numeric it is assumed to already be in pixels</p></li>
 <li><p><code>from_pixels</code>: Converts a numeric giving some pixel dimension to a unit
