@@ -181,7 +181,9 @@ on the <code>hcl</code> colour space)</p>
 
 <span class='fu'>ch_black</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
 
-<span class='fu'>ch_key</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span></pre>
+<span class='fu'>ch_key</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
+
+<span class='fu'>ch_custom</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>channel</span>, <span class='va'>colourspace</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,6 +195,10 @@ on the <code>hcl</code> colour space)</p>
     <tr>
       <th>colourspace</th>
       <td><p>The colourspace the channel should be extracted from.</p></td>
+    </tr>
+    <tr>
+      <th>channel</th>
+      <td><p>The name of a channel in the given colourspace</p></td>
     </tr>
     </table>
 

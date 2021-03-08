@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Convert a layer to a raster — with_raster" />
-<meta property="og:description" content="This filter simply converts the given layer, grob, oor ggplot to a raster and
+<meta property="og:description" content="This filter simply converts the given layer, grob, or ggplot to a raster and
 inserts it back again. It is useful for vector graphics devices such as
 svglite if a layer contains a huge amount of primitives that would make the
 file slow to render. as_reference(x, id) is a shorthand for
@@ -145,17 +145,15 @@ this grob or layer as only a filter reference clear." />
     </div>
 
     <div class="ref-description">
-    <p>This filter simply converts the given layer, grob, oor ggplot to a raster and
+    <p>This filter simply converts the given layer, grob, or ggplot to a raster and
 inserts it back again. It is useful for vector graphics devices such as
 svglite if a layer contains a huge amount of primitives that would make the
-file slow to render. <code>as_reference(x, id)</code> is a shorthand for
+file slow to render. <code><a href='as_reference.html'>as_reference(x, id)</a></code> is a shorthand for
 <code>with_raster(x, id = id, include = FALSE)</code> that makes the intent of using
 this grob or layer as only a filter reference clear.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>with_raster</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>as_reference</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>id</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>with_raster</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,10 +168,6 @@ naming a filter</p></td>
       <td><p>Arguments to be passed on to methods. See
 <a href='object_support.html'>the documentation of supported object</a> for a description of
 object specific arguments.</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>A string identifying this layer</p></td>
     </tr>
     </table>
 
