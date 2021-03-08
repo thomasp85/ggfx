@@ -10,7 +10,9 @@
 #' @param ... A range of layers to combine
 #' @inheritParams as_reference
 #'
-#' @return A list of layers oor a [gTree][grid::gTree] depending on the input
+#' @return A list of layers or a [gTree][grid::gTree] depending on the input
+#'
+#' @family layer references
 #'
 #' @export
 #'
@@ -31,22 +33,22 @@
 #'   ) +
 #'   with_shadow('group_1', sigma = 4)
 #'
-as_group <- function(..., id) {
+as_group <- function(..., id = NULL, include = is.null(id)) {
   UseMethod("as_group")
 }
 #' @importFrom grid is.grob
 #' @export
-as_group.grob <- function(..., id) {
+as_group.grob <- function(..., id = NULL, include = is.null(id)) {
   grobs <- list(...)
   if (any(!vapply(grobs, is.grob, logical(1)))) {
     abort('All objects must be grobs')
   }
-  gTree(grobs = grobs, id = id, cl = 'grouped_grob')
+  gTree(grobs = grobs, id = id, include = include, cl = 'grouped_grob')
 }
 #' @importFrom ggplot2 geom_blank
 #' @importFrom grid gTree
 #' @export
-as_group.Layer <- function(..., id) {
+as_group.Layer <- function(..., id = NULL, include = is.null(id)) {
   layers <- list(...)
   ids <- paste0('__<', id, '>__<', seq_along(layers), '>__')
   layers <- Map(as_reference, x = layers, id = ids)
@@ -56,7 +58,7 @@ as_group.Layer <- function(..., id) {
   group_layer <- filter_layer_constructor(
     geom_blank(data = data.frame(x = 1), inherit.aes = FALSE),
     function(x, ..., id) {
-      gTree(grob = x, id = id, ids = list(...),
+      gTree(grob = x, id = id, include = include, ids = list(...),
             cl = c('combined_layer_grob', 'filter_grob'))
     },
     'CombinedGeom',
@@ -83,7 +85,7 @@ makeContent.grouped_grob <- function(x) {
   rasters <- lapply(rasters, function(ras) image_read(ras$raster))
   raster <- Reduce(function(b, t) image_composite(b, t, 'over'), rasters)
   lapply(rasters, image_destroy)
-  raster <- groberize_raster(raster, location, dimension, x$id, FALSE)
+  raster <- groberize_raster(raster, location, dimension, x$id, x$include)
   setChildren(x, gList(raster))
 }
 
@@ -95,6 +97,6 @@ makeContent.combined_layer_grob <- function(x) {
   layers <- lapply(layers, function(layer) image_read(layer))
   raster <- Reduce(function(b, t) image_composite(b, t, 'over'), layers)
   lapply(layers, image_destroy)
-  raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, FALSE)
+  raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(raster))
 }

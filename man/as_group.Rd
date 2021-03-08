@@ -4,15 +4,17 @@
 \alias{as_group}
 \title{Collect layers into a group that can be treated as a single layer}
 \usage{
-as_group(..., id)
+as_group(..., id = NULL, include = is.null(id))
 }
 \arguments{
 \item{...}{A range of layers to combine}
 
-\item{id}{A string identifying this layer}
+\item{id}{A string identifying this layer for later use}
+
+\item{include}{Should the layer itself be included in the graphic}
 }
 \value{
-A list of layers oor a \link[grid:grid.grob]{gTree} depending on the input
+A list of layers or a \link[grid:grid.grob]{gTree} depending on the input
 }
 \description{
 While you often want to apply filters to layers one by one, there are times
@@ -40,3 +42,9 @@ ggplot(mtcars, aes(mpg, disp)) +
   with_shadow('group_1', sigma = 4)
 
 }
+\seealso{
+Other layer references: 
+\code{\link{as_colourspace}()},
+\code{\link{as_reference}()}
+}
+\concept{layer references}

@@ -2,12 +2,9 @@
 % Please edit documentation in R/raster.R
 \name{with_raster}
 \alias{with_raster}
-\alias{as_reference}
 \title{Convert a layer to a raster}
 \usage{
 with_raster(x, ...)
-
-as_reference(x, id)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string
@@ -16,14 +13,12 @@ naming a filter}
 \item{...}{Arguments to be passed on to methods. See
 \link[=object_support]{the documentation of supported object} for a description of
 object specific arguments.}
-
-\item{id}{A string identifying this layer}
 }
 \value{
 A modified \code{Layer} object
 }
 \description{
-This filter simply converts the given layer, grob, oor ggplot to a raster and
+This filter simply converts the given layer, grob, or ggplot to a raster and
 inserts it back again. It is useful for vector graphics devices such as
 svglite if a layer contains a huge amount of primitives that would make the
 file slow to render. \code{as_reference(x, id)} is a shorthand for

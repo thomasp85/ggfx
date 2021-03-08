@@ -1,6 +1,6 @@
 #' Convert a layer to a raster
 #'
-#' This filter simply converts the given layer, grob, oor ggplot to a raster and
+#' This filter simply converts the given layer, grob, or ggplot to a raster and
 #' inserts it back again. It is useful for vector graphics devices such as
 #' svglite if a layer contains a huge amount of primitives that would make the
 #' file slow to render. `as_reference(x, id)` is a shorthand for
@@ -8,7 +8,6 @@
 #' this grob or layer as only a filter reference clear.
 #'
 #' @inheritParams with_blur
-#' @param id A string identifying this layer
 #'
 #' @return A modified `Layer` object
 #'
@@ -21,11 +20,6 @@
 #'
 with_raster <- function(x, ...) {
   UseMethod('with_raster')
-}
-#' @rdname with_raster
-#' @export
-as_reference <- function(x, id) {
-  with_raster(x, id = id, include = FALSE)
 }
 #' @importFrom grid gTree
 #' @export
