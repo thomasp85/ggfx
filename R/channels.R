@@ -10,6 +10,7 @@
 #'
 #' @param x Any object interpretable as a layer
 #' @param colourspace The colourspace the channel should be extracted from.
+#' @param channel The name of a channel in the given colourspace
 #'
 #' @return `x` with a channel spec attached
 #'
@@ -85,6 +86,11 @@ ch_black <- function(x, colourspace = 'CMYK') {
 #' @rdname channel_spec
 #' @export
 ch_key <- ch_black
+#' @rdname channel_spec
+#' @export
+ch_custom <- function(x, channel, colourspace) {
+  set_channel(x, channel, colourspace = colourspace)
+}
 
 #' @importFrom magick image_read image_convert image_separate
 magick_channel <- function(x) {

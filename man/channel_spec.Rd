@@ -16,6 +16,7 @@
 \alias{ch_yellow}
 \alias{ch_black}
 \alias{ch_key}
+\alias{ch_custom}
 \title{Set a channel of interest from a layer}
 \usage{
 ch_red(x, colourspace = "sRGB")
@@ -45,11 +46,15 @@ ch_yellow(x, colourspace = "CMYK")
 ch_black(x, colourspace = "CMYK")
 
 ch_key(x, colourspace = "CMYK")
+
+ch_custom(x, channel, colourspace)
 }
 \arguments{
 \item{x}{Any object interpretable as a layer}
 
 \item{colourspace}{The colourspace the channel should be extracted from.}
+
+\item{channel}{The name of a channel in the given colourspace}
 }
 \value{
 \code{x} with a channel spec attached
