@@ -155,23 +155,33 @@ specific channel and none is specified it will default to <code>luminance</code>
 on the <code>hcl</code> colour space)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ch_red</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>ch_red</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span><span class='op'>)</span>
 
-<span class='fu'>ch_green</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_green</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span><span class='op'>)</span>
 
-<span class='fu'>ch_blue</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_blue</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span><span class='op'>)</span>
 
-<span class='fu'>ch_alpha</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_alpha</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span><span class='op'>)</span>
 
-<span class='fu'>ch_hue</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_hue</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span><span class='op'>)</span>
 
-<span class='fu'>ch_chroma</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_chroma</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span><span class='op'>)</span>
 
-<span class='fu'>ch_luminance</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_luminance</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span><span class='op'>)</span>
 
-<span class='fu'>ch_saturation</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>ch_saturation</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HSL"</span><span class='op'>)</span>
 
-<span class='fu'>ch_lightness</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>ch_lightness</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HSL"</span><span class='op'>)</span>
+
+<span class='fu'>ch_cyan</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
+
+<span class='fu'>ch_magenta</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
+
+<span class='fu'>ch_yellow</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
+
+<span class='fu'>ch_black</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span>
+
+<span class='fu'>ch_key</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,6 +189,10 @@ on the <code>hcl</code> colour space)</p>
     <tr>
       <th>x</th>
       <td><p>Any object interpretable as a layer</p></td>
+    </tr>
+    <tr>
+      <th>colourspace</th>
+      <td><p>The colourspace the channel should be extracted from.</p></td>
     </tr>
     </table>
 

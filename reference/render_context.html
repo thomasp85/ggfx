@@ -171,8 +171,25 @@ context.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>raster</th>
+      <td><p>A <code>raster</code> or <code>nativeRaster</code> object</p></td>
+    </tr>
+    <tr>
+      <th>cols, rows</th>
+      <td><p>Column and row indices</p></td>
+    </tr>
+    <tr>
+      <th>xmin, ymin, xmax, ymax</th>
+      <td><p>Boundaries of the area in pixels. 0,0 is the
+top-left corner</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>An object of the same type as <code>raster</code></p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>A numeric or <a href='https://rdrr.io/r/grid/unit.html'>grid::unit</a> object</p></td>
+      <td><p>A numeric or unit object</p></td>
     </tr>
     <tr>
       <th>y_axis</th>
@@ -197,6 +214,14 @@ means that y-axis locations will flip around when converted to pixels.</p></td>
 <ul>
 <li><p><code>viewport_location()</code>: Returns the bounding box defining the current
 viewport in pixels in the order <code>xmin</code>, <code>ymin</code>, <code>xmax</code>, <code>ymax</code></p></li>
+<li><p><code>index_raster()</code>: Is a version of the classic <code>[,]</code> indexing that is aware
+of the row-major order of rasters</p></li>
+<li><p><code>get_raster_area()</code>: Extracts an area of a raster based on a bounding box</p></li>
+<li><p><code>set_raster_area()</code>: Sets an area of a raster to a new raster value</p></li>
+<li><p><code>get_viewport_area()</code>: A version of <code>get_raster_area()</code> that specifically
+extract the area defined by the current viewport</p></li>
+<li><p><code>set_viewport_area()</code>: A version of <code>set_raster_area()</code> that specifically
+sets the area defined by the current viewport</p></li>
 <li><p><code>viewport_is_clipping()</code>: Returns <code>TRUE</code> if the current viewport has
 clipping turned on</p></li>
 <li><p><code>current_resolution()</code>: Returns the resolution of the active device in ppi
@@ -209,6 +234,40 @@ object.</p></li>
 </ul>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># These functions are intended to be used inside filter functions, e.g.</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+
+<span class='va'>flip_raster</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>raster</span>, <span class='va'>horizontal</span> <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='co'># Get the viewport area of the raster</span>
+  <span class='va'>vp</span> <span class='op'>&lt;-</span> <span class='fu'>get_viewport_area</span><span class='op'>(</span><span class='va'>raster</span><span class='op'>)</span>
+
+  <span class='co'># Get the columns and rows of the raster - reverse order depending on</span>
+  <span class='co'># the value of horizontal</span>
+  <span class='va'>dims</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>vp</span><span class='op'>)</span>
+  <span class='va'>rows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>dims</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>dims</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='va'>horizontal</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>cols</span><span class='op'>)</span>
+  <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>
+    <span class='va'>rows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>rows</span><span class='op'>)</span>
+  <span class='op'>}</span>
+
+  <span class='co'># change the order of columns or rows in the viewport raster</span>
+  <span class='va'>vp</span> <span class='op'>&lt;-</span> <span class='fu'>index_raster</span><span class='op'>(</span><span class='va'>vp</span>, <span class='va'>cols</span>, <span class='va'>rows</span><span class='op'>)</span>
+
+  <span class='co'># Assign the modified viewport back</span>
+  <span class='fu'>set_viewport_area</span><span class='op'>(</span><span class='va'>raster</span>, <span class='va'>vp</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='with_custom.html'>with_custom</a></span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.75</span>, label <span class='op'>=</span> <span class='st'>'Flippediflop!'</span><span class='op'>)</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>,
+    filter <span class='op'>=</span> <span class='va'>flip_raster</span>,
+    horizontal <span class='op'>=</span> <span class='cn'>TRUE</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='render_context-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
