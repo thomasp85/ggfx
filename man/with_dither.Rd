@@ -4,7 +4,7 @@
 \alias{with_dither}
 \title{Dither image using Floyd-Steinberg error correction dithering}
 \usage{
-with_dither(x, max_colours = 256, colourspace = "rgb", ...)
+with_dither(x, max_colours = 256, colourspace = "sRGB", ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string

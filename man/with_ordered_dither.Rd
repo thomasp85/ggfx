@@ -13,7 +13,7 @@ with_circle_dither(
   map_size = 7,
   levels = NULL,
   black = TRUE,
-  colourspace = "rgb",
+  colourspace = "sRGB",
   offset = NULL,
   ...
 )
@@ -22,7 +22,7 @@ with_custom_dither(
   x,
   map = "checks",
   levels = NULL,
-  colourspace = "rgb",
+  colourspace = "sRGB",
   offset = NULL,
   ...
 )
@@ -32,12 +32,12 @@ with_halftone_dither(
   map_size = 8,
   levels = NULL,
   angled = TRUE,
-  colourspace = "rgb",
+  colourspace = "sRGB",
   offset = NULL,
   ...
 )
 
-with_ordered_dither(x, map_size = 8, levels = NULL, colourspace = "rgb", ...)
+with_ordered_dither(x, map_size = 8, levels = NULL, colourspace = "sRGB", ...)
 }
 \arguments{
 \item{x}{A ggplot2 layer object, a ggplot, a grob, or a character string

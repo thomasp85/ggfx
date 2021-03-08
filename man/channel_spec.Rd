@@ -11,28 +11,45 @@
 \alias{ch_luminance}
 \alias{ch_saturation}
 \alias{ch_lightness}
+\alias{ch_cyan}
+\alias{ch_magenta}
+\alias{ch_yellow}
+\alias{ch_black}
+\alias{ch_key}
 \title{Set a channel of interest from a layer}
 \usage{
-ch_red(x)
+ch_red(x, colourspace = "sRGB")
 
-ch_green(x)
+ch_green(x, colourspace = "sRGB")
 
-ch_blue(x)
+ch_blue(x, colourspace = "sRGB")
 
-ch_alpha(x)
+ch_alpha(x, colourspace = "sRGB")
 
-ch_hue(x)
+ch_hue(x, colourspace = "HCL")
 
-ch_chroma(x)
+ch_chroma(x, colourspace = "HCL")
 
-ch_luminance(x)
+ch_luminance(x, colourspace = "HCL")
 
-ch_saturation(x)
+ch_saturation(x, colourspace = "HSL")
 
-ch_lightness(x)
+ch_lightness(x, colourspace = "HSL")
+
+ch_cyan(x, colourspace = "CMYK")
+
+ch_magenta(x, colourspace = "CMYK")
+
+ch_yellow(x, colourspace = "CMYK")
+
+ch_black(x, colourspace = "CMYK")
+
+ch_key(x, colourspace = "CMYK")
 }
 \arguments{
 \item{x}{Any object interpretable as a layer}
+
+\item{colourspace}{The colourspace the channel should be extracted from.}
 }
 \value{
 \code{x} with a channel spec attached

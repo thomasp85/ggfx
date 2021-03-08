@@ -21,10 +21,11 @@ purge_store <- function(age = 600) {
 
 raster_id <- function(id, index) {
   if (length(id) == 1 && is.character(id)) {
-    set_channel(paste0(id, '_<', index, '>'), get_channel(id))
-  } else {
-    id
+    id_attr <- attributes(id)
+    id <- paste0(id, '_<', index, '>')
+    attributes(id) <- id_attr
   }
+  id
 }
 
 #' @importFrom grDevices as.raster dev.size

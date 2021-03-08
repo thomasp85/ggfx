@@ -37,7 +37,7 @@ blur_raster(x, sigma = 0.5, stack = FALSE)
 
 displace_raster(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale)
 
-dither_raster(x, max_colours = 256, colourspace = "rgb")
+dither_raster(x, max_colours = 256, colourspace = "sRGB")
 
 interpolate_raster(x, bg_layer, src_percent, bg_percent)
 
@@ -54,7 +54,7 @@ mask_raster(x, mask, invert = FALSE)
 
 motion_blur_raster(x, sigma = 0.5, angle = 0)
 
-ordered_dither_raster(x, map, colourspace = "rgb", offset = NULL)
+ordered_dither_raster(x, map, colourspace = "sRGB", offset = NULL)
 
 shade_raster(
   x,
