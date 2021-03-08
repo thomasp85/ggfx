@@ -10,7 +10,7 @@
 \alias{set_viewport_area}
 \alias{viewport_is_clipping}
 \alias{current_resolution}
-\alias{as_pixels}
+\alias{to_pixels}
 \alias{from_pixels}
 \title{Rendering information}
 \usage{
@@ -30,7 +30,7 @@ viewport_is_clipping()
 
 current_resolution()
 
-as_pixels(x, y_axis = FALSE, location = FALSE)
+to_pixels(x, y_axis = FALSE, location = FALSE)
 
 from_pixels(x)
 }
@@ -78,7 +78,7 @@ sets the area defined by the current viewport
 clipping turned on
 \item \code{current_resolution()}: Returns the resolution of the active device in ppi
 (pixels-per-inch)
-\item \code{as_pixels(x)}: Converts \code{x} to pixels if \code{x} is given as a unit object. It
+\item \code{to_pixels(x)}: Converts \code{x} to pixels if \code{x} is given as a unit object. It
 is assumed that x encodes a dimension and not a location. If \code{x} is a
 numeric it is assumed to already be in pixels
 \item \code{from_pixels}: Converts a numeric giving some pixel dimension to a unit

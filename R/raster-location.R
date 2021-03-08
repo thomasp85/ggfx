@@ -189,7 +189,7 @@ raster_on_canvas.place_raster <- function(x) {
     left = c(topleft[1], (topleft[2] + bottomright[2]) / 2 - dims[2] / 2)
   )
   user_offset <- attr(x, 'offset')
-  offset <- offset + c(as_pixels(user_offset[1]), as_pixels(user_offset[2], TRUE))
+  offset <- offset + c(to_pixels(user_offset[1]), to_pixels(user_offset[2], TRUE))
   on_canvas(image_read(x), offset)
 }
 #' @importFrom grDevices dev.size
@@ -213,7 +213,7 @@ raster_on_canvas.tile_raster <- function(x) {
     left = c(topleft[1], (topleft[2] + bottomright[2]) / 2 - dims[2] / 2)
   )
   user_offset <- attr(x, 'offset')
-  offset <- offset + c(as_pixels(user_offset[1]), as_pixels(user_offset[2], TRUE))
+  offset <- offset + c(to_pixels(user_offset[1]), to_pixels(user_offset[2], TRUE))
   full_size <- dev.size('px')
   if (attr(x, 'flip')) {
     cols <- c(seq_len(dims[1]), rev(seq_len(dims[1])))

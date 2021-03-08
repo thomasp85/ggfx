@@ -150,7 +150,7 @@ shade_raster <- function(x, height_map, azimuth = 30, elevation = 30, strength =
 makeContent.shade_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
   raster <- shade_raster(ras$raster, x$height_map, x$azimuth, x$elevation,
-                         x$strength, as_pixels(x$sigma), x$blend_type)
+                         x$strength, to_pixels(x$sigma), x$blend_type)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }

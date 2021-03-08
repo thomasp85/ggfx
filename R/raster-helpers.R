@@ -21,7 +21,7 @@
 #'   clipping turned on
 #' - `current_resolution()`: Returns the resolution of the active device in ppi
 #'   (pixels-per-inch)
-#' - `as_pixels(x)`: Converts `x` to pixels if `x` is given as a unit object. It
+#' - `to_pixels(x)`: Converts `x` to pixels if `x` is given as a unit object. It
 #'   is assumed that x encodes a dimension and not a location. If `x` is a
 #'   numeric it is assumed to already be in pixels
 #' - `from_pixels`: Converts a numeric giving some pixel dimension to a unit
@@ -159,7 +159,7 @@ current_resolution <- function() {
 #'
 #' @importFrom grid is.unit convertWidth convertHeight convertX convertY
 #' @export
-as_pixels <- function(x, y_axis = FALSE, location = FALSE) {
+to_pixels <- function(x, y_axis = FALSE, location = FALSE) {
   if (is.unit(x)) {
     mode <- y_axis + location * 2 + 1
     x <- switch(mode,

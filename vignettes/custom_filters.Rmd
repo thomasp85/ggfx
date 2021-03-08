@@ -128,12 +128,12 @@ ggplot(mtcars, aes(x = factor(gear), y = disp)) +
 
 ### Detour: Escaping pixel values
 
-In our filter above we are giving the x-, and y-range in pixels. In the filters built into ggfx you can use either pixel values or a unit object, which also makes sense to do here as the placement of the patch would otherwise be dependent on the exact rendering size of the plot. To make your filter work with unit specifications you simple convert the input with `as_pixels()`:
+In our filter above we are giving the x-, and y-range in pixels. In the filters built into ggfx you can use either pixel values or a unit object, which also makes sense to do here as the placement of the patch would otherwise be dependent on the exact rendering size of the plot. To make your filter work with unit specifications you simple convert the input with `to_pixels()`:
 
 ```{r}
 fill_patch <- function(x, colour, x_range, y_range) {
-  x_range <- as_pixels(x_range, location = TRUE)
-  y_range <- sort(as_pixels(y_range, y_axis = TRUE, location = TRUE))
+  x_range <- to_pixels(x_range, location = TRUE)
+  y_range <- sort(to_pixels(y_range, y_axis = TRUE, location = TRUE))
   patch <- get_raster_area(
     raster = x, 
     xmin = x_range[1], 

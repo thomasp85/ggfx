@@ -93,7 +93,7 @@ blur_raster <- function(x, sigma = 0.5, stack = FALSE) {
 #' @export
 makeContent.blur_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  raster <- blur_raster(ras$raster, as_pixels(x$sigma), x$stack)
+  raster <- blur_raster(ras$raster, to_pixels(x$sigma), x$stack)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }

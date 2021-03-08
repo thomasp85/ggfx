@@ -107,7 +107,7 @@ displace_raster <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_sc
 #' @export
 makeContent.displacement_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  raster <- displace_raster(ras$raster, x$x_map, x$y_map, as_pixels(x$x_scale), as_pixels(x$y_scale))
+  raster <- displace_raster(ras$raster, x$x_map, x$y_map, to_pixels(x$x_scale), to_pixels(x$y_scale))
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }

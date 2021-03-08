@@ -92,7 +92,7 @@ motion_blur_raster <- function(x, sigma = 0.5, angle = 0) {
 #' @export
 makeContent.motion_blur_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  raster <- motion_blur_raster(ras$raster, as_pixels(x$sigma), x$angle)
+  raster <- motion_blur_raster(ras$raster, to_pixels(x$sigma), x$angle)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }

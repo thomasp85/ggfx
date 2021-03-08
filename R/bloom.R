@@ -130,7 +130,7 @@ bloom_raster <- function(x, threshold_lower = 80, threshold_upper = 100,
 makeContent.bloom_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
   raster <- bloom_raster(ras$raster, x$threshold_lower, x$threshold_upper,
-                         as_pixels(x$sigma), x$strength, x$keep_alpha)
+                         to_pixels(x$sigma), x$strength, x$keep_alpha)
   raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(x$background, raster))
 }
