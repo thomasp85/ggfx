@@ -24,12 +24,12 @@
 #'   ) +
 #'   scale_fill_continuous(type = 'viridis')
 #'
-with_dither <- function(x, max_colours = 256, colourspace = 'rgb', ...) {
+with_dither <- function(x, max_colours = 256, colourspace = 'sRGB', ...) {
   UseMethod('with_dither')
 }
 #' @importFrom grid gTree
 #' @export
-with_dither.grob <- function(x, max_colours = 256, colourspace = 'rgb',
+with_dither.grob <- function(x, max_colours = 256, colourspace = 'sRGB',
                              background = NULL, ..., id = NULL,
                              include = is.null(id)) {
   gTree(grob = x, max_colours = max_colours, colourspace = colourspace,
@@ -37,21 +37,21 @@ with_dither.grob <- function(x, max_colours = 256, colourspace = 'rgb',
         cl = c('dither_grob', 'filter_grob'))
 }
 #' @export
-with_dither.Layer <- function(x, max_colours = 256, colourspace = 'rgb', ...,
+with_dither.Layer <- function(x, max_colours = 256, colourspace = 'sRGB', ...,
                               id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_dither, 'DitheredGeom',
                            max_colours = max_colours, colourspace = colourspace,
                            ..., include = include, ids = list(id = id))
 }
 #' @export
-with_dither.ggplot <- function(x, max_colours = 256, colourspace = 'rgb',
+with_dither.ggplot <- function(x, max_colours = 256, colourspace = 'sRGB',
                                ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_dither, max_colours = max_colours,
                             colourspace = colourspace, ...,
                             ignore_background = ignore_background)
 }
 #' @export
-with_dither.character <- function(x, max_colours = 256, colourspace = 'rgb', ...,
+with_dither.character <- function(x, max_colours = 256, colourspace = 'sRGB', ...,
                                   id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_dither, 'DitheredGeom',
                                max_colours = max_colours,
@@ -67,12 +67,12 @@ with_dither.raster <- with_dither.character
 #' @export
 with_dither.nativeRaster <- with_dither.character
 #' @export
-with_dither.element <- function(x, max_colours = 256, colourspace = 'rgb', ...) {
+with_dither.element <- function(x, max_colours = 256, colourspace = 'sRGB', ...) {
   filter_element_constructor(x, with_dither, max_colours = max_colours,
                              colourspace = colourspace, ...)
 }
 #' @export
-with_dither.guide <- function(x, max_colours = 256, colourspace = 'rgb', ...) {
+with_dither.guide <- function(x, max_colours = 256, colourspace = 'sRGB', ...) {
   filter_guide_constructor(x, with_dither, max_colours = max_colours,
                            colourspace = colourspace, ...)
 }
@@ -81,7 +81,7 @@ with_dither.guide <- function(x, max_colours = 256, colourspace = 'rgb', ...) {
 #' @importFrom magick image_read image_quantize image_destroy image_composite
 #' @export
 #' @keywords internal
-dither_raster <- function(x, max_colours = 256, colourspace = 'rgb') {
+dither_raster <- function(x, max_colours = 256, colourspace = 'sRGB') {
   raster <- image_read(x)
   dithered <- image_quantize(raster, max = max_colours, colorspace = colourspace)
   x <- as.integer(dithered)

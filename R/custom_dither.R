@@ -6,13 +6,13 @@
 #' @export
 #'
 with_custom_dither <- function(x, map = 'checks', levels = NULL,
-                               colourspace = 'rgb', offset = NULL, ...) {
+                               colourspace = 'sRGB', offset = NULL, ...) {
   UseMethod('with_custom_dither')
 }
 #' @importFrom grid gTree
 #' @export
 with_custom_dither.grob <- function(x, map = 'checks', levels = NULL,
-                                    colourspace = 'rgb', offset = NULL,
+                                    colourspace = 'sRGB', offset = NULL,
                                     background = NULL, ..., id = NULL,
                                     include = is.null(id)) {
   if (length(levels) > 0) {
@@ -24,7 +24,7 @@ with_custom_dither.grob <- function(x, map = 'checks', levels = NULL,
 }
 #' @export
 with_custom_dither.Layer <- function(x, map = 'checks', levels = NULL,
-                                     colourspace = 'rgb', offset = NULL, ...,
+                                     colourspace = 'sRGB', offset = NULL, ...,
                                      id = NULL, include = is.null(id)) {
   filter_layer_constructor(x, with_custom_dither, 'CustomDitheredGeom',
                            map = map, levels = levels, colourspace = colourspace,
@@ -33,7 +33,7 @@ with_custom_dither.Layer <- function(x, map = 'checks', levels = NULL,
 }
 #' @export
 with_custom_dither.ggplot <- function(x, map = 'checks', levels = NULL,
-                                      colourspace = 'rgb', offset = NULL,
+                                      colourspace = 'sRGB', offset = NULL,
                                       ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_custom_dither, map = map,
                             levels = levels, colourspace = colourspace,
@@ -42,7 +42,7 @@ with_custom_dither.ggplot <- function(x, map = 'checks', levels = NULL,
 }
 #' @export
 with_custom_dither.character <- function(x, map = 'checks', levels = NULL,
-                                         colourspace = 'rgb', offset = NULL, ...,
+                                         colourspace = 'sRGB', offset = NULL, ...,
                                          id = NULL, include = is.null(id)) {
   filter_character_constructor(x, with_custom_dither, 'CustomDitheredGeom',
                                map = map, levels = levels,
@@ -59,13 +59,13 @@ with_custom_dither.raster <- with_custom_dither.character
 with_custom_dither.nativeRaster <- with_custom_dither.character
 #' @export
 with_custom_dither.element <- function(x, map = 'checks', levels = NULL,
-                                       colourspace = 'rgb', offset = NULL, ...) {
+                                       colourspace = 'sRGB', offset = NULL, ...) {
   filter_element_constructor(x, with_custom_dither, map = map, levels = levels,
                              colourspace = colourspace, offset = offset, ...)
 }
 #' @export
 with_custom_dither.guide <- function(x, map = 'checks', levels = NULL,
-                                     colourspace = 'rgb', offset = NULL, ...) {
+                                     colourspace = 'sRGB', offset = NULL, ...) {
   filter_guide_constructor(x, with_custom_dither, map = map, levels = levels,
                            colourspace = colourspace, offset = offset, ...)
 }

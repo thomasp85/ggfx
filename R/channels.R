@@ -9,6 +9,7 @@
 #' on the `hcl` colour space)
 #'
 #' @param x Any object interpretable as a layer
+#' @param colourspace The colourspace the channel should be extracted from.
 #'
 #' @return `x` with a channel spec attached
 #'
@@ -18,72 +19,96 @@ NULL
 
 #' @rdname channel_spec
 #' @export
-ch_red <- function(x) {
-  set_channel(x, 'Red')
+ch_red <- function(x, colourspace = 'sRGB') {
+  set_channel(x, 'Red', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_green <- function(x) {
-  set_channel(x, 'Green')
+ch_green <- function(x, colourspace = 'sRGB') {
+  set_channel(x, 'Green', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_blue <- function(x) {
-  set_channel(x, 'Blue')
+ch_blue <- function(x, colourspace = 'sRGB') {
+  set_channel(x, 'Blue', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_alpha <- function(x) {
-  set_channel(x, 'Alpha')
+ch_alpha <- function(x, colourspace = 'sRGB') {
+  set_channel(x, 'Alpha', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_hue <- function(x) {
-  set_channel(x, 'Hue')
+ch_hue <- function(x, colourspace = 'HCL') {
+  set_channel(x, 'Hue', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_chroma <- function(x) {
-  set_channel(x, 'Chroma')
+ch_chroma <- function(x, colourspace = 'HCL') {
+  set_channel(x, 'Chroma', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_luminance <- function(x) {
-  set_channel(x, 'Luminance')
+ch_luminance <- function(x, colourspace = 'HCL') {
+  set_channel(x, 'Luminance', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_saturation <- function(x) {
-  set_channel(x, 'Saturation')
+ch_saturation <- function(x, colourspace = 'HSL') {
+  set_channel(x, 'Saturation', colourspace = colourspace)
 }
 #' @rdname channel_spec
 #' @export
-ch_lightness <- function(x) {
-  set_channel(x, 'Lightness')
+ch_lightness <- function(x, colourspace = 'HSL') {
+  set_channel(x, 'Lightness', colourspace = colourspace)
 }
+#' @rdname channel_spec
+#' @export
+ch_cyan <- function(x, colourspace = 'CMYK') {
+  set_channel(x, 'Cyan', colourspace = colourspace)
+}
+#' @rdname channel_spec
+#' @export
+ch_magenta <- function(x, colourspace = 'CMYK') {
+  set_channel(x, 'Magenta', colourspace = colourspace)
+}
+#' @rdname channel_spec
+#' @export
+ch_yellow <- function(x, colourspace = 'CMYK') {
+  set_channel(x, 'Yellow', colourspace = colourspace)
+}
+#' @rdname channel_spec
+#' @export
+ch_black <- function(x, colourspace = 'CMYK') {
+  set_channel(x, 'Black', colourspace = colourspace)
+}
+#' @rdname channel_spec
+#' @export
+ch_key <- ch_black
 
 #' @importFrom magick image_read image_convert image_separate
 magick_channel <- function(x) {
   channel <- get_channel(x) %||% 'Luminance'
+  space <- get_channel_space(x) %||% 'sRGB'
   raster <- image_read(get_layer(x))
-  if (channel %in% c('Red', 'Green', 'Blue', 'Alpha')) {
+  if (tolower(space) == 'srgb') {
     image_separate(raster, channel)
-  } else if (channel %in% c('Hue', 'Chroma', 'Luminance')) {
-    image_separate(image_convert(raster, colorspace = 'hcl'), channel)
-  } else if (channel %in% c('Saturation', 'Lightness')) {
-    image_separate(image_convert(raster, colorspace = 'hsl'), channel)
   } else {
-    abort(paste0("Unknown channel: ", channel))
+    image_separate(image_convert(raster, colorspace = space), channel)
   }
 }
 
 has_channel <- function(x) {
   !is.null(attr(x, 'layer_channel'))
 }
-set_channel <- function(x, channel) {
+set_channel <- function(x, channel, colourspace) {
   attr(x, 'layer_channel') <- channel
+  attr(x, 'channel_colourspace') <- colourspace
   x
 }
 get_channel <- function(x) {
   attr(x, 'layer_channel')
+}
+get_channel_space <- function(x) {
+  attr(x, 'channel_colourspace')
 }

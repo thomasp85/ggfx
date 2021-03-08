@@ -5,13 +5,13 @@
 #'
 #' @export
 with_halftone_dither <- function(x, map_size = 8, levels = NULL, angled = TRUE,
-                                 colourspace = 'rgb', offset = NULL, ...) {
+                                 colourspace = 'sRGB', offset = NULL, ...) {
   UseMethod('with_halftone_dither')
 }
 #' @importFrom grid gTree
 #' @export
 with_halftone_dither.grob <- function(x, map_size = 8, levels = NULL,
-                                      angled = TRUE, colourspace = 'rgb',
+                                      angled = TRUE, colourspace = 'sRGB',
                                       offset = NULL, background = NULL, ...,
                                       id = NULL, include = is.null(id)) {
   if (!map_size %in% c(4, 6, 8, 16)) {
@@ -33,7 +33,7 @@ with_halftone_dither.grob <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_halftone_dither.Layer <- function(x, map_size = 8, levels = NULL,
-                                       angled = TRUE, colourspace = 'rgb',
+                                       angled = TRUE, colourspace = 'sRGB',
                                        offset = NULL, ..., id = NULL,
                                        include = is.null(id)) {
   filter_layer_constructor(x, with_halftone_dither, 'HalftoneDitheredGeom',
@@ -43,7 +43,7 @@ with_halftone_dither.Layer <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_halftone_dither.ggplot <- function(x, map_size = 8, levels = NULL,
-                                        angled = TRUE, colourspace = 'rgb',
+                                        angled = TRUE, colourspace = 'sRGB',
                                         offset = NULL, ignore_background = TRUE,
                                         ...) {
   filter_ggplot_constructor(x, with_halftone_dither, map_size = map_size,
@@ -53,7 +53,7 @@ with_halftone_dither.ggplot <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_halftone_dither.character <- function(x, map_size = 8, levels = NULL,
-                                           angled = TRUE, colourspace = 'rgb',
+                                           angled = TRUE, colourspace = 'sRGB',
                                            offset = NULL, ..., id = NULL,
                                            include = is.null(id)) {
   filter_character_constructor(x, with_halftone_dither, 'HalftoneDitheredGeom',
@@ -72,7 +72,7 @@ with_halftone_dither.raster <- with_halftone_dither.character
 with_halftone_dither.nativeRaster <- with_halftone_dither.character
 #' @export
 with_halftone_dither.element <- function(x, map_size = 8, levels = NULL,
-                                         angled = TRUE, colourspace = 'rgb',
+                                         angled = TRUE, colourspace = 'sRGB',
                                          offset = NULL, ...) {
   filter_element_constructor(x, with_halftone_dither, map_size = map_size,
                              levels = levels, angled = angled,
@@ -80,7 +80,7 @@ with_halftone_dither.element <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_halftone_dither.guide <- function(x, map_size = 8, levels = NULL,
-                                       angled = TRUE, colourspace = 'rgb',
+                                       angled = TRUE, colourspace = 'sRGB',
                                        offset = NULL, ...) {
   filter_guide_constructor(x, with_halftone_dither, map_size = map_size,
                            levels = levels, angled = angled,

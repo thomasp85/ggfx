@@ -42,13 +42,13 @@
 #'   scale_fill_continuous(type = 'viridis')
 #'
 with_ordered_dither <- function(x, map_size = 8, levels = NULL,
-                                colourspace = 'rgb', ...) {
+                                colourspace = 'sRGB', ...) {
   UseMethod('with_ordered_dither')
 }
 #' @importFrom grid gTree
 #' @export
 with_ordered_dither.grob <- function(x, map_size = 8, levels = NULL,
-                                     colourspace =  'rgb', background = NULL,
+                                     colourspace =  'sRGB', background = NULL,
                                      ..., id = NULL, include = is.null(id)) {
   if (!map_size %in% c(2, 3, 4, 8)) {
     abort('Unknown map size. Possible values are: 2, 3, 4, or 8')
@@ -63,7 +63,7 @@ with_ordered_dither.grob <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_ordered_dither.Layer <- function(x, map_size = 8, levels = NULL,
-                                      colourspace =  'rgb', ..., id = NULL,
+                                      colourspace =  'sRGB', ..., id = NULL,
                                       include = is.null(id)) {
   filter_layer_constructor(x, with_ordered_dither, 'OrderedDitheredGeom',
                            map_size = map_size, levels = levels,
@@ -72,7 +72,7 @@ with_ordered_dither.Layer <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_ordered_dither.ggplot <- function(x, map_size = 8, levels = NULL,
-                                       colourspace =  'rgb',
+                                       colourspace =  'sRGB',
                                        ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_ordered_dither, map_size = map_size,
                             levels = levels, colourspace = colourspace, ...,
@@ -80,7 +80,7 @@ with_ordered_dither.ggplot <- function(x, map_size = 8, levels = NULL,
 }
 #' @export
 with_ordered_dither.character <- function(x, map_size = 8, levels = NULL,
-                                          colourspace =  'rgb', ..., id = NULL,
+                                          colourspace =  'sRGB', ..., id = NULL,
                                           include = is.null(id)) {
   filter_character_constructor(x, with_ordered_dither, 'OrderedDitheredGeom',
                                map_size = map_size, levels = levels,
@@ -97,13 +97,13 @@ with_ordered_dither.raster <- with_ordered_dither.character
 with_ordered_dither.nativeRaster <- with_ordered_dither.character
 #' @export
 with_ordered_dither.element <- function(x, map_size = 8, levels = NULL,
-                                        colourspace =  'rgb', ...) {
+                                        colourspace =  'sRGB', ...) {
   filter_element_constructor(x, with_ordered_dither, map_size = map_size,
                              levels = levels, colourspace = colourspace, ...)
 }
 #' @export
 with_ordered_dither.guide <- function(x, map_size = 8, levels = NULL,
-                                      colourspace =  'rgb', ...) {
+                                      colourspace =  'sRGB', ...) {
   filter_guide_constructor(x, with_ordered_dither, map_size = map_size,
                            levels = levels, colourspace = colourspace, ...)
 }
@@ -112,9 +112,9 @@ with_ordered_dither.guide <- function(x, map_size = 8, levels = NULL,
 #' @importFrom magick image_read image_ordered_dither image_convert image_destroy image_composite geometry_point image_distort image_crop image_combine geometry_area
 #' @export
 #' @keywords internal
-ordered_dither_raster <- function(x, map, colourspace =  'rgb', offset = NULL) {
+ordered_dither_raster <- function(x, map, colourspace =  'sRGB', offset = NULL) {
   raster <- image_read(x)
-  if (colourspace != 'rgb') {
+  if (colourspace != 'sRGB') {
     raster <- image_convert(raster, colorspace = colourspace)
   }
   if (is.null(offset)) {
@@ -160,8 +160,8 @@ ordered_dither_raster <- function(x, map, colourspace =  'rgb', offset = NULL) {
       geometry_area(dim$width, dim$height, dim$width / 2, dim$height / 2)
     )
   }
-  if (colourspace != 'rgb') {
-    dithered <- image_convert(dithered, colorspace = 'rgb')
+  if (colourspace != 'sRGB') {
+    dithered <- image_convert(dithered, colorspace = 'sRGB')
   }
   x <- as.integer(dithered)
   image_destroy(raster)

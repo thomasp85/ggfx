@@ -5,13 +5,13 @@
 #'
 #' @export
 with_circle_dither <- function(x, map_size = 7, levels = NULL, black = TRUE,
-                               colourspace = 'rgb', offset = NULL, ...) {
+                               colourspace = 'sRGB', offset = NULL, ...) {
   UseMethod('with_circle_dither')
 }
 #' @importFrom grid gTree
 #' @export
 with_circle_dither.grob <- function(x, map_size = 7, levels = NULL,
-                                    black = TRUE, colourspace = 'rgb',
+                                    black = TRUE, colourspace = 'sRGB',
                                     offset = NULL, background = NULL, ...,
                                     id = NULL, include = is.null(id)) {
   if (!map_size %in% c(5, 6, 7)) {
@@ -27,7 +27,7 @@ with_circle_dither.grob <- function(x, map_size = 7, levels = NULL,
 }
 #' @export
 with_circle_dither.Layer <- function(x, map_size = 7, levels = NULL,
-                                     black = TRUE, colourspace = 'rgb',
+                                     black = TRUE, colourspace = 'sRGB',
                                      offset = NULL, ..., id = NULL,
                                      include = is.null(id)) {
   filter_layer_constructor(x, with_circle_dither, 'CircleDitheredGeom',
@@ -37,7 +37,7 @@ with_circle_dither.Layer <- function(x, map_size = 7, levels = NULL,
 }
 #' @export
 with_circle_dither.ggplot <- function(x, map_size = 7, levels = NULL,
-                                      black = TRUE, colourspace = 'rgb',
+                                      black = TRUE, colourspace = 'sRGB',
                                       offset = NULL, ignore_background = TRUE,
                                       ...) {
   filter_ggplot_constructor(x, with_circle_dither, map_size = map_size,
@@ -47,7 +47,7 @@ with_circle_dither.ggplot <- function(x, map_size = 7, levels = NULL,
 }
 #' @export
 with_circle_dither.character <- function(x, map_size = 7, levels = NULL,
-                                         black = TRUE, colourspace = 'rgb',
+                                         black = TRUE, colourspace = 'sRGB',
                                          offset = NULL, ..., id = NULL,
                                          include = is.null(id)) {
   filter_character_constructor(x, with_circle_dither, 'CircleDitheredGeom',
@@ -66,7 +66,7 @@ with_circle_dither.raster <- with_circle_dither.character
 with_circle_dither.nativeRaster <- with_circle_dither.character
 #' @export
 with_circle_dither.element <- function(x, map_size = 7, levels = NULL,
-                                       black = TRUE, colourspace = 'rgb',
+                                       black = TRUE, colourspace = 'sRGB',
                                        offset = NULL, ...) {
   filter_element_constructor(x, with_circle_dither, map_size = map_size,
                              levels = levels, black = black,
@@ -74,7 +74,7 @@ with_circle_dither.element <- function(x, map_size = 7, levels = NULL,
 }
 #' @export
 with_circle_dither.guide <- function(x, map_size = 7, levels = NULL,
-                                     black = TRUE, colourspace = 'rgb',
+                                     black = TRUE, colourspace = 'sRGB',
                                      offset = NULL, ...) {
   filter_guide_constructor(x, with_circle_dither, map_size = map_size,
                            levels = levels, black = black,
