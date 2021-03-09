@@ -70,3 +70,24 @@ specification in a channel specifier given below. If a filter requires a
 specific channel and none is specified it will default to \code{luminance} (based
 on the \code{hcl} colour space)
 }
+\examples{
+library(ggplot2)
+volcano_long <- data.frame(
+  x = as.vector(col(volcano)),
+  y  = as.vector(row(volcano)),
+  z = as.vector(volcano)
+)
+
+# invert the green channel
+ggplot(volcano_long, aes(y, x)) +
+  as_reference(
+    geom_contour_filled(aes(z = z, fill = after_stat(level))),
+    id = 'contours'
+  ) +
+  as_colourspace(
+    ch_red('contours'),
+    ch_green('contours', invert = TRUE),
+    ch_blue('contours')
+  )
+
+}
