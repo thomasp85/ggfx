@@ -29,11 +29,12 @@ raster_id <- function(id, index) {
 }
 
 #' @importFrom grDevices as.raster dev.size
-#' @importFrom magick image_read image_convert image_separate
+#' @importFrom magick image_read image_convert image_separate image_negate
 get_layer <- function(x) {
   includes_channel <- has_channel(x)
   channel <- get_channel(x)
   space <- get_channel_space(x)
+  invert <- get_channel_inverted(x)
   if (is_formula(x)) x <- as_function(x)
   if (is_function(x)) {
     dim <- dev.size('px')
@@ -52,6 +53,9 @@ get_layer <- function(x) {
       x <- image_separate(x, channel)
     } else {
       x <- image_separate(image_convert(x, colorspace = space), channel)
+    }
+    if (invert) {
+      x <- image_negate(x)
     }
     as.integer(x)
   } else {

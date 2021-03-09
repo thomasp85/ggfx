@@ -94,7 +94,8 @@ ggplot(faithfuld, aes(waiting, eruptions)) +
 ggplot(faithfuld, aes(waiting, eruptions)) +
   with_circle_dither(
     geom_raster(aes(fill = density), interpolate = TRUE),
-    offset = 15
+    offset = 29,
+    colourspace = 'cmyk'
   ) +
   scale_fill_continuous(type = 'viridis')
 

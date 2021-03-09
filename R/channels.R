@@ -11,6 +11,7 @@
 #' @param x Any object interpretable as a layer
 #' @param colourspace The colourspace the channel should be extracted from.
 #' @param channel The name of a channel in the given colourspace
+#' @param invert Should the channel values be inverted before use
 #'
 #' @return `x` with a channel spec attached
 #'
@@ -20,76 +21,76 @@ NULL
 
 #' @rdname channel_spec
 #' @export
-ch_red <- function(x, colourspace = 'sRGB') {
-  set_channel(x, 'Red', colourspace = colourspace)
+ch_red <- function(x, colourspace = 'sRGB', invert = FALSE) {
+  set_channel(x, 'Red', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_green <- function(x, colourspace = 'sRGB') {
-  set_channel(x, 'Green', colourspace = colourspace)
+ch_green <- function(x, colourspace = 'sRGB', invert = FALSE) {
+  set_channel(x, 'Green', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_blue <- function(x, colourspace = 'sRGB') {
-  set_channel(x, 'Blue', colourspace = colourspace)
+ch_blue <- function(x, colourspace = 'sRGB', invert = FALSE) {
+  set_channel(x, 'Blue', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_alpha <- function(x, colourspace = 'sRGB') {
-  set_channel(x, 'Alpha', colourspace = colourspace)
+ch_alpha <- function(x, colourspace = 'sRGB', invert = FALSE) {
+  set_channel(x, 'Alpha', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_hue <- function(x, colourspace = 'HCL') {
-  set_channel(x, 'Hue', colourspace = colourspace)
+ch_hue <- function(x, colourspace = 'HCL', invert = FALSE) {
+  set_channel(x, 'Hue', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_chroma <- function(x, colourspace = 'HCL') {
-  set_channel(x, 'Chroma', colourspace = colourspace)
+ch_chroma <- function(x, colourspace = 'HCL', invert = FALSE) {
+  set_channel(x, 'Chroma', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_luminance <- function(x, colourspace = 'HCL') {
-  set_channel(x, 'Luminance', colourspace = colourspace)
+ch_luminance <- function(x, colourspace = 'HCL', invert = FALSE) {
+  set_channel(x, 'Luminance', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_saturation <- function(x, colourspace = 'HSL') {
-  set_channel(x, 'Saturation', colourspace = colourspace)
+ch_saturation <- function(x, colourspace = 'HSL', invert = FALSE) {
+  set_channel(x, 'Saturation', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_lightness <- function(x, colourspace = 'HSL') {
-  set_channel(x, 'Lightness', colourspace = colourspace)
+ch_lightness <- function(x, colourspace = 'HSL', invert = FALSE) {
+  set_channel(x, 'Lightness', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_cyan <- function(x, colourspace = 'CMYK') {
-  set_channel(x, 'Cyan', colourspace = colourspace)
+ch_cyan <- function(x, colourspace = 'CMYK', invert = FALSE) {
+  set_channel(x, 'Cyan', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_magenta <- function(x, colourspace = 'CMYK') {
-  set_channel(x, 'Magenta', colourspace = colourspace)
+ch_magenta <- function(x, colourspace = 'CMYK', invert = FALSE) {
+  set_channel(x, 'Magenta', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_yellow <- function(x, colourspace = 'CMYK') {
-  set_channel(x, 'Yellow', colourspace = colourspace)
+ch_yellow <- function(x, colourspace = 'CMYK', invert = FALSE) {
+  set_channel(x, 'Yellow', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
-ch_black <- function(x, colourspace = 'CMYK') {
-  set_channel(x, 'Black', colourspace = colourspace)
+ch_black <- function(x, colourspace = 'CMYK', invert = FALSE) {
+  set_channel(x, 'Black', colourspace = colourspace, invert = invert)
 }
 #' @rdname channel_spec
 #' @export
 ch_key <- ch_black
 #' @rdname channel_spec
 #' @export
-ch_custom <- function(x, channel, colourspace) {
-  set_channel(x, channel, colourspace = colourspace)
+ch_custom <- function(x, channel, colourspace, invert = FALSE) {
+  set_channel(x, channel, colourspace = colourspace, invert = invert)
 }
 
 ch_default <- function(x) {
@@ -103,9 +104,10 @@ ch_default <- function(x) {
 has_channel <- function(x) {
   !is.null(attr(x, 'layer_channel'))
 }
-set_channel <- function(x, channel, colourspace) {
+set_channel <- function(x, channel, colourspace, invert = invert) {
   attr(x, 'layer_channel') <- channel
   attr(x, 'channel_colourspace') <- colourspace
+  attr(x, 'invert') <- invert
   x
 }
 get_channel <- function(x) {
@@ -113,4 +115,7 @@ get_channel <- function(x) {
 }
 get_channel_space <- function(x) {
   attr(x, 'channel_colourspace')
+}
+get_channel_inverted <- function(x) {
+  attr(x, 'invert')
 }

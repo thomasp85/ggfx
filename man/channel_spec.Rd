@@ -19,40 +19,42 @@
 \alias{ch_custom}
 \title{Set a channel of interest from a layer}
 \usage{
-ch_red(x, colourspace = "sRGB")
+ch_red(x, colourspace = "sRGB", invert = FALSE)
 
-ch_green(x, colourspace = "sRGB")
+ch_green(x, colourspace = "sRGB", invert = FALSE)
 
-ch_blue(x, colourspace = "sRGB")
+ch_blue(x, colourspace = "sRGB", invert = FALSE)
 
-ch_alpha(x, colourspace = "sRGB")
+ch_alpha(x, colourspace = "sRGB", invert = FALSE)
 
-ch_hue(x, colourspace = "HCL")
+ch_hue(x, colourspace = "HCL", invert = FALSE)
 
-ch_chroma(x, colourspace = "HCL")
+ch_chroma(x, colourspace = "HCL", invert = FALSE)
 
-ch_luminance(x, colourspace = "HCL")
+ch_luminance(x, colourspace = "HCL", invert = FALSE)
 
-ch_saturation(x, colourspace = "HSL")
+ch_saturation(x, colourspace = "HSL", invert = FALSE)
 
-ch_lightness(x, colourspace = "HSL")
+ch_lightness(x, colourspace = "HSL", invert = FALSE)
 
-ch_cyan(x, colourspace = "CMYK")
+ch_cyan(x, colourspace = "CMYK", invert = FALSE)
 
-ch_magenta(x, colourspace = "CMYK")
+ch_magenta(x, colourspace = "CMYK", invert = FALSE)
 
-ch_yellow(x, colourspace = "CMYK")
+ch_yellow(x, colourspace = "CMYK", invert = FALSE)
 
-ch_black(x, colourspace = "CMYK")
+ch_black(x, colourspace = "CMYK", invert = FALSE)
 
-ch_key(x, colourspace = "CMYK")
+ch_key(x, colourspace = "CMYK", invert = FALSE)
 
-ch_custom(x, channel, colourspace)
+ch_custom(x, channel, colourspace, invert = FALSE)
 }
 \arguments{
 \item{x}{Any object interpretable as a layer}
 
 \item{colourspace}{The colourspace the channel should be extracted from.}
+
+\item{invert}{Should the channel values be inverted before use}
 
 \item{channel}{The name of a channel in the given colourspace}
 }
