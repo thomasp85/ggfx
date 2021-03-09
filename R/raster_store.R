@@ -49,6 +49,7 @@ get_layer <- function(x) {
   }
   if (includes_channel) {
     x <- image_read(x)
+    alpha <- image_separate(x, 'alpha')
     if (tolower(space) == 'srgb') {
       x <- image_separate(x, channel)
     } else {
@@ -57,14 +58,16 @@ get_layer <- function(x) {
     if (invert) {
       x <- image_negate(x)
     }
+    x <- image_composite(x, alpha, 'CopyOpacity')
     as.integer(x)
   } else {
     x
   }
 }
 #' @importFrom magick image_separate image_read
-get_layer_channel <- function(x) {
-  image_separate(image_read(get_layer(ch_default(x))), 'red')
+get_layer_channel <- function(x, alpha = FALSE) {
+  channel <- if (alpha) 'alpha' else 'red'
+  image_separate(image_read(get_layer(ch_default(x))), channel)
 }
 
 reference_grob <- function(id) {

@@ -83,12 +83,11 @@ as_colourspace.nativeRaster <- as_colourspace.Layer
 #' @export
 makeContent.combined_channels_grob <- function(x) {
   ras <- rasterise_grob(x$grob)
-  layers <- lapply(x$ids, fetch_raster)
-  channels <- lapply(layers, function(layer) image_separate(image_read(layer), 'red'))
+  channels <- lapply(x$ids, get_layer_channel)
   raster <- image_combine(do.call(c, channels), colorspace = x$colourspace)
   lapply(channels, image_destroy)
   if (x$auto_opacity) {
-    opacity <- lapply(layers, function(layer) image_separate(image_read(layer), 'alpha'))
+    opacity <- lapply(x$ids, get_layer_channel, alpha = TRUE)
     final_opacity <- Reduce(function(b, t) image_composite(b, t, 'plus'), opacity)
     raster <- image_composite(raster, final_opacity, 'CopyOpacity')
     lapply(opacity, image_destroy)
