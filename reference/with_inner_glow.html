@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set a channel of interest from a layer — Channels • ggfx</title>
+<title>Apply an inner glow to your layer — with_inner_glow • ggfx</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,14 +46,10 @@
 
 
 
-<meta property="og:title" content="Set a channel of interest from a layer — Channels" />
-<meta property="og:description" content="Some effects uses a particular channel for specific parameters, such as
-with_displacement(), which grabs the relative x and y displacements from
-different channels in some other layer. To facilitate specifying which
-channel to use from a layer (which is always multichannel), you can wrap the
-specification in a channel specifier given below. If a filter requires a
-specific channel and none is specified it will default to luminance (based
-on the hcl colour space)" />
+<meta property="og:title" content="Apply an inner glow to your layer — with_inner_glow" />
+<meta property="og:description" content="This filter adds an inner glow to your layer with a specific colour and size.
+The best effect is often had by drawing the stroke separately so the glow is
+only applied to the fill." />
 <meta property="og:image" content="https://ggfx.data-imaginist.com/logo.png" />
 
 
@@ -140,76 +136,79 @@ on the hcl colour space)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set a channel of interest from a layer</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/channels.R'><code>R/channels.R</code></a></small>
-    <div class="hidden name"><code>channel_spec.Rd</code></div>
+    <h1>Apply an inner glow to your layer</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggfx/blob/master/R/inner_glow.R'><code>R/inner_glow.R</code></a></small>
+    <div class="hidden name"><code>with_inner_glow.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Some effects uses a particular channel for specific parameters, such as
-<code><a href='with_displacement.html'>with_displacement()</a></code>, which grabs the relative x and y displacements from
-different channels in some other layer. To facilitate specifying which
-channel to use from a layer (which is always multichannel), you can wrap the
-specification in a channel specifier given below. If a filter requires a
-specific channel and none is specified it will default to <code>luminance</code> (based
-on the <code>hcl</code> colour space)</p>
+    <p>This filter adds an inner glow to your layer with a specific colour and size.
+The best effect is often had by drawing the stroke separately so the glow is
+only applied to the fill.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ch_red</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_green</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_blue</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_alpha</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"sRGB"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_hue</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_chroma</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_luminance</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HCL"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_saturation</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HSL"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_lightness</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"HSL"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_cyan</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_magenta</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_yellow</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_black</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_key</span><span class='op'>(</span><span class='va'>x</span>, colourspace <span class='op'>=</span> <span class='st'>"CMYK"</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>ch_custom</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>channel</span>, <span class='va'>colourspace</span>, invert <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>with_inner_glow</span><span class='op'>(</span><span class='va'>x</span>, colour <span class='op'>=</span> <span class='st'>"black"</span>, sigma <span class='op'>=</span> <span class='fl'>3</span>, expand <span class='op'>=</span> <span class='fl'>0</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>Any object interpretable as a layer</p></td>
+      <td><p>A ggplot2 layer object, a ggplot, a grob, or a character string
+naming a filter</p></td>
     </tr>
     <tr>
-      <th>colourspace</th>
-      <td><p>The colourspace the channel should be extracted from.</p></td>
+      <th>colour</th>
+      <td><p>The colour of the glow</p></td>
     </tr>
     <tr>
-      <th>invert</th>
-      <td><p>Should the channel values be inverted before use</p></td>
+      <th>sigma</th>
+      <td><p>The standard deviation of the gaussian kernel. Increase it to
+apply more blurring. If a numeric it will be interpreted as given in pixels.
+If a unit object it will automatically be converted to pixels at rendering
+time</p></td>
     </tr>
     <tr>
-      <th>channel</th>
-      <td><p>The name of a channel in the given colourspace</p></td>
+      <th>expand</th>
+      <td><p>An added dilation to the glow mask before blurring it</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments to be passed on to methods. See
+<a href='object_support.html'>the documentation of supported object</a> for a description of
+object specific arguments.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>x</code> with a channel spec attached</p>
+    <p>A modified <code>Layer</code> object</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>Other glow filters: 
+<code><a href='with_outer_glow.html'>with_outer_glow</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>with_inner_glow</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span>,
+    colour <span class='op'>=</span> <span class='st'>'red'</span>,
+    sigma <span class='op'>=</span> <span class='fl'>10</span>
+  <span class='op'>)</span>
+</div><div class='img'><img src='with_inner_glow-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># This gives a red tone to the lines as well which may not be desirable</span>
+<span class='co'># This can be fixed by drawing fill and stroke separately</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>gear</span><span class='op'>)</span>, <span class='va'>disp</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>with_inner_glow</span><span class='op'>(</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>,
+    colour <span class='op'>=</span> <span class='st'>'red'</span>,
+    sigma <span class='op'>=</span> <span class='fl'>10</span>
+  <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+</div><div class='img'><img src='with_inner_glow-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

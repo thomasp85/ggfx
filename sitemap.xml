@@ -52,6 +52,9 @@
     <loc>https://ggfx.data-imaginist.com/reference/with_dither.html</loc>
   </url>
   <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_inner_glow.html</loc>
+  </url>
+  <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_interpolate.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_ordered_dither.html</loc>
+  </url>
+  <url>
+    <loc>https://ggfx.data-imaginist.com/reference/with_outer_glow.html</loc>
   </url>
   <url>
     <loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc>
