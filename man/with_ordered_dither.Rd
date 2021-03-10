@@ -74,6 +74,7 @@ These filters reduces the number of colours in your layer and uses various
 threshold maps along with a dithering algorithm to disperse colour error.
 }
 \examples{
+\dontshow{if (!ggfx:::is_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 
 # Ordered dither
@@ -98,7 +99,7 @@ ggplot(faithfuld, aes(waiting, eruptions)) +
     colourspace = 'cmyk'
   ) +
   scale_fill_continuous(type = 'viridis')
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other dithering filters: 

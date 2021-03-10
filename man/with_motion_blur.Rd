@@ -30,6 +30,7 @@ This filter adds a directional blur to the provided ggplot layer. The amount
 of blur, as well as the angle, can be controlled.
 }
 \examples{
+\dontshow{if (!ggfx:::is_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 ggplot(mtcars, aes(mpg, disp)) +
   with_motion_blur(
@@ -37,7 +38,7 @@ ggplot(mtcars, aes(mpg, disp)) +
     sigma = 6,
     angle = -45
   )
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other blur filters: 

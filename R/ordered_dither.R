@@ -16,7 +16,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf !ggfx:::is_rcmd_check()
 #' library(ggplot2)
 #'
 #' # Ordered dither

@@ -17,7 +17,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf !ggfx:::is_rcmd_check()
 #' library(ggplot2)
 #' ggplot(mtcars, aes(mpg, disp)) +
 #'   with_motion_blur(
