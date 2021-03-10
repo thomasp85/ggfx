@@ -49,6 +49,7 @@ the corresponding \code{x_sigma} and \code{y_sigma} layers. The angle of the ell
 can also be controlled and further varied based on another layer.
 }
 \examples{
+\dontshow{if (!is_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 library(ggplot2)
 cos_wave <- function(width, height) {
   x <- matrix(0, ncol = width, nrow = height)
@@ -69,10 +70,10 @@ ggplot() +
     y_scale = 15,
     angle_range = c(-45, 45)
   )
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-Other blur filters: 
+Other blur filters:
 \code{\link{with_blur}()},
 \code{\link{with_motion_blur}()}
 }

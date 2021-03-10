@@ -22,7 +22,7 @@ Imports:
     grDevices,
     gtable,
     rlang
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001
 URL: https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
 Suggests: 
@@ -31,5 +31,5 @@ Suggests:
     rmarkdown,
     farver (>= 2.1.0)
 VignetteBuilder: knitr
-Remotes:  
+Remotes: 
     rOpenSci/magick
