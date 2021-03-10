@@ -164,7 +164,7 @@ ordered_dither_raster <- function(x, map, colourspace =  'sRGB', offset = NULL) 
     }
 
     raster <- image_combine(raster, colourspace)
-    raster <- image_composite(raster, alpha, 'CopyAlpha')
+    raster <- image_composite(raster, alpha, 'CopyOpacity')
     dithered <- image_crop(
       raster,
       geometry_area(dim$width, dim$height, dim$width / 2, dim$height / 2)
