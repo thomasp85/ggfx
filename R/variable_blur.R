@@ -26,7 +26,7 @@
 #'
 #' @export
 #'
-#' @examplesIf !is_rcmd_check()
+#' @examplesIf !ggfx:::is_rcmd_check()
 #' library(ggplot2)
 #' cos_wave <- function(width, height) {
 #'   x <- matrix(0, ncol = width, nrow = height)
