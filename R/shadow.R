@@ -39,6 +39,15 @@ with_shadow.Layer <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                            ids = list(id = id))
 }
 #' @export
+with_shadow.list <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
+                             sigma = 1, stack = TRUE, ..., id = NULL,
+                             include = is.null(id)) {
+  filter_list_constructor(x, with_shadow, 'ShadowGeom', colour = colour,
+                          x_offset = x_offset, y_offset = y_offset, sigma = sigma,
+                          stack = stack, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_shadow.ggplot <- function(x, colour = 'black', x_offset = 10, y_offset = 10,
                                sigma = 1, stack = TRUE, ignore_background = TRUE,
                                ...) {

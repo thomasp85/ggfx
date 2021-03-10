@@ -50,6 +50,13 @@ with_displacement.Layer <- function(x, x_map, y_map = x_map, x_scale = 1, y_scal
                            ids = list(id = id, x_map = x_map, y_map = y_map))
 }
 #' @export
+with_displacement.list <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale, ...,
+                                    id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_displacement, 'DisplacedGeom', x_scale = x_scale,
+                          y_scale = y_scale, ..., include = include,
+                          ids = list(id = id, x_map = x_map, y_map = y_map))
+}
+#' @export
 with_displacement.ggplot <- function(x, x_map, y_map = x_map, x_scale = 1, y_scale = x_scale,
                                      ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_displacement, x_map = x_map, y_map = y_map,

@@ -32,6 +32,11 @@ with_raster.Layer <- function(x, ..., id = NULL, include = is.null(id)) {
                            include = include, ids = list(id = id))
 }
 #' @export
+with_raster.list <- function(x, ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_raster, 'RasterisedGeom', ...,
+                           include = include, ids = list(id = id))
+}
+#' @export
 with_raster.ggplot <- function(x, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_raster, ..., ignore_background = ignore_background)
 }

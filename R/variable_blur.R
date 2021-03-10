@@ -71,6 +71,14 @@ with_variable_blur.Layer <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL
                            ids = list(id = id, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle))
 }
 #' @export
+with_variable_blur.list <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
+                                    x_scale = 1, y_scale = x_scale, angle_range = 0, ...,
+                                    id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_variable_blur, 'VarBlurredGeom', x_scale = x_scale,
+                          y_scale = y_scale, angle_range = angle_range, ..., include = include,
+                          ids = list(id = id, x_sigma = x_sigma, y_sigma = y_sigma, angle = angle))
+}
+#' @export
 with_variable_blur.ggplot <- function(x, x_sigma, y_sigma = x_sigma, angle = NULL,
                                       x_scale = 1, y_scale = x_scale, angle_range = 0,
                                      ignore_background = TRUE, ...) {

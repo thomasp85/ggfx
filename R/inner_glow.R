@@ -54,6 +54,13 @@ with_inner_glow.Layer <- function(x, colour = 'black', sigma = 3, expand = 0,
                            ids = list(id = id))
 }
 #' @export
+with_inner_glow.list <- function(x, colour = 'black', sigma = 3, expand = 0,
+                                 ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_inner_glow, 'InnerGlowGeom', colour = colour,
+                          sigma = sigma, expand = expand, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_inner_glow.ggplot <- function(x, colour = 'black', sigma = 3, expand = 0,
                                    ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_inner_glow, colour = colour, sigma = sigma,

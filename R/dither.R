@@ -44,6 +44,13 @@ with_dither.Layer <- function(x, max_colours = 256, colourspace = 'sRGB', ...,
                            ..., include = include, ids = list(id = id))
 }
 #' @export
+with_dither.list <- function(x, max_colours = 256, colourspace = 'sRGB', ...,
+                             id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_dither, 'DitheredGeom',
+                          max_colours = max_colours, colourspace = colourspace,
+                          ..., include = include, ids = list(id = id))
+}
+#' @export
 with_dither.ggplot <- function(x, max_colours = 256, colourspace = 'sRGB',
                                ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_dither, max_colours = max_colours,

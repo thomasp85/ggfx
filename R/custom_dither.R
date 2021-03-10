@@ -32,6 +32,15 @@ with_custom_dither.Layer <- function(x, map = 'checks', levels = NULL,
                            ids = list(id = id))
 }
 #' @export
+with_custom_dither.list <- function(x, map = 'checks', levels = NULL,
+                                    colourspace = 'sRGB', offset = NULL, ...,
+                                    id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_custom_dither, 'CustomDitheredGeom',
+                          map = map, levels = levels, colourspace = colourspace,
+                          offset = offset, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_custom_dither.ggplot <- function(x, map = 'checks', levels = NULL,
                                       colourspace = 'sRGB', offset = NULL,
                                       ignore_background = TRUE, ...) {

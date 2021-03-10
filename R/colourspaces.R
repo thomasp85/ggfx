@@ -69,6 +69,8 @@ as_colourspace.Layer <- function(..., colourspace = 'sRGB', auto_opacity = TRUE,
   c(layers, list(group_layer))
 }
 #' @export
+as_colourspace.list <- as_colourspace.Layer
+#' @export
 as_colourspace.character <- as_colourspace.Layer
 #' @export
 as_colourspace.function <- as_colourspace.Layer

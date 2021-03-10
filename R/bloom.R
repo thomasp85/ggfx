@@ -60,6 +60,16 @@ with_bloom.Layer <- function(x, threshold_lower = 80, threshold_upper = 100,
                            include = include, ids = list(id = id))
 }
 #' @export
+with_bloom.list <- function(x, threshold_lower = 80, threshold_upper = 100,
+                            sigma = 5, strength = 1, keep_alpha = TRUE, ..., id = NULL,
+                            include = is.null(id)) {
+  filter_list_constructor(x, with_bloom, 'BloomGeom',
+                          threshold_lower = threshold_lower,
+                          threshold_upper = threshold_upper, sigma = sigma,
+                          strength = strength, keep_alpha = keep_alpha, ...,
+                          include = include, ids = list(id = id))
+}
+#' @export
 with_bloom.ggplot <- function(x, threshold_lower = 80, threshold_upper = 100,
                               sigma = 5, strength = 1, keep_alpha = TRUE,
                               ignore_background = TRUE, ...) {

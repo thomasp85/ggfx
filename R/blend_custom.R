@@ -45,6 +45,14 @@ with_blend_custom.Layer <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                            include = include, ids = list(id = id, bg_layer = bg_layer))
 }
 #' @export
+with_blend_custom.list <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
+                                   flip_order = FALSE, alpha = NA, ..., id = NULL,
+                                   include = is.null(id)) {
+  filter_list_constructor(x, with_blend_custom, 'CustomBlendedGeom', a = a, b = b,
+                          c = c, d = d, flip_order = flip_order, alpha = alpha, ...,
+                          include = include, ids = list(id = id, bg_layer = bg_layer))
+}
+#' @export
 with_blend_custom.ggplot <- function(x, bg_layer, a = 0, b = 0, c = 0, d = 0,
                                      flip_order = FALSE, alpha = NA, ignore_background = TRUE,
                                      ...) {

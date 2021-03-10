@@ -38,6 +38,14 @@ with_kernel.Layer <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                            stack = stack, ..., include = include, ids = list(id = id))
 }
 #' @export
+with_kernel.list <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
+                             scaling = NULL, bias = NULL, stack = FALSE, ...,
+                             id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_kernel, 'ConvolvedGeom', kernel = kernel,
+                          iterations = iterations, scaling = scaling, bias = bias,
+                          stack = stack, ..., include = include, ids = list(id = id))
+}
+#' @export
 with_kernel.ggplot <- function(x, kernel = 'Gaussian:0x2', iterations = 1,
                                scaling = NULL, bias = NULL, stack = FALSE,
                                ignore_background = TRUE, ...) {

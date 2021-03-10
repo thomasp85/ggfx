@@ -42,6 +42,16 @@ with_halftone_dither.Layer <- function(x, map_size = 8, levels = NULL,
                            include = include, ids = list(id = id))
 }
 #' @export
+with_halftone_dither.list <- function(x, map_size = 8, levels = NULL,
+                                      angled = TRUE, colourspace = 'sRGB',
+                                      offset = NULL, ..., id = NULL,
+                                      include = is.null(id)) {
+  filter_list_constructor(x, with_halftone_dither, 'HalftoneDitheredGeom',
+                          map_size = map_size, levels = levels, angled = angled,
+                          colourspace = colourspace, offset = offset, ...,
+                          include = include, ids = list(id = id))
+}
+#' @export
 with_halftone_dither.ggplot <- function(x, map_size = 8, levels = NULL,
                                         angled = TRUE, colourspace = 'sRGB',
                                         offset = NULL, ignore_background = TRUE,

@@ -14,6 +14,20 @@ filter_layer_constructor <- function(x, .filter, .name, ..., ids) {
   )
 }
 
+filter_list_constructor <- function(x, .filter, .name, ..., ids) {
+  is_layer <- vapply(x, inherits, logical(1), what = 'Layer')
+  if (sum(is_layer) == 0) {
+    warn('Nothing to apply a filter to')
+  } else if (sum(is_layer) == 1) {
+    x[[which(is_layer)]] <- filter_layer_constructor(x[[which(is_layer)]], .filter, .name, ..., ids = ids)
+  } else {
+    group_id <- sample(1e9, 1)
+    group <- do.call(as_group, c(x[is_layer], list(id = group_id)))
+    x <- list(group, x[!is_layer], filter_character_constructor(group_id, .filter, .name, ..., ids = ids))
+  }
+  x
+}
+
 filter_ggplot_constructor <- function(x, .filter, ..., ignore_background) {
   x[['.__filter']] <- list(
     fun = .filter,

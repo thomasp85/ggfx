@@ -44,6 +44,13 @@ with_motion_blur.Layer <- function(x, sigma = 0.5, angle = 0, ..., id = NULL,
                            ids = list(id = id))
 }
 #' @export
+with_motion_blur.list <- function(x, sigma = 0.5, angle = 0, ..., id = NULL,
+                                  include = is.null(id)) {
+  filter_list_constructor(x, with_motion_blur, 'MotionBlurredGeom',
+                          sigma = sigma, angle = angle, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_motion_blur.ggplot <- function(x, sigma = 0.5, angle = 0,
                                     ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_motion_blur, sigma = sigma, angle = angle,

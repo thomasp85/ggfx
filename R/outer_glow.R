@@ -54,6 +54,13 @@ with_outer_glow.Layer <- function(x, colour = 'black', sigma = 3, expand = 0,
                            include = include, ids = list(id = id))
 }
 #' @export
+with_outer_glow.list <- function(x, colour = 'black', sigma = 3, expand = 0,
+                                 ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_outer_glow, 'OuterGlowGeom', colour = colour,
+                          sigma = sigma, expand = expand, ...,
+                          include = include, ids = list(id = id))
+}
+#' @export
 with_outer_glow.ggplot <- function(x, colour = 'black', sigma = 3, expand = 0,
                                    ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_outer_glow, colour = colour, sigma = sigma,

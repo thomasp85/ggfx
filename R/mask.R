@@ -62,6 +62,11 @@ with_mask.Layer <- function(x, mask, invert = FALSE, ..., id = NULL, include = i
                            include = include, ids = list(id = id, mask = mask))
 }
 #' @export
+with_mask.list <- function(x, mask, invert = FALSE, ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_mask, 'MaskedGeom', invert = invert, ...,
+                          include = include, ids = list(id = id, mask = mask))
+}
+#' @export
 with_mask.ggplot <- function(x, mask, invert = FALSE, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_mask, mask = mask, invert = invert, ...,
                             ignore_background = ignore_background)

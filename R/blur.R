@@ -44,6 +44,13 @@ with_blur.Layer <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
                            ids = list(id = id))
 }
 #' @export
+with_blur.list <- function(x, sigma = 0.5, stack = FALSE, ..., id = NULL,
+                           include = is.null(id)) {
+  filter_list_constructor(x, with_blur, 'BlurredGeom', sigma = sigma,
+                          stack = stack, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_blur.ggplot <- function(x, sigma = 0.5, stack = FALSE,
                              ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_blur, sigma = sigma, stack = stack, ...,

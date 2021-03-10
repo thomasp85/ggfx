@@ -66,6 +66,8 @@ as_group.Layer <- function(..., id = NULL, include = is.null(id)) {
   c(layers, list(group_layer))
 }
 #' @export
+as_group.list <- as_group.Layer
+#' @export
 as_group.character <- as_group.Layer
 #' @export
 as_group.function <- as_group.Layer

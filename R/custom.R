@@ -72,6 +72,11 @@ with_custom.Layer <- function(x, filter, ..., id = NULL, include = is.null(id)) 
                            ..., include = include, ids = list(id = id))
 }
 #' @export
+with_custom.list <- function(x, filter, ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_custom, 'CustomFilteredGeom', filter = filter,
+                          ..., include = include, ids = list(id = id))
+}
+#' @export
 with_custom.ggplot <- function(x, filter, ignore_background = TRUE, ...) {
   filter_ggplot_constructor(x, with_custom, filter = filter, ...,
                             ignore_background = ignore_background)

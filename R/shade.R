@@ -73,6 +73,15 @@ with_shade.Layer <- function(x, height_map, azimuth = 30, elevation = 30, streng
                            ids = list(id = id, height_map = height_map))
 }
 #' @export
+with_shade.list <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
+                            sigma = 0, blend_type = 'overlay', ..., id = NULL,
+                            include = is.null(id)) {
+  filter_list_constructor(x, with_shade, 'ShadedGeom', azimuth = azimuth,
+                          elevation = elevation, strength = strength, sigma = sigma,
+                          blend_type = blend_type, ..., include = include,
+                          ids = list(id = id, height_map = height_map))
+}
+#' @export
 with_shade.ggplot <- function(x, height_map, azimuth = 30, elevation = 30, strength = 10,
                               sigma = 0, blend_type = 'overlay', ignore_background = TRUE,
                               ...) {

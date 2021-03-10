@@ -36,6 +36,16 @@ with_circle_dither.Layer <- function(x, map_size = 7, levels = NULL,
                            include = include, ids = list(id = id))
 }
 #' @export
+with_circle_dither.list <- function(x, map_size = 7, levels = NULL,
+                                    black = TRUE, colourspace = 'sRGB',
+                                    offset = NULL, ..., id = NULL,
+                                    include = is.null(id)) {
+  filter_list_constructor(x, with_circle_dither, 'CircleDitheredGeom',
+                          map_size = map_size, levels = levels, black = black,
+                          colourspace = colourspace, offset = offset, ...,
+                          include = include, ids = list(id = id))
+}
+#' @export
 with_circle_dither.ggplot <- function(x, map_size = 7, levels = NULL,
                                       black = TRUE, colourspace = 'sRGB',
                                       offset = NULL, ignore_background = TRUE,

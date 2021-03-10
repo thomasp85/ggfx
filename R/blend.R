@@ -210,6 +210,13 @@ with_blend.Layer <- function(x, bg_layer, blend_type = 'over', flip_order = FALS
                            ids = list(id = id, bg_layer = bg_layer))
 }
 #' @export
+with_blend.list <- function(x, bg_layer, blend_type = 'over', flip_order = FALSE,
+                            alpha = NA, ..., id = NULL, include = is.null(id)) {
+  filter_list_constructor(x, with_blend, 'BlendedGeom', blend_type = blend_type,
+                          flip_order = flip_order, alpha = alpha, ..., include = include,
+                          ids = list(id = id, bg_layer = bg_layer))
+}
+#' @export
 with_blend.ggplot <- function(x, bg_layer, blend_type = 'over',
                               flip_order = FALSE, alpha = NA,
                               ignore_background = TRUE, ...) {

@@ -72,6 +72,15 @@ with_ordered_dither.Layer <- function(x, map_size = 8, levels = NULL,
                            ids = list(id = id))
 }
 #' @export
+with_ordered_dither.list <- function(x, map_size = 8, levels = NULL,
+                                     colourspace =  'sRGB', ..., id = NULL,
+                                     include = is.null(id)) {
+  filter_list_constructor(x, with_ordered_dither, 'OrderedDitheredGeom',
+                          map_size = map_size, levels = levels,
+                          colourspace = colourspace, ..., include = include,
+                          ids = list(id = id))
+}
+#' @export
 with_ordered_dither.ggplot <- function(x, map_size = 8, levels = NULL,
                                        colourspace =  'sRGB',
                                        ignore_background = TRUE, ...) {

@@ -21,32 +21,49 @@
 #'   as_reference(geom_boxplot(), 'box') +
 #'   with_interpolate(geom_point(), bg_layer = 'box', src_percent = 70)
 #'
-with_interpolate <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
+with_interpolate <- function(x, bg_layer, src_percent,
+                             bg_percent = 100 - src_percent, ...) {
   UseMethod('with_interpolate')
 }
 #' @importFrom grid gTree
 #' @export
-with_interpolate.grob <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
-                                  ..., id = NULL, include = is.null(id)) {
+with_interpolate.grob <- function(x, bg_layer, src_percent,
+                                  bg_percent = 100 - src_percent, ..., id = NULL,
+                                  include = is.null(id)) {
   gTree(grob = x, bg_layer = bg_layer, src_percent = src_percent,
         bg_percent = bg_percent, id = id, include = isTRUE(include),
         cl = c('interpolate_grob', 'filter_grob'))
 }
 #' @export
-with_interpolate.Layer <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
-                                   ..., id = NULL, include = is.null(id)) {
-  filter_layer_constructor(x, src_percent = src_percent, bg_percent = bg_percent, with_interpolate, 'InterpolatedGeom', ...,
+with_interpolate.Layer <- function(x, bg_layer, src_percent,
+                                   bg_percent = 100 - src_percent, ..., id = NULL,
+                                   include = is.null(id)) {
+  filter_layer_constructor(x, src_percent = src_percent, bg_percent = bg_percent,
+                           with_interpolate, 'InterpolatedGeom', ...,
                            include = include, ids = list(id = id, bg_layer = bg_layer))
 }
 #' @export
-with_interpolate.ggplot <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ignore_background = TRUE, ...) {
-  filter_ggplot_constructor(x, with_interpolate, bg_layer = bg_layer, src_percent = src_percent,
-                            bg_percent = bg_percent, ..., ignore_background = ignore_background)
+with_interpolate.list <- function(x, bg_layer, src_percent,
+                                  bg_percent = 100 - src_percent, ..., id = NULL,
+                                  include = is.null(id)) {
+  filter_list_constructor(x, src_percent = src_percent, bg_percent = bg_percent,
+                          with_interpolate, 'InterpolatedGeom', ...,
+                          include = include, ids = list(id = id, bg_layer = bg_layer))
 }
 #' @export
-with_interpolate.character <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent,
-                                       ..., id = NULL, include = is.null(id)) {
-  filter_character_constructor(x, src_percent = src_percent, bg_percent = bg_percent, with_interpolate, 'InterpolatedGeom', ...,
+with_interpolate.ggplot <- function(x, bg_layer, src_percent,
+                                    bg_percent = 100 - src_percent,
+                                    ignore_background = TRUE, ...) {
+  filter_ggplot_constructor(x, with_interpolate, bg_layer = bg_layer,
+                            src_percent = src_percent, bg_percent = bg_percent,
+                            ..., ignore_background = ignore_background)
+}
+#' @export
+with_interpolate.character <- function(x, bg_layer, src_percent,
+                                       bg_percent = 100 - src_percent, ...,
+                                       id = NULL, include = is.null(id)) {
+  filter_character_constructor(x, src_percent = src_percent, bg_percent = bg_percent,
+                               with_interpolate, 'InterpolatedGeom', ...,
                                include = include, ids = list(id = id, bg_layer = bg_layer))
 }
 #' @export
@@ -58,14 +75,18 @@ with_interpolate.raster <- with_interpolate.character
 #' @export
 with_interpolate.nativeRaster <- with_interpolate.character
 #' @export
-with_interpolate.element <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
+with_interpolate.element <- function(x, bg_layer, src_percent,
+                                     bg_percent = 100 - src_percent, ...) {
   filter_element_constructor(x, with_interpolate, bg_layer = bg_layer,
-                             src_percent = src_percent, bg_percent = bg_percent, ...)
+                             src_percent = src_percent, bg_percent = bg_percent,
+                             ...)
 }
 #' @export
-with_interpolate.guide <- function(x, bg_layer, src_percent, bg_percent = 100 - src_percent, ...) {
+with_interpolate.guide <- function(x, bg_layer, src_percent,
+                                   bg_percent = 100 - src_percent, ...) {
   filter_guide_constructor(x, with_interpolate, bg_layer = bg_layer,
-                           src_percent = src_percent, bg_percent = bg_percent, ...)
+                           src_percent = src_percent, bg_percent = bg_percent,
+                           ...)
 }
 
 #' @rdname raster_helpers
