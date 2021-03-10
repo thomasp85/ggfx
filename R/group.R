@@ -87,7 +87,7 @@ makeContent.grouped_grob <- function(x) {
   rasters <- lapply(rasters, function(ras) image_read(ras$raster))
   raster <- Reduce(function(b, t) image_composite(b, t, 'over'), rasters)
   lapply(rasters, image_destroy)
-  raster <- groberize_raster(raster, location, dimension, x$id, x$include)
+  raster <- groberize_raster(as.integer(raster), location, dimension, x$id, x$include)
   setChildren(x, gList(raster))
 }
 
@@ -98,6 +98,6 @@ makeContent.combined_layer_grob <- function(x) {
   layers <- lapply(x$ids, function(id) image_read(get_layer(id)))
   raster <- Reduce(function(b, t) image_composite(b, t, 'over'), layers)
   lapply(layers, image_destroy)
-  raster <- groberize_raster(raster, ras$location, ras$dimension, x$id, x$include)
+  raster <- groberize_raster(as.integer(raster), ras$location, ras$dimension, x$id, x$include)
   setChildren(x, gList(raster))
 }
