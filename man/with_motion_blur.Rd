@@ -23,7 +23,9 @@ left-to-right motion and the angles move in clockwise direction)}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 This filter adds a directional blur to the provided ggplot layer. The amount

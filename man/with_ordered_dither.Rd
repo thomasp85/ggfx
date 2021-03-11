@@ -67,7 +67,9 @@ object specific arguments.}
 \item{angled}{Should the halftone pattern be at an angle or orthogonal}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 These filters reduces the number of colours in your layer and uses various

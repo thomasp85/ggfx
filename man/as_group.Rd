@@ -14,7 +14,8 @@ as_group(..., id = NULL, include = is.null(id))
 \item{include}{Should the layer itself be included in the graphic}
 }
 \value{
-A list of layers or a \link[grid:grid.grob]{gTree} depending on the input
+A list of \code{Layer} objects or a \link[grid:grid.grob]{gTree} depending on the
+input
 }
 \description{
 While you often want to apply filters to layers one by one, there are times

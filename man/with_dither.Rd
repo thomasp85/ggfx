@@ -20,7 +20,9 @@ contain fewer colours but never more.}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 This filter reduces the number of colours in your layer and uses the

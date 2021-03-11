@@ -10,7 +10,9 @@
 #' the levels individually for each colour channel
 #' @inheritParams with_dither
 #'
-#' @return A modified `Layer` object
+#' @return Depending on the input, either a `grob`, `Layer`, list of `Layer`s,
+#' `guide`, or `element` object. Assume the output can be used in the same
+#' context as the input.
 #'
 #' @family dithering filters
 #'

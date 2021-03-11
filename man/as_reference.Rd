@@ -15,7 +15,9 @@ naming a filter}
 \item{include}{Should the layer itself be included in the graphic}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 This function is basically synonymous with \code{with_raster()} but exist to make

@@ -20,7 +20,9 @@ background layer to the result. Should be between 0 and 100}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 Two layers can be blended together in the literal sense (not like

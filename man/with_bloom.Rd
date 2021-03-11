@@ -38,7 +38,9 @@ blended correctly with the background the effect looks off.}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 Bloom is the effect of strong light sources spilling over into neighbouring

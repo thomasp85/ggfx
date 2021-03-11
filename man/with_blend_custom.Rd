@@ -38,7 +38,9 @@ source (\code{"src"}) or destination (\code{"dst"})}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 Many of the blend types available in \code{\link[=with_blend]{with_blend()}} are variations over the

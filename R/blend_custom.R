@@ -10,7 +10,9 @@
 #' @inheritParams with_blend
 #' @inheritParams with_blur
 #'
-#' @return A modified `Layer` object
+#' @return Depending on the input, either a `grob`, `Layer`, list of `Layer`s,
+#' `guide`, or `element` object. Assume the output can be used in the same
+#' context as the input.
 #'
 #' @family blend filters
 #'

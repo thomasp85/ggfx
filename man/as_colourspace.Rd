@@ -27,7 +27,7 @@ taken from a provided alpha channel}
 \item{include}{Should the layer itself be included in the graphic}
 }
 \value{
-A list of layers or a \link[grid:grid.grob]{gTree} depending on the input
+A list of \code{Layer} objects
 }
 \description{
 If you need to work on single channels one by one you can use the different

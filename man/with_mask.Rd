@@ -22,7 +22,9 @@ one of the \link[=Channels]{channel specification} function.}
 object specific arguments.}
 }
 \value{
-A modified \code{Layer} object
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
 }
 \description{
 This filter applies a mask to the given layer, i.e. sets the opacity of the

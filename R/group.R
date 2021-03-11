@@ -10,7 +10,8 @@
 #' @param ... A range of layers to combine
 #' @inheritParams as_reference
 #'
-#' @return A list of layers or a [gTree][grid::gTree] depending on the input
+#' @return A list of `Layer` objects or a [gTree][grid::gTree] depending on the
+#' input
 #'
 #' @family layer references
 #'

@@ -16,7 +16,7 @@
 #' taken from a provided alpha channel
 #' @inheritParams as_reference
 #'
-#' @return A list of layers or a [gTree][grid::gTree] depending on the input
+#' @return A list of `Layer` objects
 #'
 #' @family layer references
 #'

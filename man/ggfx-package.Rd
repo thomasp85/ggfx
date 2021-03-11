@@ -9,12 +9,14 @@
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing.
+    layers from the 'ggplot2' package and its extensions, along with other 
+    graphic elements such as guides and theme elements. The filters are 
+    applied at render time and thus uses the exact pixel dimensions needed.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://ggfx.data-imaginist.com}
   \item \url{https://github.com/thomasp85/ggfx}
   \item Report bugs at \url{https://github.com/thomasp85/ggfx/issues}
 }
@@ -22,6 +24,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
+
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder, funder]
+}
 
 }
 \keyword{internal}
