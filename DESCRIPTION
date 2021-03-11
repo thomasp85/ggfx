@@ -2,20 +2,23 @@ Package: ggfx
 Title: Filters and Shaders for 'ggplot2'
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Thomas Lin",
-           family = "Pedersen",
-           role = c("aut", "cre"),
-           email = "thomasp85@gmail.com",
-           comment = c(ORCID = "0000-0002-5147-4711"))
+    c(person(given = "Thomas Lin",
+             family = "Pedersen",
+             role = c("aut", "cre"),
+             email = "thomasp85@gmail.com",
+             comment = c(ORCID = "0000-0002-5147-4711")),
+      person(given = "RStudio",
+             role = c("cph", "fnd")))
 Description: Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions. The filters are 
-    applied at draw time and will thus respond to resizing.
+    layers from the 'ggplot2' package and its extensions, along with other 
+    graphic elements such as guides and theme elements. The filters are 
+    applied at render time and thus uses the exact pixel dimensions needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Imports: 
-    magick (>= 2.6.9000),
+    magick (>= 2.7),
     ragg,
     grid,
     ggplot2,
@@ -23,7 +26,7 @@ Imports:
     gtable,
     rlang
 RoxygenNote: 7.1.1.9001
-URL: https://github.com/thomasp85/ggfx
+URL: https://ggfx.data-imaginist.com, https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
 Suggests: 
     covr,
@@ -31,5 +34,3 @@ Suggests:
     rmarkdown,
     farver (>= 2.1.0)
 VignetteBuilder: knitr
-Remotes: 
-    rOpenSci/magick
