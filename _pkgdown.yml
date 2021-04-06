@@ -9,6 +9,32 @@ template:
   params:
     bootswatch: spacelab
 
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: Getting Started
+      href: articles/ggfx.html
+    - text: In Depth
+      menu:
+      - text: Custom Filters
+        href: articles/custom_filters.html
+      - text: Using ggfx in ggplot2 extensions
+        href: articles/geoms.html
+    - text: Reference
+      href: reference/index.html
+    - text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 1.0.0"
+        href: https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/thomasp85/ggfx
+
 reference:
 - title: Filters
   desc: >

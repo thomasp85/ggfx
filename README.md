@@ -17,9 +17,9 @@ various filters and shaders on ggplot2 layers.
 
 ## Installation
 
-ggfx is not on CRAN yet (but will probably at some point). In the mean
-time, if you are craving for that sweet sweet blur, you can install it
-from github:
+You can install ggfx from CRAN in the usual manner
+(`install.packages('ggfx')`) or you can grab the development version
+directly from github using the devtools package:
 
 ``` r
 # install.packages('devtools')
