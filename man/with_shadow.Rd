@@ -34,6 +34,11 @@ time}
 \link[=object_support]{the documentation of supported object} for a description of
 object specific arguments.}
 }
+\value{
+Depending on the input, either a \code{grob}, \code{Layer}, list of \code{Layer}s,
+\code{guide}, or \code{element} object. Assume the output can be used in the same
+context as the input.
+}
 \description{
 This filter applies the familiar drop-shadow effect on elements in a layer.
 It takes the outline of each shape, offsets it from its origin and applies a

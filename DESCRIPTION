@@ -1,5 +1,5 @@
 Package: ggfx
-Title: Filters and Shaders for 'ggplot2'
+Title: Pixel Filters for 'ggplot2' and 'grid'
 Version: 1.0.0
 Authors@R: 
     c(person(given = "Thomas Lin",
@@ -9,13 +9,12 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5147-4711")),
       person(given = "RStudio",
              role = c("cph", "fnd")))
-Description: Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions, along with other 
-    graphic elements such as guides and theme elements. The filters are 
-    applied at render time and thus uses the exact pixel dimensions needed.
+Description: Provides a range of filters that can be applied to layers from the 
+    'ggplot2' package and its extensions, along with other graphic elements such 
+    as guides and theme elements. The filters are applied at render time and 
+    thus uses the exact pixel dimensions needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 Imports: 
     magick (>= 2.7.1),

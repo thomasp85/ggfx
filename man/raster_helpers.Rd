@@ -82,6 +82,9 @@ variably_blur_raster(
   angle_range = 0
 )
 }
+\value{
+A nativeRaster object
+}
 \description{
 Raster Helpers
 }

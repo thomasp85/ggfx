@@ -55,7 +55,7 @@ starting point, as opposed to grid's bottom-left coordinate system. This
 means that y-axis locations will flip around when converted to pixels.}
 }
 \value{
-See details
+Depends on the function - see details.
 }
 \description{
 These utility functions can help when creating custom filters (using

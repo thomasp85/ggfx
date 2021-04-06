@@ -4,8 +4,6 @@
 #' [with_custom()]) as they can provide information about the current rendering
 #' context.
 #'
-#' @return See details
-#'
 #' @details
 #' - `viewport_location()`: Returns the bounding box defining the current
 #'   viewport in pixels in the order `xmin`, `ymin`, `xmax`, `ymax`
@@ -26,6 +24,8 @@
 #'   numeric it is assumed to already be in pixels
 #' - `from_pixels`: Converts a numeric giving some pixel dimension to a unit
 #'   object.
+#'
+#' @return Depends on the function - see details.
 #'
 #' @rdname render_context
 #' @name render_context

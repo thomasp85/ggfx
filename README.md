@@ -66,5 +66,5 @@ ggplot() +
 ## Code of Conduct
 
 Please note that the ggfx project is released with a [Contributor Code
-of Conduct](https://contributor-covenant.org/version/1/0/0/). By
+of Conduct](https://ggfx.data-imaginist.com/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.

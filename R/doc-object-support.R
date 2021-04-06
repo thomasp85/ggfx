@@ -139,4 +139,8 @@
 #'
 #' @rdname object_support
 #' @name object_support
+#'
+#' @return All filters will generally return a new version of the same object,
+#' the only exception being filtering of rasters, functions, and references
+#' which returns a Layer object
 NULL

@@ -3,6 +3,11 @@
 \name{object_support}
 \alias{object_support}
 \title{Supported object types}
+\value{
+All filters will generally return a new version of the same object,
+the only exception being filtering of rasters, functions, and references
+which returns a Layer object
+}
 \description{
 The different filters provided by ggfx are applicable to a wide range of
 object types. Rather than documenting how to use them with each type in every

@@ -4,14 +4,14 @@
 \name{ggfx-package}
 \alias{ggfx}
 \alias{ggfx-package}
-\title{ggfx: Filters and Shaders for 'ggplot2'}
+\title{ggfx: Pixel Filters for 'ggplot2' and 'grid'}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides a range of filters and shaders that can be applied to 
-    layers from the 'ggplot2' package and its extensions, along with other 
-    graphic elements such as guides and theme elements. The filters are 
-    applied at render time and thus uses the exact pixel dimensions needed.
+Provides a range of filters that can be applied to layers from the 
+    'ggplot2' package and its extensions, along with other graphic elements such 
+    as guides and theme elements. The filters are applied at render time and 
+    thus uses the exact pixel dimensions needed.
 }
 \seealso{
 Useful links:

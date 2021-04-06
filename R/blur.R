@@ -84,6 +84,7 @@ with_blur.guide <- function(x, sigma = 0.5, stack = FALSE, ...) {
 
 #' @rdname raster_helpers
 #' @importFrom magick image_read image_blur image_destroy image_composite
+#' @return A nativeRaster object
 #' @export
 #' @keywords internal
 blur_raster <- function(x, sigma = 0.5, stack = FALSE) {
