@@ -17,8 +17,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Codecov test coverage](https://codecov.io/gh/thomasp85/ggfx/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/ggfx?branch=master)
-[![R-CMD-check](https://github.com/thomasp85/ggfx/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggfx/actions)
+[![Codecov test coverage](https://codecov.io/gh/thomasp85/ggfx/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thomasp85/ggfx?branch=main)
+[![R-CMD-check](https://github.com/thomasp85/ggfx/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thomasp85/ggfx/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ggfx is a (currently experimantal) package that allows the use of various 
