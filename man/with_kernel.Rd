@@ -19,7 +19,7 @@ with_kernel(
 naming a filter}
 
 \item{kernel}{either a square matrix or a string. The string can either be a
-parameterized \link[magick:options]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}
+parameterized \link[magick:kernel_types]{kerneltype} such as: \code{"DoG:0,0,2"} or \code{"Diamond"}
 or it can contain a custom matrix (see examples)}
 
 \item{iterations}{number of iterations}

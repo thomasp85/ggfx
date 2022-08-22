@@ -24,7 +24,7 @@ Imports:
     grDevices,
     gtable,
     rlang
-RoxygenNote: 7.1.1.9001
+RoxygenNote: 7.2.1
 URL: https://ggfx.data-imaginist.com, https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
 Suggests: 
