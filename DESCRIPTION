@@ -1,6 +1,6 @@
 Package: ggfx
 Title: Pixel Filters for 'ggplot2' and 'grid'
-Version: 1.0.0.9000
+Version: 1.0.1
 Authors@R: 
     c(person(given = "Thomas Lin",
              family = "Pedersen",

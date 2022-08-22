@@ -1,4 +1,4 @@
-# ggfx (development version)
+# ggfx 1.0.1
 
 * General upkeep
 
