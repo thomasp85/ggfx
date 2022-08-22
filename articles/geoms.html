@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggfx</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -46,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,7 +56,7 @@
   <a href="../articles/ggfx.html">Getting Started</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     In Depth
      
     <span class="caret"></span>
@@ -72,7 +74,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -80,10 +82,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/">Version 1.0.0</a>
+      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
@@ -91,8 +94,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/thomasp85/ggfx">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/thomasp85/ggfx" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +115,7 @@
       <h1 data-toc-skip>Using ggfx in ggplot2 extensions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/master/vignettes/geoms.Rmd"><code>vignettes/geoms.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/HEAD/vignettes/geoms.Rmd" class="external-link"><code>vignettes/geoms.Rmd</code></a></small>
       <div class="hidden name"><code>geoms.Rmd</code></div>
 
     </div>
@@ -121,96 +124,96 @@
     
 <p>ggfx is designed to work especially well with ggplot2 and its extended ecosystem of extension packages. Any type of layer should (theoretically) support being wrapped by a <code>with_*()</code> filter and <em>just work</em>. There are things that aren’t possible however, such as making the filter responsive to the data in the layer, or making the filter behave differently for different groups in the layer. For this to be possible you’ll need to implement your own geom which uses ggfx. This vignette will show you an example of that.</p>
 <blockquote>
-<p>Note that this vignette assumes familiarity with the ggplot2 extension system. There will not be spend time explaining the ins-and-outs of how a new geom is coded. To read more on how the extension system works, please consult <a href="https://ggplot2-book.org/extensions.html" class="uri">https://ggplot2-book.org/extensions.html</a></p>
+<p>Note that this vignette assumes familiarity with the ggplot2 extension system. There will not be spend time explaining the ins-and-outs of how a new geom is coded. To read more on how the extension system works, please consult <a href="https://ggplot2-book.org/extensions.html" class="external-link uri">https://ggplot2-book.org/extensions.html</a></p>
 </blockquote>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
-<div id="our-geom" class="section level2">
-<h2 class="hasAnchor">
-<a href="#our-geom" class="anchor"></a>Our geom</h2>
-<p>To illustrate how to use ggfx inside a geom, we are going to make an alternative version of <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>. Instead of showing the confidence interval as a ribbon we will show it as a blur with various sigma depending on the width of the confidence interval. We’ll ignore for now whether this is a sound approach to showing confidence intervals.</p>
-<div id="how-to-draw-a-variable-blur" class="section level3">
-<h3 class="hasAnchor">
-<a href="#how-to-draw-a-variable-blur" class="anchor"></a>How to draw a variable blur</h3>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="our-geom">Our geom<a class="anchor" aria-label="anchor" href="#our-geom"></a>
+</h2>
+<p>To illustrate how to use ggfx inside a geom, we are going to make an alternative version of <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth()</a></code>. Instead of showing the confidence interval as a ribbon we will show it as a blur with various sigma depending on the width of the confidence interval. We’ll ignore for now whether this is a sound approach to showing confidence intervals.</p>
+<div class="section level3">
+<h3 id="how-to-draw-a-variable-blur">How to draw a variable blur<a class="anchor" aria-label="anchor" href="#how-to-draw-a-variable-blur"></a>
+</h3>
 <p>ggfx already includes a <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> filter which seems perfect for our task. However, we need to make this work for each single fit, and we need the blur amount to be based on some data in the layer. The way we do this is to add the filter to the grobs created by the geom directly in the <code>draw_group()</code> method:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">GeomBlurrySmooth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html">ggproto</a></span><span class="op">(</span><span class="st">'GeomBlurrySmooth'</span>, <span class="va">GeomSmooth</span>,
-  setup_params <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">params</span><span class="op">$</span><span class="va">max_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">ymax</span> <span class="op">-</span> <span class="va">data</span><span class="op">$</span><span class="va">ymin</span><span class="op">)</span>
-    <span class="va">params</span>
-  <span class="op">}</span>,
-  draw_group <span class="op">=</span> <span class="kw">function</span> <span class="op">(</span><span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span>, <span class="va">max_range</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Create a raster object representing the width oof the ribbon</span>
-    <span class="va">sigma</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">ymax</span> <span class="op">-</span> <span class="va">data</span><span class="op">$</span><span class="va">ymin</span><span class="op">)</span> <span class="op">/</span> <span class="va">max_range</span><span class="op">)</span><span class="op">^</span><span class="fl">1.5</span>
-    <span class="va">sigma_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">sigma</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-    
-    <span class="co"># Use the annotate_raster geom to convert it to a raster that spans the x-range</span>
-    <span class="co"># of the line</span>
-    <span class="va">sigma_grob</span> <span class="op">&lt;-</span> <span class="va">GeomRasterAnn</span><span class="op">$</span><span class="fu">draw_panel</span><span class="op">(</span>
-      <span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span>, 
-      raster <span class="op">=</span> <span class="va">sigma_raster</span>, 
-      xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>, 
-      xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,
-      ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,
-      ymax <span class="op">=</span> <span class="cn">Inf</span>
-    <span class="op">)</span>
-    
-    <span class="co"># Convert it to a reference layer</span>
-    <span class="va">ref_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'GeomBlurrySmooth_&lt;'</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">'&gt;'</span><span class="op">)</span>
-    <span class="va">sigma_grob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span><span class="va">sigma_grob</span>, <span class="va">ref_name</span><span class="op">)</span>
-    
-    <span class="co"># Figurer out the maximum sigma relative to the y scale</span>
-    <span class="va">max_sigma</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">max_range</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">panel_params</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="fu">dimension</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-    
-    <span class="co"># Create a line grob using geom_line</span>
-    <span class="va">line_grob</span> <span class="op">&lt;-</span> <span class="va">GeomLine</span><span class="op">$</span><span class="fu">draw_panel</span><span class="op">(</span><span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span><span class="op">)</span>
-    
-    <span class="co"># Add variable blur. Turn off blur in the x-direction and use the calulated max sigma</span>
-    <span class="co"># in the y direction</span>
-    <span class="va">line_grob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_variable_blur.html">with_variable_blur</a></span><span class="op">(</span><span class="va">line_grob</span>, <span class="fu"><a href="../reference/Channels.html">ch_red</a></span><span class="op">(</span><span class="va">ref_name</span><span class="op">)</span>, x_scale <span class="op">=</span> <span class="fl">0</span>, y_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="va">max_sigma</span>, <span class="st">'npc'</span><span class="op">)</span><span class="op">)</span>
-    
-    <span class="co"># Return the two grobs combined, making sure that the reference grob comes first</span>
-    <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grob.html">gList</a></span><span class="op">(</span>
-      <span class="va">sigma_grob</span>,
-      <span class="va">line_grob</span>
-    <span class="op">)</span>
-  <span class="op">}</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">GeomBlurrySmooth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggproto.html" class="external-link">ggproto</a></span><span class="op">(</span><span class="st">'GeomBlurrySmooth'</span>, <span class="va">GeomSmooth</span>,</span>
+<span>  setup_params <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">params</span><span class="op">$</span><span class="va">max_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">ymax</span> <span class="op">-</span> <span class="va">data</span><span class="op">$</span><span class="va">ymin</span><span class="op">)</span></span>
+<span>    <span class="va">params</span></span>
+<span>  <span class="op">}</span>,</span>
+<span>  draw_group <span class="op">=</span> <span class="kw">function</span> <span class="op">(</span><span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span>, <span class="va">max_range</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Create a raster object representing the width oof the ribbon</span></span>
+<span>    <span class="va">sigma</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">ymax</span> <span class="op">-</span> <span class="va">data</span><span class="op">$</span><span class="va">ymin</span><span class="op">)</span> <span class="op">/</span> <span class="va">max_range</span><span class="op">)</span><span class="op">^</span><span class="fl">1.5</span></span>
+<span>    <span class="va">sigma_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="va">sigma</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Use the annotate_raster geom to convert it to a raster that spans the x-range</span></span>
+<span>    <span class="co"># of the line</span></span>
+<span>    <span class="va">sigma_grob</span> <span class="op">&lt;-</span> <span class="va">GeomRasterAnn</span><span class="op">$</span><span class="fu">draw_panel</span><span class="op">(</span></span>
+<span>      <span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span>, </span>
+<span>      raster <span class="op">=</span> <span class="va">sigma_raster</span>, </span>
+<span>      xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>, </span>
+<span>      xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>      ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
+<span>      ymax <span class="op">=</span> <span class="cn">Inf</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Convert it to a reference layer</span></span>
+<span>    <span class="va">ref_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'GeomBlurrySmooth_&lt;'</span>, <span class="va">data</span><span class="op">$</span><span class="va">group</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">'&gt;'</span><span class="op">)</span></span>
+<span>    <span class="va">sigma_grob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span><span class="va">sigma_grob</span>, <span class="va">ref_name</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Figurer out the maximum sigma relative to the y scale</span></span>
+<span>    <span class="va">max_sigma</span> <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">max_range</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">panel_params</span><span class="op">$</span><span class="va">y</span><span class="op">$</span><span class="fu">dimension</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Create a line grob using geom_line</span></span>
+<span>    <span class="va">line_grob</span> <span class="op">&lt;-</span> <span class="va">GeomLine</span><span class="op">$</span><span class="fu">draw_panel</span><span class="op">(</span><span class="va">data</span>, <span class="va">panel_params</span>, <span class="va">coord</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Add variable blur. Turn off blur in the x-direction and use the calulated max sigma</span></span>
+<span>    <span class="co"># in the y direction</span></span>
+<span>    <span class="va">line_grob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_variable_blur.html">with_variable_blur</a></span><span class="op">(</span><span class="va">line_grob</span>, <span class="fu"><a href="../reference/channel_spec.html">ch_red</a></span><span class="op">(</span><span class="va">ref_name</span><span class="op">)</span>, x_scale <span class="op">=</span> <span class="fl">0</span>, y_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="va">max_sigma</span>, <span class="st">'npc'</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># Return the two grobs combined, making sure that the reference grob comes first</span></span>
+<span>    <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.grob.html" class="external-link">gList</a></span><span class="op">(</span></span>
+<span>      <span class="va">sigma_grob</span>,</span>
+<span>      <span class="va">line_grob</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>I’ve tried to annotate the code as much as possible. Most of the code pertains to this particular case, so the main takeaways are that you simply figure out the correct parameters for your filter in the geom and then return a filtered grob using these parameters. Another point of note is that you can create reference layers <em>within</em> your geom and use these - the only thing you need to take care of is that the name is unique to the group, and that the reference grob comes before the filtered grob that uses it.</p>
 <p>Without further ado, let’s see if it works - let’s start with the regular smooth geom:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="geoms_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
-<p>And now for our new version (we are using <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth()</a></code> because we haven’t bothered creating a constructor). We’ll increase the size of the line because otherwise the blur might make it disappear completely:</p>
+<p>And now for our new version (we are using <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">stat_smooth()</a></code> because we haven’t bothered creating a constructor). We’ll increase the size of the line because otherwise the blur might make it disappear completely:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="va">GeomBlurrySmooth</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">stat_smooth</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="va">GeomBlurrySmooth</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="geoms_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <p>It works! Now, there are certainly room for improvements. The obvious place to start is the part of the line that peaks out from outside the blur area. This could easily be solved by padding the raster with some repeated values from the start and end, or we could mask the layer so it only showed the part that is getting blurred. I will leave that as an exercise to the reader.</p>
 </div>
 </div>
-<div id="filtering-a-filtered-geom" class="section level2">
-<h2 class="hasAnchor">
-<a href="#filtering-a-filtered-geom" class="anchor"></a>Filtering a filtered geom</h2>
+<div class="section level2">
+<h2 id="filtering-a-filtered-geom">Filtering a filtered geom<a class="anchor" aria-label="anchor" href="#filtering-a-filtered-geom"></a>
+</h2>
 <p>You may now sit and wonder: “Can I still add a filter to a geom that incorporates a filter?”. Glad you asked! The answer is yes. Let us fix the ugly issue above with a mask filter (though it really should be fixed inside the geom)</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_rect</a></span><span class="op">(</span>
-      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,
-      inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>
-    <span class="op">)</span>,
-    id <span class="op">=</span> <span class="st">'draw_area'</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_mask.html">with_mask</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="va">GeomBlurrySmooth</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-    mask <span class="op">=</span> <span class="fu"><a href="../reference/Channels.html">ch_alpha</a></span><span class="op">(</span><span class="st">'draw_area'</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">displ</span>, <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_rect</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, xmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">displ</span><span class="op">)</span>, ymin <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, ymax <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>      inherit.aes <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    id <span class="op">=</span> <span class="st">'draw_area'</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_mask.html">with_mask</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">stat_smooth</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="va">GeomBlurrySmooth</span>, size <span class="op">=</span> <span class="fl">5</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    mask <span class="op">=</span> <span class="fu"><a href="../reference/channel_spec.html">ch_alpha</a></span><span class="op">(</span><span class="st">'draw_area'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="geoms_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>Voila!</p>
 <p>I hope this opens up the door for many new ingenious geoms from the creative community of ggplot2 extension developers. Have fun!</p>
@@ -228,11 +231,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+  <p></p>
+<p>Developed by <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, RStudio.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -240,6 +245,8 @@
 
   
 
+
+  
 
   </body>
 </html>

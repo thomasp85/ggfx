@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggfx</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -46,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,7 +56,7 @@
   <a href="../articles/ggfx.html">Getting Started</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     In Depth
      
     <span class="caret"></span>
@@ -72,7 +74,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -80,10 +82,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/">Version 1.0.0</a>
+      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
@@ -91,8 +94,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/thomasp85/ggfx">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/thomasp85/ggfx" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +115,7 @@
       <h1 data-toc-skip>Custom filters</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/master/vignettes/custom_filters.Rmd"><code>vignettes/custom_filters.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/HEAD/vignettes/custom_filters.Rmd" class="external-link"><code>vignettes/custom_filters.Rmd</code></a></small>
       <div class="hidden name"><code>custom_filters.Rmd</code></div>
 
     </div>
@@ -121,215 +124,215 @@
     
 <p>While ggfx comes with a range of powerful and classic filters, one of the most powerful one is <code><a href="../reference/with_custom.html">with_custom()</a></code> as it allows you to implement your own filters while still taking advantage of the infrastructure of ggfx. There are still complications that needs to be understood, so this vignette will try to walk you through the process of designing custom filters.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span></code></pre></div>
-<div id="the-input" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-input" class="anchor"></a>The input</h2>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="the-input">The input<a class="anchor" aria-label="anchor" href="#the-input"></a>
+</h2>
 <p><code><a href="../reference/with_custom.html">with_custom()</a></code> takes a filter function which defines the working of the filter. This function will get a <code>nativeRaster</code> object encoding the rasterized layer to filter on as the first argument along with any additional argument that has been passed to <code>with_filter()</code>. The <code>nativeRaster</code> object is a very efficient representation of raster image data, but unfortunately very hard to work with as it has only been designed for passing around, not for manipulation.</p>
-<div id="nativeraster-objects" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nativeraster-objects" class="anchor"></a><code>nativeRaster</code> objects</h3>
+<div class="section level3">
+<h3 id="nativeraster-objects">
+<code>nativeRaster</code> objects<a class="anchor" aria-label="anchor" href="#nativeraster-objects"></a>
+</h3>
 <p>At its core, the <code>nativeRaster</code> class is a direct access to how image data is stored and handled internally by the graphics engine. It is an integer vector with each element encoding a pixel colour. The colour is encoded by splitting the 32 bit in the integer between 8 bit to each of red, green, blue, and alpha. The integer values are more or less unintelligible and while you can convert a <code>nativeRaster</code> object to a <code>raster</code> object, thus getting the hex-string version of the colour, there is no way to convert back again. This functionality has been added to the farver package though:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">native_rep</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">encode_native</a></span><span class="op">(</span><span class="st">'#45fe2a'</span><span class="op">)</span>
-<span class="va">native_rep</span>
-<span class="co">#&gt; [1] -13959611</span>
-
-<span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">decode_native</a></span><span class="op">(</span><span class="va">native_rep</span><span class="op">)</span>
-<span class="co">#&gt; [1] "#45FE2A"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">native_rep</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">encode_native</a></span><span class="op">(</span><span class="st">'#45fe2a'</span><span class="op">)</span></span>
+<span><span class="va">native_rep</span></span>
+<span><span class="co">#&gt; [1] -13959611</span></span>
+<span></span>
+<span><span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">decode_native</a></span><span class="op">(</span><span class="va">native_rep</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "#45FE2A"</span></span></code></pre></div>
 <p><code>nativeRaster</code> objects are <strong>not</strong> matrices, but do have dimensions giving the height and width in pixels. Unlike matrices in R the cells are encoded in row-major order since that is the convention for image data.</p>
-<p>Since this format has never been meant for any use in R, except for passing around, no-one ever bothered to implement indexing that honor the row-major encoding, so the mere act of indexing into a native raster will completely destroy the ordering of pixels. Because of this, ggfx provides a slew of helpers for getting access to this data. For anything but the most trivial filters, it makes sense to use the magick package. <code><a href="https://docs.ropensci.org/magick/reference/editing.html">magick::image_read()</a></code> can get a <code>nativeRaster</code> so if you go that route you don’t have to think about any of these complications.</p>
+<p>Since this format has never been meant for any use in R, except for passing around, no-one ever bothered to implement indexing that honor the row-major encoding, so the mere act of indexing into a native raster will completely destroy the ordering of pixels. Because of this, ggfx provides a slew of helpers for getting access to this data. For anything but the most trivial filters, it makes sense to use the magick package. <code><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">magick::image_read()</a></code> can get a <code>nativeRaster</code> so if you go that route you don’t have to think about any of these complications.</p>
 </div>
-<div id="filter-output" class="section level3">
-<h3 class="hasAnchor">
-<a href="#filter-output" class="anchor"></a>Filter output</h3>
-<p>The given filter function must return a <code>raster</code> or <code>nativeRaster</code> object of the same dimensions as the input raster object - failing to do so will lead to some very weird results. If you are using magick in your filter, you can get a <code>nativeRaster</code> object from it by calling <code><a href="https://rdrr.io/r/grDevices/as.raster.html">as.raster(x, native = TRUE)</a></code></p>
+<div class="section level3">
+<h3 id="filter-output">Filter output<a class="anchor" aria-label="anchor" href="#filter-output"></a>
+</h3>
+<p>The given filter function must return a <code>raster</code> or <code>nativeRaster</code> object of the same dimensions as the input raster object - failing to do so will lead to some very weird results. If you are using magick in your filter, you can get a <code>nativeRaster</code> object from it by calling <code>as.raster(x, native = TRUE)</code></p>
 </div>
-<div id="drawing-area" class="section level3">
-<h3 class="hasAnchor">
-<a href="#drawing-area" class="anchor"></a>Drawing area</h3>
+<div class="section level3">
+<h3 id="drawing-area">Drawing area<a class="anchor" aria-label="anchor" href="#drawing-area"></a>
+</h3>
 <p>The raster that you are provided will span the full device area, not just the viewport currently being drawn to. This is because a viewport might not be clipping and so content outside the viewport is still visible and should be filtered. ggfx provides a variety of functions that lets you figure out where the current viewport is located in the given raster. These will be explained throughout the examples.</p>
 </div>
 </div>
-<div id="our-first-filter" class="section level2">
-<h2 class="hasAnchor">
-<a href="#our-first-filter" class="anchor"></a>Our first filter</h2>
+<div class="section level2">
+<h2 id="our-first-filter">Our first filter<a class="anchor" aria-label="anchor" href="#our-first-filter"></a>
+</h2>
 <p>To show a very simple filter, we will create a very simply filter that takes a user specified color and proportion and turns the given proportion of pixels into that colour at random:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="va">speckle</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">proportion</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">raster_dim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="va">n_pixels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">raster_dim</span><span class="op">)</span>
-  <span class="va">n_speckles</span> <span class="op">&lt;-</span> <span class="va">n_pixels</span> <span class="op">*</span> <span class="va">proportion</span>
-  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">n_speckles</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span>
-  <span class="va">x</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">speckle</span>,
-    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,
-    proportion <span class="op">=</span> <span class="fl">0.05</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">speckle</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">proportion</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">raster_dim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">n_pixels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod</a></span><span class="op">(</span><span class="va">raster_dim</span><span class="op">)</span></span>
+<span>  <span class="va">n_speckles</span> <span class="op">&lt;-</span> <span class="va">n_pixels</span> <span class="op">*</span> <span class="va">proportion</span></span>
+<span>  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">n_speckles</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span></span>
+<span>  <span class="va">x</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">speckle</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,</span>
+<span>    proportion <span class="op">=</span> <span class="fl">0.05</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>We, thankfully, see that it does exactly what we set out to do. For this particularly simple example we also see that we don’t really have to care about all the complications in the <code>nativeRaster</code> object since we are simply modifying pixels at random and just index into it as if it were a vector.</p>
 </div>
-<div id="taking-control-of-nativeraster" class="section level2">
-<h2 class="hasAnchor">
-<a href="#taking-control-of-nativeraster" class="anchor"></a>Taking control of <code>nativeRaster</code>
+<div class="section level2">
+<h2 id="taking-control-of-nativeraster">Taking control of <code>nativeRaster</code><a class="anchor" aria-label="anchor" href="#taking-control-of-nativeraster"></a>
 </h2>
 <p>To illustrate the complications of working with <code>nativeRaster</code> object we’ll create a simple filter that fills an area with a colour. In the first example we treat the raster as a matrix:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fill_patch_naive</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span>
-  <span class="va">x</span>
-<span class="op">}</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">fill_patch_naive</span>,
-    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,
-    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">250</span><span class="op">)</span>,
-    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fill_patch_naive</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span></span>
+<span>  <span class="va">x</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">fill_patch_naive</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,</span>
+<span>    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">250</span><span class="op">)</span>,</span>
+<span>    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
-<pre><code>#&gt; 865 1152</code></pre>
+<pre><code><span><span class="co">#&gt; 865 1152</span></span></code></pre>
 <p>Ugh! We obviously have an indexing problem. As we discussed above this is because rasters in R are in row-major order, while their indexing functions assume column-major order. The R documentation propose that you convert the data to a regular matrix and then do your manipulations, but you usually want to ensure a good performance with filters as they are run at every draw operation, not just once. ggfx provide some setter and getter functions for rasters though so we can rewrite the above:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fill_patch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">patch</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_raster_area</a></span><span class="op">(</span>
-    raster <span class="op">=</span> <span class="va">x</span>, 
-    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
-    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-    xmax <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
-    ymax <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>
-  <span class="op">)</span>
-  <span class="va">patch</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/render_context.html">set_raster_area</a></span><span class="op">(</span>
-    raster <span class="op">=</span> <span class="va">x</span>,
-    value <span class="op">=</span> <span class="va">patch</span>,
-    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
-    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">fill_patch</span>,
-    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,
-    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">250</span><span class="op">)</span>,
-    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fill_patch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">patch</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_raster_area</a></span><span class="op">(</span></span>
+<span>    raster <span class="op">=</span> <span class="va">x</span>, </span>
+<span>    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    xmax <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">patch</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/render_context.html">set_raster_area</a></span><span class="op">(</span></span>
+<span>    raster <span class="op">=</span> <span class="va">x</span>,</span>
+<span>    value <span class="op">=</span> <span class="va">patch</span>,</span>
+<span>    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">fill_patch</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,</span>
+<span>    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">250</span><span class="op">)</span>,</span>
+<span>    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
-<div id="detour-escaping-pixel-values" class="section level3">
-<h3 class="hasAnchor">
-<a href="#detour-escaping-pixel-values" class="anchor"></a>Detour: Escaping pixel values</h3>
+<div class="section level3">
+<h3 id="detour-escaping-pixel-values">Detour: Escaping pixel values<a class="anchor" aria-label="anchor" href="#detour-escaping-pixel-values"></a>
+</h3>
 <p>In our filter above we are giving the x-, and y-range in pixels. In the filters built into ggfx you can use either pixel values or a unit object, which also makes sense to do here as the placement of the patch would otherwise be dependent on the exact rendering size of the plot. To make your filter work with unit specifications you simple convert the input with <code><a href="../reference/render_context.html">to_pixels()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fill_patch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">x_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">to_pixels</a></span><span class="op">(</span><span class="va">x_range</span>, location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="va">y_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="../reference/render_context.html">to_pixels</a></span><span class="op">(</span><span class="va">y_range</span>, y_axis <span class="op">=</span> <span class="cn">TRUE</span>, location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">patch</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_raster_area</a></span><span class="op">(</span>
-    raster <span class="op">=</span> <span class="va">x</span>, 
-    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
-    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-    xmax <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,
-    ymax <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>
-  <span class="op">)</span>
-  <span class="va">patch</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/render_context.html">set_raster_area</a></span><span class="op">(</span>
-    raster <span class="op">=</span> <span class="va">x</span>,
-    value <span class="op">=</span> <span class="va">patch</span>,
-    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
-    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">fill_patch</span>,
-    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,
-    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.7</span><span class="op">)</span>, <span class="st">'npc'</span><span class="op">)</span>,
-    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.6</span><span class="op">)</span>, <span class="st">'npc'</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fill_patch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">colour</span>, <span class="va">x_range</span>, <span class="va">y_range</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">to_pixels</a></span><span class="op">(</span><span class="va">x_range</span>, location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="va">y_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="../reference/render_context.html">to_pixels</a></span><span class="op">(</span><span class="va">y_range</span>, y_axis <span class="op">=</span> <span class="cn">TRUE</span>, location <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">patch</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_raster_area</a></span><span class="op">(</span></span>
+<span>    raster <span class="op">=</span> <span class="va">x</span>, </span>
+<span>    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    xmax <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>    ymax <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">patch</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/native_encoding.html" class="external-link">encode_native</a></span><span class="op">(</span><span class="va">colour</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/render_context.html">set_raster_area</a></span><span class="op">(</span></span>
+<span>    raster <span class="op">=</span> <span class="va">x</span>,</span>
+<span>    value <span class="op">=</span> <span class="va">patch</span>,</span>
+<span>    xmin <span class="op">=</span> <span class="va">x_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>    ymin <span class="op">=</span> <span class="va">y_range</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">fill_patch</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">'forestgreen'</span>,</span>
+<span>    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.7</span><span class="op">)</span>, <span class="st">'npc'</span><span class="op">)</span>,</span>
+<span>    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.6</span><span class="op">)</span>, <span class="st">'npc'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>We now have a filter function were you can use non-pixel units for specifying the patch location. If you look at the changes you see that we sort the <code>y_range</code> parameter after we convert it to pixels - why is that? This is because grid uses a coordinate system that starts at the bottom left corner and moves up and to the right, whereas matrix indexing is based on the top-left corner moving down and to the right instead. This means that our y_range becomes flipped when we convert it to pixel locations and the lowest values is suddenly the highest.</p>
 </div>
 </div>
-<div id="finding-the-viewport" class="section level2">
-<h2 class="hasAnchor">
-<a href="#finding-the-viewport" class="anchor"></a>Finding the viewport</h2>
+<div class="section level2">
+<h2 id="finding-the-viewport">Finding the viewport<a class="anchor" aria-label="anchor" href="#finding-the-viewport"></a>
+</h2>
 <p>While some filters don’t really care about what part of the given raster is in the current viewport, others might do: Consider this simple flip filter (were we also use <code><a href="../reference/render_context.html">index_raster()</a></code> as a direct replacement for <code>[,]</code> indexing):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flip_image</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>
-  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">rows</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="fu"><a href="../reference/render_context.html">index_raster</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, <span class="va">rows</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">flip_image</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flip_image</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">rows</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="../reference/render_context.html">index_raster</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, <span class="va">rows</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">flip_image</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <p>We can see that the filter is indeed flipping the layer, but it is flipping it around the center of the image, not the center of the panel. In order to make the filter viewport aware we will use some of the provide viewport helpers:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flip_image</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_viewport_area</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-  <span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">vp</span><span class="op">)</span>
-  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span>
-  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">rows</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">index_raster</a></span><span class="op">(</span><span class="va">vp</span>, <span class="va">cols</span>, <span class="va">rows</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/render_context.html">set_viewport_area</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">vp</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">flip_image</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flip_image</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">horizontal</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">get_viewport_area</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="va">dims</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">vp</span><span class="op">)</span></span>
+<span>  <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">dims</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">horizontal</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">rows</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/render_context.html">index_raster</a></span><span class="op">(</span><span class="va">vp</span>, <span class="va">cols</span>, <span class="va">rows</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/render_context.html">set_viewport_area</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">vp</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">flip_image</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 </div>
-<div id="using-magick" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-magick" class="anchor"></a>Using magick</h2>
+<div class="section level2">
+<h2 id="using-magick">Using magick<a class="anchor" aria-label="anchor" href="#using-magick"></a>
+</h2>
 <p>While some effects are pretty easy to achieve just be manipulating the raster data structure, most filters will require non-trivial modifications to the colours of the pixels. In these situations it is often beneficial to use the magick package to build on top of the vast library of image manipulation functions from the ImageMagick library. To show of this we create a filter that distorts the content towards the center (imploding it)</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">implode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">factor</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html">image_read</a></span><span class="op">(</span><span class="fu"><a href="../reference/render_context.html">get_viewport_area</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/effects.html">image_implode</a></span><span class="op">(</span><span class="va">vp</span>, <span class="va">factor</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/render_context.html">set_viewport_area</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html">as.raster</a></span><span class="op">(</span><span class="va">vp</span>, native <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-    filter <span class="op">=</span> <span class="va">implode</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">implode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">factor</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">image_read</a></span><span class="op">(</span><span class="fu"><a href="../reference/render_context.html">get_viewport_area</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">vp</span> <span class="op">&lt;-</span> <span class="fu">magick</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/magick/reference/effects.html" class="external-link">image_implode</a></span><span class="op">(</span><span class="va">vp</span>, <span class="va">factor</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/render_context.html">set_viewport_area</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="va">vp</span>, native <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_custom.html">with_custom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    filter <span class="op">=</span> <span class="va">implode</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="custom_filters_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <p>We see that <code>image_read()</code> works nicely with <code>nativeRaster</code> objects and that we can easily mix use of magick with the raster helpers provided by ggfx.</p>
 </div>
-<div id="wrapping-up" class="section level2">
-<h2 class="hasAnchor">
-<a href="#wrapping-up" class="anchor"></a>Wrapping up</h2>
+<div class="section level2">
+<h2 id="wrapping-up">Wrapping up<a class="anchor" aria-label="anchor" href="#wrapping-up"></a>
+</h2>
 <p>This vignette has shown you how to create your own filters. If you end up creating filters that you feel are of general use and want to share them then please reach out and we can discuss if they should be part of ggfx proper.</p>
 </div>
   </div>
@@ -345,11 +348,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+  <p></p>
+<p>Developed by <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, RStudio.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -357,6 +362,8 @@
 
   
 
+
+  
 
   </body>
 </html>

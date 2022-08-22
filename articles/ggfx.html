@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggfx</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -46,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,7 +56,7 @@
   <a href="../articles/ggfx.html">Getting Started</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     In Depth
      
     <span class="caret"></span>
@@ -72,7 +74,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -80,10 +82,11 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/">Version 1.0.0</a>
+      <a href="https://www.data-imaginist.com/2021/say-goodbye-to-good-taste/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
@@ -91,8 +94,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/thomasp85/ggfx">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/thomasp85/ggfx" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +115,7 @@
       <h1 data-toc-skip>Getting Started with Filters</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/master/vignettes/ggfx.Rmd"><code>vignettes/ggfx.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggfx/blob/HEAD/vignettes/ggfx.Rmd" class="external-link"><code>vignettes/ggfx.Rmd</code></a></small>
       <div class="hidden name"><code>ggfx.Rmd</code></div>
 
     </div>
@@ -120,127 +123,127 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <p>The ggfx package is a way to gain access to pixel-level image filters in R plotting, especially when plotting with ggplot2. This document will give a short introduction to what image filters are, and how to use them through ggfx. It is assumed that you have some familiarity with ggplot2 as the ggplot2 code will not be explained in detail.</p>
-<div id="what-are-filters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-are-filters" class="anchor"></a>What are filters</h2>
+<div class="section level2">
+<h2 id="what-are-filters">What are filters<a class="anchor" aria-label="anchor" href="#what-are-filters"></a>
+</h2>
 <p>Filters are basically functions that take in image data and return a new image. One of the more well-known examples are those available in photo apps such as Instagram, or video apps such as FaceTime. There is basically no end to the effects you can achieve, but some are obviously more useful than other. Filters work by changing the pixel color value of the input image through various means and can incorporate other images as part of the operation.</p>
-<div id="filters-and-vector-graphics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#filters-and-vector-graphics" class="anchor"></a>Filters and vector graphics</h3>
+<div class="section level3">
+<h3 id="filters-and-vector-graphics">Filters and vector graphics<a class="anchor" aria-label="anchor" href="#filters-and-vector-graphics"></a>
+</h3>
 <p>Since filters work on the pixel level they are not an obvious fit for vector graphics such as the graphics engine in R. This, however, does not mean that it is impossible and e.g. the SVG specification contains a bunch of different filters. The way that they integrate into the rendering of SVG’s is that vector graphics with filters applied are rendered off-screen, run through the filter, and then added to the final render.</p>
 <p>The same can be done with R graphics through the grid graphics system (sorry, base graphics users), and this is exactly what ggfx does.</p>
 </div>
 </div>
-<div id="using-ggfx" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-ggfx" class="anchor"></a>Using ggfx</h2>
+<div class="section level2">
+<h2 id="using-ggfx">Using ggfx<a class="anchor" aria-label="anchor" href="#using-ggfx"></a>
+</h2>
 <p>Since there is no concept of filters build in to either grid or ggplot2 the API of ggfx might seem a little strange at first, but it is created in this way to provide a great deal of flexibility. Creating alternative geoms and grobs for everything exposed in ggplot2, grid, and all the packages in the extended ggplot2 ecosystem is simply unfeasible so something else had to be done that was compatible with both the grid and ggplot2 API.</p>
-<div id="the-with_-functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-with_-functions" class="anchor"></a>The with_ functions</h3>
+<div class="section level3">
+<h3 id="the-with_-functions">The with_ functions<a class="anchor" aria-label="anchor" href="#the-with_-functions"></a>
+</h3>
 <p>Almost everything you’ll be exposed to in ggfx is collected in the <code>with_*()</code> functions. These functions take as their first argument something to apply the filter on, e.g. a geom, a grob, or a full ggplot, as well as a bunch of other arguments related to controlling the filter. For example, to add blur to a geom you would do this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>,
-    sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 <p>We observe that using <code><a href="../reference/with_blur.html">with_blur()</a></code> retain the ggplot2-ness of the object as it can still be added to a ggplot, and other layers can still be added afterwards. Further, we see that the blur filter is only applied to the point layer and not to the smooth layer or any other element in the plot (which is what we want).</p>
 <p>Now, the <code>with_*()</code> functions can be used with other objects besides layers. To blur the whole plot simply wrap it around the full ggplot object:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span><span class="va">p</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">disp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span><span class="va">p</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>At this point I assume you’ve guessed how to use it with a grob:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>
-
-<span class="va">circle_left</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/grid.circle.html">circleGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.25</span>, y <span class="op">=</span> <span class="fl">0.5</span>, r <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
-<span class="va">circle_right</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.circle.html">circleGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.75</span>, y <span class="op">=</span> <span class="fl">0.5</span>, r <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,
-                          sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grid/grid.newpage.html">grid.newpage</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">circle_left</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html">grid.draw</a></span><span class="op">(</span><span class="va">circle_right</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">circle_left</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grid/grid.circle.html" class="external-link">circleGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.25</span>, y <span class="op">=</span> <span class="fl">0.5</span>, r <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="va">circle_right</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/with_blur.html">with_blur</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.circle.html" class="external-link">circleGrob</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0.75</span>, y <span class="op">=</span> <span class="fl">0.5</span>, r <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,</span>
+<span>                          sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grid/grid.newpage.html" class="external-link">grid.newpage</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">circle_left</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">circle_right</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
-<div id="combining-layers" class="section level3">
-<h3 class="hasAnchor">
-<a href="#combining-layers" class="anchor"></a>Combining layers</h3>
+<div class="section level3">
+<h3 id="combining-layers">Combining layers<a class="anchor" aria-label="anchor" href="#combining-layers"></a>
+</h3>
 <p>While some filters are stand-alone in the sense that they purely depend on the object they are applied to along with different settings, others combine multiple objects. To use these you need to be able to reference layers somehow. All <code>with_*()</code> functions takes an <code>id</code> which identifies this particular layer. By default, if you provide an id to a layer it will not be drawn as it is assumed that the purpose is to use the layer as part of some other filter. This can be changed by setting <code>include = TRUE</code>. A special case is wanting to use an object which have not been subjected to a filter. This can be done using <code><a href="../reference/as_reference.html">as_reference()</a></code>, which will assign an id to the unaltered object an turn off rendering of it.</p>
 <p>We’ll illustrate all this using <code><a href="../reference/with_blend.html">with_blend()</a></code> which provides a wide variety of ways to blend two layers together:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
-<span class="va">checker</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">[</span><span class="va">checker</span><span class="op">$</span><span class="va">x</span> <span class="op">%%</span> <span class="fl">2</span> <span class="op">==</span> <span class="va">checker</span><span class="op">$</span><span class="va">y</span> <span class="op">%%</span> <span class="fl">2</span>, <span class="op">]</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,
-    id <span class="op">=</span> <span class="st">'pattern'</span>
-  <span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3.5</span>, y <span class="op">=</span> <span class="fl">3.5</span>, label <span class="op">=</span> <span class="st">'🚀GGFX🚀'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,
-    bg_layer <span class="op">=</span> <span class="st">'pattern'</span>,
-    blend_type <span class="op">=</span> <span class="st">'xor'</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">checker</span> <span class="op">&lt;-</span> <span class="va">checker</span><span class="op">[</span><span class="va">checker</span><span class="op">$</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="va">checker</span><span class="op">$</span><span class="va">y</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/as_reference.html">as_reference</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,</span>
+<span>    id <span class="op">=</span> <span class="st">'pattern'</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3.5</span>, y <span class="op">=</span> <span class="fl">3.5</span>, label <span class="op">=</span> <span class="st">'🚀GGFX🚀'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>    bg_layer <span class="op">=</span> <span class="st">'pattern'</span>,</span>
+<span>    blend_type <span class="op">=</span> <span class="st">'xor'</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>As we can see, simply referencing an already created reference by name allows it to be used by another filter. The <code>xor</code> filter keeps the content of both layers but only in places where the other layer is empty, creating an effect that would be quite hard to obtain without any filter effects.</p>
 <p>You don’t need to reference a layer though - you can pass in an existing raster object instead:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">volcano_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html">as.raster</a></span><span class="op">(</span><span class="op">(</span><span class="va">volcano</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">volcano</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">volcano</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3.5</span>, y <span class="op">=</span> <span class="fl">3.5</span>, label <span class="op">=</span> <span class="st">'🚀GGFX🚀'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,
-    bg_layer <span class="op">=</span> <span class="va">volcano_raster</span>,
-    blend_type <span class="op">=</span> <span class="st">'copy_green'</span>,
-    alpha <span class="op">=</span> <span class="st">'src'</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">volcano_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="op">(</span><span class="va">volcano</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">volcano</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">volcano</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3.5</span>, y <span class="op">=</span> <span class="fl">3.5</span>, label <span class="op">=</span> <span class="st">'🚀GGFX🚀'</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>    bg_layer <span class="op">=</span> <span class="va">volcano_raster</span>,</span>
+<span>    blend_type <span class="op">=</span> <span class="st">'copy_green'</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="st">'src'</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <p>You can also provide a function that takes the dimensions of the area in pixels and returns a raster.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wave</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">width</span>, <span class="va">height</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="va">width</span>, nrow <span class="op">=</span> <span class="va">height</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html">as.raster</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,
-    bg_layer <span class="op">=</span> <span class="va">wave</span>,
-    blend_type <span class="op">=</span> <span class="st">'copy_red'</span>,
-    alpha <span class="op">=</span> <span class="st">'src'</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wave</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">width</span>, <span class="va">height</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="va">width</span>, nrow <span class="op">=</span> <span class="va">height</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/grDevices/as.raster.html" class="external-link">as.raster</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/col.html" class="external-link">col</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,</span>
+<span>    bg_layer <span class="op">=</span> <span class="va">wave</span>,</span>
+<span>    blend_type <span class="op">=</span> <span class="st">'copy_red'</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="st">'src'</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 </div>
-<div id="using-specific-channels" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-specific-channels" class="anchor"></a>Using specific channels</h3>
-<p>Some filters allow parameters to vary across the image. For example <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> allows you to change blur amount across the layer as opposed to the fixed <code><a href="../reference/with_blur.html">with_blur()</a></code>. The way this works is that <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> takes other layers in that encode the values to use in its pixel values. One can use different channels from the layer for this, e.g. the amount of green in a layer can control the amount of vertical blur, while the overall luminosity of the layer could control the horizontal blur. Selecting a channel to use from a reference can be done using one of the provided <code>ch_*()</code> functions (e.g. <code><a href="../reference/Channels.html">ch_green()</a></code> and <code><a href="../reference/Channels.html">ch_luminance()</a></code> for the examples above).</p>
+<div class="section level3">
+<h3 id="using-specific-channels">Using specific channels<a class="anchor" aria-label="anchor" href="#using-specific-channels"></a>
+</h3>
+<p>Some filters allow parameters to vary across the image. For example <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> allows you to change blur amount across the layer as opposed to the fixed <code><a href="../reference/with_blur.html">with_blur()</a></code>. The way this works is that <code><a href="../reference/with_variable_blur.html">with_variable_blur()</a></code> takes other layers in that encode the values to use in its pixel values. One can use different channels from the layer for this, e.g. the amount of green in a layer can control the amount of vertical blur, while the overall luminosity of the layer could control the horizontal blur. Selecting a channel to use from a reference can be done using one of the provided <code>ch_*()</code> functions (e.g. <code><a href="../reference/channel_spec.html">ch_green()</a></code> and <code><a href="../reference/channel_spec.html">ch_luminance()</a></code> for the examples above).</p>
 <p>We can show this by using the waved checker-pattern created above as input to a variable blur:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,
-    bg_layer <span class="op">=</span> <span class="va">wave</span>,
-    blend_type <span class="op">=</span> <span class="st">'copy_red'</span>,
-    alpha <span class="op">=</span> <span class="st">'src'</span>,
-    id <span class="op">=</span> <span class="st">'wave-checker'</span>
-  <span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/with_variable_blur.html">with_variable_blur</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">:</span><span class="fl">6</span>, slope <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,
-    x_sigma <span class="op">=</span> <span class="fu"><a href="../reference/Channels.html">ch_hue</a></span><span class="op">(</span><span class="st">'wave-checker'</span><span class="op">)</span>,
-    y_sigma <span class="op">=</span> <span class="fu"><a href="../reference/Channels.html">ch_luminance</a></span><span class="op">(</span><span class="st">'wave-checker'</span><span class="op">)</span>,
-    x_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/with_blend.html">with_blend</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, <span class="va">checker</span><span class="op">)</span>,</span>
+<span>    bg_layer <span class="op">=</span> <span class="va">wave</span>,</span>
+<span>    blend_type <span class="op">=</span> <span class="st">'copy_red'</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="st">'src'</span>,</span>
+<span>    id <span class="op">=</span> <span class="st">'wave-checker'</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/with_variable_blur.html">with_variable_blur</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_abline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="op">-</span><span class="fl">6</span><span class="op">:</span><span class="fl">6</span>, slope <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    x_sigma <span class="op">=</span> <span class="fu"><a href="../reference/channel_spec.html">ch_hue</a></span><span class="op">(</span><span class="st">'wave-checker'</span><span class="op">)</span>,</span>
+<span>    y_sigma <span class="op">=</span> <span class="fu"><a href="../reference/channel_spec.html">ch_luminance</a></span><span class="op">(</span><span class="st">'wave-checker'</span><span class="op">)</span>,</span>
+<span>    x_scale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="ggfx_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 </div>
 </div>
@@ -257,11 +260,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+  <p></p>
+<p>Developed by <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>, RStudio.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -269,6 +274,8 @@
 
   
 
+
+  
 
   </body>
 </html>
