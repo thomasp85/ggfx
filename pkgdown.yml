@@ -1,11 +1,11 @@
-pandoc: 2.7.3
+pandoc: 2.14.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   custom_filters: custom_filters.html
   geoms: geoms.html
   ggfx: ggfx.html
-last_built: 2022-08-22T06:51Z
+last_built: 2022-08-22T07:28Z
 urls:
   reference: https://ggfx.data-imaginist.com/reference
   article: https://ggfx.data-imaginist.com/articles
