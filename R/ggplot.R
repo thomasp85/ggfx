@@ -1,6 +1,6 @@
 #' @importFrom ggplot2 ggplot_build
 #' @export
-ggplot_build.filtered_ggplot <- function(plot) {
+ggplot_build.filtered_ggplot <- function(plot, ...) {
   plot <- NextMethod()
   class(plot) <- c('filtered_gtable', class(plot))
   plot
