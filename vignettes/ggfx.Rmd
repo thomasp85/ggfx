@@ -77,7 +77,7 @@ grid.draw(circle_right)
 
 ### Combining layers
 
-While some filters are stand-alone in the sense that they purely depend on the object they are applied to along with different settings, others combine multiple objects. To use these you need to be able to reference layers somehow. All `with_*()` functions takes an `id` which identifies this particular layer. By default, if you provide an id to a layer it will not be drawn as it is assumed that the purpose is to use the layer as part of some other filter. This can be changed by setting `include = TRUE`. A special case is wanting to use an object which have not been subjected to a filter. This can be done using `as_reference()`, which will assign an id to the unaltered object an turn off rendering of it.
+While some filters are stand-alone in the sense that they purely depend on the object they are applied to along with different settings, others combine multiple objects. To use these you need to be able to reference layers somehow. All `with_*()` functions takes an `id` which identifies this particular layer. By default, if you provide an id to a layer it will not be drawn as it is assumed that the purpose is to use the layer as part of some other filter. This can be changed by setting `include = TRUE`. A special case is wanting to use an object which have not been subjected to a filter. This can be done using `as_reference()`, which will assign an id to the unaltered object and turn off the rendering of it.
 
 We'll illustrate all this using `with_blend()` which provides a wide variety of ways to blend two layers together:
 
