@@ -1,120 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ggfx.data-imaginist.com/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/articles/custom_filters.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/articles/geoms.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/articles/ggfx.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/as_colourspace.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/as_group.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/as_reference.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/channel_spec.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/ggfx-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/object_support.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/raster_helpers.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/raster_placement.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/render_context.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_blend.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_blend_custom.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_bloom.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_blur.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_custom.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_displacement.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_dither.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_inner_glow.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_interpolate.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_kernel.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_mask.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_motion_blur.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_ordered_dither.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_outer_glow.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_shade.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_shadow.html</loc>
-  </url>
-  <url>
-    <loc>https://ggfx.data-imaginist.com/reference/with_variable_blur.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ggfx.data-imaginist.com/404.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/LICENSE-text.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/LICENSE.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/articles/custom_filters.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/articles/geoms.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/articles/ggfx.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/articles/index.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/authors.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/index.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/news/index.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/as_colourspace.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/as_group.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/as_reference.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/channel_spec.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/ggfx-package.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/index.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/object_support.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/raster_helpers.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/raster_placement.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/render_context.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_blend.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_blend_custom.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_bloom.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_blur.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_custom.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_displacement.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_dither.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_inner_glow.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_interpolate.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_kernel.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_mask.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_motion_blur.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_ordered_dither.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_outer_glow.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_raster.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_shade.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_shadow.html</loc></url>
+<url><loc>https://ggfx.data-imaginist.com/reference/with_variable_blur.html</loc></url>
 </urlset>
+
