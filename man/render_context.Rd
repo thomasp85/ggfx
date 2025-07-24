@@ -39,7 +39,7 @@ from_pixels(x)
 
 \item{cols, rows}{Column and row indices}
 
-\item{xmin, ymin, xmax, ymax}{Boundaries of the area in pixels. {0,0} is the
+\item{xmin, ymin, xmax, ymax}{Boundaries of the area in pixels. \{0,0\} is the
 top-left corner}
 
 \item{value}{An object of the same type as \code{raster}}

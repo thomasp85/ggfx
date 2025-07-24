@@ -38,8 +38,8 @@ ggplot(mpg, aes(class, hwy)) +
 }
 \seealso{
 Other blend filters: 
-\code{\link{with_blend_custom}()},
 \code{\link{with_blend}()},
+\code{\link{with_blend_custom}()},
 \code{\link{with_mask}()}
 }
 \concept{blend filters}

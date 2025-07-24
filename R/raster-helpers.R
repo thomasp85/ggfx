@@ -97,7 +97,7 @@ index_raster <- function(raster, cols, rows) {
 
 #' @rdname render_context
 #'
-#' @param xmin,ymin,xmax,ymax Boundaries of the area in pixels. {0,0} is the
+#' @param xmin,ymin,xmax,ymax Boundaries of the area in pixels. \{0,0\} is the
 #' top-left corner
 #'
 #' @export
