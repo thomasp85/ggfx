@@ -8,9 +8,9 @@ ggplot_build.filtered_ggplot <- function(plot, ...) {
 #' @importFrom ggplot2 ggplot_gtable
 #' @importFrom gtable gtable_filter
 #' @export
-ggplot_gtable.filtered_gtable <- function(data) {
+ggplot_gtable.filtered_gtable <- function(plot) {
   table <- NextMethod()
-  filter <- data$plot[['.__filter']]
+  filter <- plot$plot[['.__filter']]
   bg <- NULL
   if (filter$ignore_background) {
     bg <- gtable_filter(table, 'background', trim = FALSE)
