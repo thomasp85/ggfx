@@ -1,8 +1,7 @@
-General upkeep due to ggplot2 v4.0.0
-
 ## revdepcheck results
 
 We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
  * We saw 0 new problems
  * We failed to check 0 packages
+
