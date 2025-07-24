@@ -106,8 +106,9 @@
 #' with_blur(p, sigma = 4)
 #' ```
 #'
-#' An alternative is to put the filter around the [ggplot()] call, which will
-#' have the same effect and may fit better with your plot construction code
+#' An alternative is to put the filter around the [`ggplot()`][ggplot2::ggplot]
+#' call, which will have the same effect and may fit better with your plot
+#' construction code
 #'
 #' ```r
 #' with_blur(ggplot(mtcars), sigma = 4) +

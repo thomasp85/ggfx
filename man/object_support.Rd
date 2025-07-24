@@ -122,8 +122,9 @@ applying the filter and add it back on afterwards by setting
 with_blur(p, sigma = 4)
 }\if{html}{\out{</div>}}
 
-An alternative is to put the filter around the \code{\link[=ggplot]{ggplot()}} call, which will
-have the same effect and may fit better with your plot construction code
+An alternative is to put the filter around the \code{\link[ggplot2:ggplot]{ggplot()}}
+call, which will have the same effect and may fit better with your plot
+construction code
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{with_blur(ggplot(mtcars), sigma = 4) +
   geom_point(aes(x = mpg, y = disp))
