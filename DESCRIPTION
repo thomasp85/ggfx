@@ -23,7 +23,8 @@ Imports:
     ggplot2,
     grDevices,
     gtable,
-    rlang
+    rlang,
+    S7
 RoxygenNote: 7.3.2
 URL: https://ggfx.data-imaginist.com, https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues

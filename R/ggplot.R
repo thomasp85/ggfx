@@ -22,8 +22,8 @@ ggplot_gtable.filtered_gtable <- function(data) {
 #' @importFrom ggplot2 element_grob
 #' @export
 element_grob.filtered_element <- function(element, ...) {
+  filter <- attr(element, '.__filter')
   grob <- NextMethod()
-  filter <- element[['.__filter']]
   do.call(filter$fun, c(list(grob), filter$settings))
 }
 

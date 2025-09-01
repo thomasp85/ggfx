@@ -57,7 +57,7 @@ filter_character_constructor <- function(x, .filter, .name, ..., ids) {
 }
 
 filter_element_constructor <- function(x, .filter, ...) {
-  x[['.__filter']] <- list(
+  attr(x, '.__filter') <- list(
     fun = .filter,
     settings = list(...)
   )
