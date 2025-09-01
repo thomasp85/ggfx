@@ -1,5 +1,7 @@
 # ggfx (development version)
 
+* More prep for ggplot2 4.0.0
+
 # ggfx 1.0.2
 
 * Upkeep + prep for ggplot2 4.0.0

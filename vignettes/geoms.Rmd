@@ -91,7 +91,7 @@ And now for our new version (we are using `stat_smooth()` because we haven't bot
 
 ```{r}
 ggplot(mpg, aes(displ, hwy)) + 
-  stat_smooth(geom = GeomBlurrySmooth, size = 5, alpha = 1)
+  stat_smooth(geom = GeomBlurrySmooth, linewidth = 5, alpha = 1)
 ```
 
 It works! Now, there are certainly room for improvements. The obvious place to start is the part of the line that peaks out from outside the blur area. This could easily be solved by padding the raster with some repeated values from the start and end, or we could mask the layer so it only showed the part that is getting blurred. I will leave that as an exercise to the reader.
@@ -110,7 +110,7 @@ ggplot(mpg, aes(displ, hwy)) +
     id = 'draw_area'
   ) +
   with_mask(
-    stat_smooth(geom = GeomBlurrySmooth, size = 5, alpha = 1),
+    stat_smooth(geom = GeomBlurrySmooth, linewidth = 5, alpha = 1),
     mask = ch_alpha('draw_area')
   )
 ```
