@@ -47,7 +47,7 @@ reference:
   desc: >
     Filters sometimes need to work with multiple layers. This can be achieved by
     turning a layer into a reference, either directly through the filter, or by
-    using one of the refefence creators.
+    using one of the reference creators.
   contents:
   - starts_with('as_')
 - title: Channels
