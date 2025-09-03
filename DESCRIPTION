@@ -1,7 +1,7 @@
 Package: ggfx
 Title: Pixel Filters for 'ggplot2' and 'grid'
 Version: 1.0.2.9000
-Authors@R: 
+Authors@R:
     c(person(given = "Thomas Lin",
              family = "Pedersen",
              role = c("aut", "cre"),
@@ -9,26 +9,25 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5147-4711")),
       person(given = "RStudio",
              role = c("cph", "fnd")))
-Description: Provides a range of filters that can be applied to layers from the 
-    'ggplot2' package and its extensions, along with other graphic elements such 
-    as guides and theme elements. The filters are applied at render time and 
+Description: Provides a range of filters that can be applied to layers from the
+    'ggplot2' package and its extensions, along with other graphic elements such
+    as guides and theme elements. The filters are applied at render time and
     thus uses the exact pixel dimensions needed.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Imports: 
+Imports:
     magick (>= 2.7.1),
     ragg,
     grid,
     ggplot2,
     grDevices,
     gtable,
-    rlang,
-    S7
+    rlang
 RoxygenNote: 7.3.2
 URL: https://ggfx.data-imaginist.com, https://github.com/thomasp85/ggfx
 BugReports: https://github.com/thomasp85/ggfx/issues
-Suggests: 
+Suggests:
     covr,
     knitr,
     rmarkdown,
