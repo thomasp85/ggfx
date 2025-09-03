@@ -101,7 +101,12 @@ makeContent.shadow_grob <- function(x) {
                   y = unit(0.5, 'npc') - from_pixels(x$y_offset))
   )
   raster <- image_read(ras$raster)
-  fg <- if (x$stack) x$grob else NULL
+  if (x$stack) {
+    fg <- rasterise_grob(x$grob)
+    fg <- groberize_raster(fg$raster, fg$location, fg$dimension, NULL, TRUE)
+  } else {
+    fg <- NULL
+  }
   if (!is.na(x$colour)) raster <- image_colorize(raster, 100, x$colour)
   raster <- image_blur(raster, 0, to_pixels(x$sigma))
   shadow <- as.integer(raster)
