@@ -12,7 +12,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/thomasp85/ggfx/graph/badge.svg)](https://app.codecov.io/gh/thomasp85/ggfx)
 <!-- badges: end -->
 
-ggfx is a (currently experimantal) package that allows the use of
+ggfx is a (currently experimental) package that allows the use of
 various filters and shaders on ggplot2 layers.
 
 ## Installation
